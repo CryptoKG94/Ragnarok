@@ -1,38 +1,92 @@
-.App {
-  text-align: center;
+.image_background{
+  height: 100%; 
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+  height: 100vh;
+}
+.Game_Start{
+  height: 100%;
+  width: 100%;
+}
+.comman_header, .GETTING_STARTED{
+  width: 100%;
+}
+.GETTING_STARTED {
+  width: 831px !important;
+  height: 544px;
+  top: 68%;
+  transform: translateY(-50%);
+  position: absolute;
+  right: 0;
+  bottom: 0;
+  cursor: pointer;
+}
+img{
+  height: 100%;
+  width: auto;
 }
 
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
+.Page_Navbar {
+  position: absolute;
+  top: -5px;
+  width: 100%;
+  background: none !important;
+  color: #fff !important;
+  left: 17%;
+  font-size: 30px;
+  max-width: 100px;
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
+.Page_Navbar .navbar-nav a{
+  color: #fff !important;
+  font-family: ui-serif;
+  font-weight: 600;
+}
+a.nav-link {
+  white-space: nowrap;
+}
+li.nav-item.litepaper {
+  padding-left: 10px;
 }
 
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
+li.nav-item.roadmap {
+  padding-left: 42px;
 }
 
-.App-link {
-  color: #61dafb;
+li.nav-item {
+  padding: 0 56px;
 }
 
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+img.Tokenomics_Custom , .RoadMap_Custom{
+  position: absolute;
+  top: 0;
+  width: 100% ;
+  cursor: pointer;
+}
+.page_three, .page_four, .page_two{
+  position: relative;
+}
+
+img.Tokenomics_Custom {
+  height: 95px;
+  width: 500px;
+  top: 18%;
+  left: 36%;
+}
+.RoadMap_Custom{
+  width: 620px;
+    height: 121px;
+    /* display: none; */
+    top: 30%;
+    transform: translateY(-50%);
+}
+img.PAGE_1_play {
+  position: absolute;
+  height: 790px ;
+  left: 5%;
+  top: 6%;
+  bottom: 0;
+  width: 1700px ;
+  cursor: pointer;
 }
