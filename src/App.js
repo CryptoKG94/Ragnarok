@@ -5,6 +5,7 @@ import { PageThree } from './components/PageThree';
 import PageFour from './components/PageFour';
 import { Comman } from './components/Comman';
 import { useRef } from 'react';
+import { Footer } from './components/Footer';
 
 function App() {
 
@@ -37,6 +38,7 @@ function App() {
               <PageFour className="" />
             </div>
         </div>
+        <Footer />
       </div>
     </>
   );

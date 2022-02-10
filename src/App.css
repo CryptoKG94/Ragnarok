@@ -64,6 +64,7 @@ img.PAGE_1_play {
   .Tokenomics_Custom { width: 400px; height: 80px; transform: translateY(150%);}
   img.comman_header{ height: 150px;}
   li.nav-item { font-size: 20px !important; top: 5px; }
+  .footer_page{font-size: 16px;}
 
   li.nav-item.item1 { left: 20%; }
   li.nav-item.item2 { left: 32%; }
@@ -79,6 +80,7 @@ img.PAGE_1_play {
   .Page_Navbar{top:-5px}
   li.nav-item { font-size: 17px !important; top: 5px; }
   .Page_Navbar .navbar-nav a{font-size: 14px; padding-top: 5px;}
+  .footer_page{ font-size: 14px; }
 
   li.nav-item.item1 { left: 20%; }
   li.nav-item.item2 { left: 32%; }
@@ -104,6 +106,10 @@ img.PAGE_1_play {
 
   li.nav-item a{
     white-space: break-spaces;
+  }
+  .footer_last,.footer_page,.footer_custom{
+    text-align: center;
+    display: block !important;
   }
 }
 @media (max-width: 425px){
@@ -196,4 +202,27 @@ a.nav-link {
     height: 20%;
     width: 100%;
     max-width: 100%;
+}
+.footer_custom, .footer_page{
+  display: flex;
+}
+.footer_page {
+  display: flex;
+  justify-content: space-between;
+}
+.footer_last {
+  display: flex;
+  flex-direction: column;
+}
+.footer_custom a {
+  color: #fff;
+  padding: 0 10px;
+  text-decoration: none;
+}
+.footer_page {
+  align-items: center;
+  color: #fff;
+  background: #6a6a6a;
+  position: sticky;
+  bottom: 0;
 }
