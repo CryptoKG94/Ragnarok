@@ -1,38 +1,199 @@
-.App {
-  text-align: center;
+.image_background{
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+  height: 100vh;
 }
+.Game_Start{ height: 100%; width: 100%; }
+img{ height: 100%; width: 100%; }
 
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
-}
-
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
-}
-
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
+/* Page 1 Start */
+.image_background.page_one {
   display: flex;
-  flex-direction: column;
-  align-items: center;
   justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
+}
+img.PAGE_1_play {
+  position: absolute;
+  bottom: 0;
+  cursor: pointer;
+}
+/* Page 1 end */
+
+/* Page 2 Start */
+.GETTING_STARTED {
+  width: 750px;
+  height: 550px;
+  position: absolute;
+  right: 0;
+  bottom: 0;
+  cursor: pointer;
+}
+/* Page 2 end */
+
+/* Page 3 Start */
+.image_background.page_three {
+  display: flex;
+  justify-content: center;
+}
+.Tokenomics_Custom {
+  height: 100px;
+  cursor: pointer;
+  width: auto;
+  transform: translateY(100%);
+}
+/* Page 3 end */
+
+/* Page 4 Start */
+.RoadMap_Custom{
+  width: 500px;
+  height: 120px;
+  top: 30%;
+  transform: translateY(-50%);
+  position: absolute;
+  cursor: pointer;
+}
+.background_four,.background_three,.background_two{
+  position: absolute
+}
+/* Page 4 end */
+
+/* Responsive */
+@media (max-width: 1440px){
+  .RoadMap_Custom{ width: 400px; height: 100px; }
+  .GETTING_STARTED{ width: 600px; }
+  .Tokenomics_Custom { width: 400px; height: 80px; transform: translateY(150%);}
+  img.comman_header{ height: 150px;}
+  li.nav-item { font-size: 20px !important; top: 5px; }
+
+  li.nav-item.item1 { left: 20%; }
+  li.nav-item.item2 { left: 32%; }
+  li.nav-item.item3.tokeminics { left: 54%; }
+  li.nav-item.item4.roadmap { right: 21%; }
+  li.nav-item.item5.litepaper { right: 6%; }
+}
+@media (max-width: 1024px){
+  .RoadMap_Custom{ width: 300px; height: 80px;}
+  .Tokenomics_Custom { width: 300px; height: 75px; }
+  .GETTING_STARTED{ width: 500px; }
+  img.comman_header{ height: 100px;}
+  .Page_Navbar{top:-5px}
+  li.nav-item { font-size: 17px !important; top: 5px; }
+  .Page_Navbar .navbar-nav a{font-size: 14px; padding-top: 5px;}
+
+  li.nav-item.item1 { left: 20%; }
+  li.nav-item.item2 { left: 32%; }
+  li.nav-item.item3.tokeminics { left: 54%; }
+  li.nav-item.item4.roadmap { right: 22%; }
+  li.nav-item.item5.litepaper { right: 6%; }
+}
+@media (max-width: 767px){
+  .RoadMap_Custom{ width: 250px; height: 70px;}
+  .Tokenomics_Custom { width: 250px; height: 70px; }
+  .GETTING_STARTED{ width: 350px; height: 500px; }
+  img.PAGE_1_play { height: 400px; width: 100%; }
+  img.comman_header{ height: 80px;}
+
+  li.nav-item { font-size: 15px !important; top: 5px; }
+  .Page_Navbar .navbar-nav a{font-size: 10px;}
+
+  li.nav-item.item1 { left: 20%; }
+  li.nav-item.item2 { left: 32%; }
+  li.nav-item.item3.tokeminics { left: 54%; }
+  li.nav-item.item4.roadmap { right: 21%; }
+  li.nav-item.item5.litepaper { right: 6%; }
+
+  li.nav-item a{
+    white-space: break-spaces;
+  }
+}
+@media (max-width: 425px){
+  .RoadMap_Custom{ width: 150px; height: 50px; }
+  .Tokenomics_Custom { width: 150px; height: 50px; transform: translateY(200%); }
+  .GETTING_STARTED{ width: 250px; height: 400px; }
+  img.PAGE_1_play { height: 50%; width: 100%; }
+  img.comman_header{height: 100px;}
+  .Page_Navbar .navbar-nav a{font-size: 8px;}
+
+  li.nav-item.item1 { left: 20%; }
+  li.nav-item.item2 { left: 32%; }
+  li.nav-item.item3.tokeminics { left: 54%; }
+  li.nav-item.item4.roadmap { right: 23%; }
+  li.nav-item.item5.litepaper { right: 6%; }
+
+  li.nav-item {
+    font-size: 10px !important;
+    top: 5px;
+    width: 12%;
+    word-break: break-word;
+    white-space:initial;
+  }
+  li.nav-item a{
+    white-space: break-spaces;
+  }
 }
 
-.App-link {
-  color: #61dafb;
+
+.page_three, .page_four, .page_two{
+  position: relative;
+}
+/* HEader */
+img.comman_header {
+  max-width: 100%;
+  /* position: fixed; */
+  width: 100%;
+}
+.commanNavbar.comman_header {
+  max-width: 100%;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  position: fixed;
+  z-index: 99;
 }
 
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+
+/* NavBar  */
+.Page_Navbar {
+  position: absolute;
+  width: 100%;
+  background: none !important;
+  font-size: 30px;
+  max-width: 100%;
+}
+.navbar-nav{
+  flex-direction: row;
+}
+li.nav-item {
+  position: absolute;
+  font-size: 28px;
+}
+li.nav-item.item1 { left: 20%; }
+li.nav-item.item2 { left: 32%; }
+li.nav-item.item3.tokeminics { left: 54%; }
+li.nav-item.item4.roadmap { right: 21%; }
+li.nav-item.item5.litepaper { right: 6%; }
+
+.nav_options {
+  position: absolute;
+  display: flex;
+}
+.nav_options img{
+  cursor: pointer;
+}
+
+.Page_Navbar .navbar-nav a{
+  color: #fff !important;
+  font-family: ui-serif;
+  font-weight: 600;
+  cursor: pointer;
+}
+a.nav-link {
+  white-space: nowrap;
+}
+
+.customHeader {
+    display: flex;
+    height: 20%;
+    width: 100%;
+    max-width: 100%;
 }
