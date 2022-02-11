@@ -16,7 +16,12 @@
     "react-router-dom": "^5.3.0",
     "react-scripts": "5.0.0",
     "semantic-ui-react": "^2.1.1",
-    "web-vitals": "^2.1.4"
+    "web-vitals": "^2.1.4",
+    "@openzeppelin/contracts": "^4.4.1",
+    "@truffle/hdwallet-provider": "^2.0.0",
+    "dotenv": "^10.0.0",
+    "fs": "^0.0.1-security",
+    "truffle-hdwallet-provider": "^1.0.6"
   },
   "scripts": {
     "start": "react-scripts start",
@@ -41,5 +46,8 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
+  },
+  "devDependencies": {
+    "truffle-plugin-verify": "^0.5.21"
   }
 }
