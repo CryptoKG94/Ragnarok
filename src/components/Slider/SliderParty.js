@@ -88,7 +88,7 @@ export const SliderParty = () => {
   return (
       <>
         <div className="container_slider">
-        <div className="container">
+
             <Carousel
             responsive={responsive}
             infinite={true}
@@ -106,16 +106,16 @@ export const SliderParty = () => {
             customButtonGroup={<ButtonGroup />}
             renderButtonGroupOutside={true}
             >
-                <div className="main_div"> <div className="child_div"> </div> </div>
-                <div className="main_div"> <div className="child_div"> </div> </div>
-                <div className="main_div"> <div className="child_div"> </div> </div>
-                <div className="main_div"> <div className="child_div"> </div> </div>
-                <div className="main_div"> <div className="child_div"> </div> </div>
-                <div className="main_div"> <div className="child_div"> </div> </div>
-                <div className="main_div"> <div className="child_div"> </div> </div>
-                <div className="main_div"> <div className="child_div"> </div> </div>
-                <div className="main_div"> <div className="child_div"> </div> </div>
-                <div className="main_div"> <div className="child_div"> </div> </div>
+                <div className="main_div"> <div className="child_div"> 1 </div> </div>
+                <div className="main_div"> <div className="child_div"> 2 </div> </div>
+                <div className="main_div"> <div className="child_div"> 3 </div> </div>
+                <div className="main_div"> <div className="child_div"> 4 </div> </div>
+                <div className="main_div"> <div className="child_div"> 5 </div> </div>
+                <div className="main_div"> <div className="child_div"> 6 </div> </div>
+                <div className="main_div"> <div className="child_div"> 7 </div> </div>
+                <div className="main_div"> <div className="child_div"> 8 </div> </div>
+                <div className="main_div"> <div className="child_div"> 9 </div> </div>
+                <div className="main_div"> <div className="child_div"> 10 </div> </div>
                 {/* {images.map(image => {
                     return (
                         <>
@@ -127,7 +127,7 @@ export const SliderParty = () => {
                     )
                 })} */}
             </Carousel>
-        </div>            
+     
         </div>            
       </>
   )
