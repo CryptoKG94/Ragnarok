@@ -64,7 +64,9 @@ img.PAGE_1_play {
   .Tokenomics_Custom { width: 400px; height: 80px; transform: translateY(150%);}
   img.comman_header{ height: 150px;}
   li.nav-item { font-size: 20px !important; top: 5px; }
-  .footer_page{font-size: 16px;}
+  img.header_con {width: 321px !important;    height: 151px !important;}
+  .main_footer a {font-size: 25px !important;}
+  .last_footer{font-size: 18px !important;}
 }
 @media (max-width: 1024px){
   .RoadMap_Custom{ width: 300px; height: 80px;}
@@ -73,19 +75,22 @@ img.PAGE_1_play {
   img.comman_header{ height: 100px;}
   li.nav-item { font-size: 17px !important; top: 5px; }
   .navbar-nav a{font-size: 14px; padding-top: 5px;}
-  .footer_page{ font-size: 14px; }
+  img.header_con {width: 230px !important;height: 113px !important;}
+  .main_footer a {font-size: 17px !important;}
+  .last_footer{font-size: 13px !important;right: 55px !important;top: 14px !important;}
+
+
 }
-@media (max-width: 767px){
+@media (max-width: 768px){
   .RoadMap_Custom{ width: 250px; height: 70px;}
   .Tokenomics_Custom { width: 250px; height: 70px; }
   .GETTING_STARTED{ width: 350px; height: 500px; }
   img.PAGE_1_play { height: 400px; width: 100%; }
   img.comman_header{ height: 80px;}
-
-  .footer_last,.footer_page,.footer_custom{
-    text-align: center;
-    display: block !important;
-  }
+  img.header_con {width: 172px !important;height: 100px !important;}
+  .main_footer a {font-size: 12px !important;}
+  .last_footer{font-size: 10px !important;right: 36px !important;top: 9px !important;}
+ 
 }
 @media (max-width: 425px){
   .RoadMap_Custom{ width: 150px; height: 50px; }
@@ -94,6 +99,10 @@ img.PAGE_1_play {
   img.PAGE_1_play { height: 50%; width: 100%; }
   img.comman_header{height: 100px;}
   .navbar-nav a{font-size: 8px;}
+  img.header_con {width: 93px !important;height: 88px !important;}
+  .main_footer a {font-size: 7px !important; top: 31% !important;}
+  .last_footer{font-size: 5px !important;right: 33px !important;top: 8px !important;}
+
 }
 
 
@@ -114,29 +123,6 @@ img.comman_header {
   position: fixed;
   z-index: 99;
 }
-
-
-/* NavBar  */
-.footer_custom, .footer_page{
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  color: #fff;
-  background: #6a6a6a;
-  position: sticky;
-  bottom: 0;
-  padding: 5px 0;
-}
-.footer_last {
-  display: flex;
-  flex-direction: column;
-}
-.footer_custom a {
-  color: #fff;
-  padding: 0 10px;
-  text-decoration: none;
-}
-
 /* slider */
 .react-multiple-carousel__arrow--left::before, .react-multiple-carousel__arrow--right::before{
   content: none !important;
@@ -212,6 +198,15 @@ li.react-multi-carousel-item.react-multi-carousel-item--active {
 .react-multiple-carousel__arrow--right {
   right: calc(4% + 50px);
 }
+img.header_con {
+  width: 395px;
+  height: 175px;
+  position: absolute;
+  top: 150px;
+  z-index: 9;
+  top: 1px;
+  left: 75%;
+}
 /* @media (max-width: 1500px){
   .react-multiple-carousel__arrow--left {
     left: calc(4% + 10px);
@@ -220,3 +215,85 @@ li.react-multi-carousel-item.react-multi-carousel-item--active {
     right: calc(4% + 10px);
   }
 } */
+
+.footer_fixs{
+  position: fixed;
+  bottom: 0;
+}
+.main_footer a {
+  color: #fff;
+  padding: 1px 12px;
+  text-decoration: none;
+  font-size: 33px;
+  text-transform: uppercase;
+  font-family: ui-serif;
+  font-weight: 600;
+  text-shadow: 8px 1px 4px #000;
+}
+.last_footer {
+  display: flex;
+    flex-direction: column;
+    color: #fff;
+    font-size: 23px;
+    position: absolute;
+    right: 84px;
+    top: 18px;
+}
+.foot_bar{
+  display: flex;
+  bottom: 0;
+}
+.main_footer a {
+  position: absolute;
+}
+a.twitter {
+  left: 16%;
+  top: 24%;
+}
+a.discord {
+  left: 52%;
+  top: 24%;
+}
+a.medium {
+  left: 42%;
+  top: 24%;
+}
+a.telegram {
+  left: 28%;
+  top: 24%;
+}
+a.facebook {
+  left: 3%;
+  top: 24%;
+}
+
+.main_header{
+  display: flex;
+}
+.char {
+  border: 2px solid red;
+  padding: 5px 25px;
+  color: red;
+}
+.party{
+  border: 2px solid red;
+  padding: 5px 45px;
+  color: red;
+
+}
+tr.table_header {
+  color: blue;
+  border: 5px solid blue;
+}
+table.main_table {
+  width: 100%;
+}
+.clas_pad {
+  padding: 10px;
+  border: 5px solid blue;
+}
+.suare{
+  width: 150px;
+  height: 150px;
+  border: 5px solid blue;
+}

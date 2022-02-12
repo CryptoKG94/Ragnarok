@@ -87,7 +87,7 @@ export const SliderParty = () => {
 
   return (
       <>
-        <div className="container_slider">
+        <div className="container_slider ">
 
             <Carousel
             responsive={responsive}

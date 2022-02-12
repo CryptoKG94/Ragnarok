@@ -1,6 +1,7 @@
 import React from 'react'
 import { Header } from '../Comman/Header';
 import header_2 from '../../assets/images/page_header_2.png';
+import header_logo from '../../assets/images/CONTACT_WALL.png';
 import { PageSix } from '../GamePages/PageSix';
 import { PageFive } from '../GamePages/PageFive';
 import { useRef } from 'react';
@@ -25,6 +26,7 @@ export const PlayNow = () => {
       return (
         <>
             <Header func={pull_data} headerPages={headerPages} image={header_2} headerClass={'palyNowHeader'}/>
+            <img src={header_logo} className='header_con' />
             <div ref={page5}>
               <PageFive className="" />
             </div>
