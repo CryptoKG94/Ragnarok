@@ -13,9 +13,19 @@ img{ height: 100%; width: 100%; }
   justify-content: center;
 }
 img.PAGE_1_play {
+  width: auto;
   position: absolute;
   bottom: 0;
   cursor: pointer;
+  display: block; 
+  height:220px;
+}
+img.PLAY_TO_EARN {
+  width: auto;
+  position: absolute;
+  bottom: 150px;
+  display: block; 
+  height: 110px;
 }
 /* Page 1 end */
 
@@ -85,7 +95,6 @@ img.PAGE_1_play {
   .RoadMap_Custom{ width: 250px; height: 70px;}
   .Tokenomics_Custom { width: 250px; height: 70px; }
   .GETTING_STARTED{ width: 350px; height: 500px; }
-  img.PAGE_1_play { height: 400px; width: 100%; }
   img.comman_header{ height: 80px;}
   img.header_con {width: 172px !important;height: 100px !important;}
   .main_footer a {font-size: 12px !important;}
@@ -133,7 +142,7 @@ img.comman_header {
 
 .party_hall_slider {
   position: absolute;
-  bottom: 50px;
+  bottom: 100px;
 } 
 button.react-multiple-carousel__arrow {
   height: 150px;
@@ -141,10 +150,7 @@ button.react-multiple-carousel__arrow {
   align-items: center;
   top: -11px;
 }
-img.slider_image_background {
-  position: absolute;
-  bottom: 3px;
-}
+
 /* .image_background.page_five {
   display: flex;
   justify-content: center;
