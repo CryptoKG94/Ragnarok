@@ -142,7 +142,7 @@ img.comman_header {
 
 .party_hall_slider {
   position: absolute;
-  bottom: 50px;
+  bottom: 100px;
 } 
 button.react-multiple-carousel__arrow {
   height: 150px;
@@ -150,10 +150,7 @@ button.react-multiple-carousel__arrow {
   align-items: center;
   top: -11px;
 }
-img.slider_image_background {
-  position: absolute;
-  bottom: 3px;
-}
+
 /* .image_background.page_five {
   display: flex;
   justify-content: center;

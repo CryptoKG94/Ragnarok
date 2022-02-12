@@ -7,11 +7,10 @@ export const PageFive = () => {
   return (
     <>
         <div className="image_background page_five">
-            <img className="slider_image_background" src={background_slider}  alt="Logo" />
             <img className="background_five" src={background}  alt="Logo" />
-            <div className="party_hall_slider col-md-12">
-                <SliderParty />
-            </div>
+        </div>
+        <div className="party_hall_slider col-md-12">
+            <SliderParty />
         </div>
     </>
   )
