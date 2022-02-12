@@ -186,7 +186,7 @@ li.react-multi-carousel-item.react-multi-carousel-item--active {
   opacity: 0.8;
 }
 .react-multi-carousel-track li.react-multi-carousel-item.react-multi-carousel-item--active > :first-child{
-  opacity: 0.5 !important;
+  /* opacity: 0.5 !important; */
 }
 .container {
   display: flex;

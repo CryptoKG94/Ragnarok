@@ -33,7 +33,7 @@ export const SliderParty = () => {
         }
       };
     
-      const images = [
+      const images_ = [
         "https://images.unsplash.com/photo-1549989476-69a92fa57c36?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=800&q=60",
         "https://images.unsplash.com/photo-1549396535-c11d5c55b9df?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=60",
         "https://images.unsplash.com/photo-1550133730-695473e544be?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=800&q=60",
@@ -46,6 +46,15 @@ export const SliderParty = () => {
         "https://images.unsplash.com/photo-1549833284-6a7df91c1f65?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=800&q=60",
         "https://images.unsplash.com/photo-1549985908-597a09ef0a7c?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=800&q=60",
         "https://images.unsplash.com/photo-1550064824-8f993041ffd3?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=800&q=60"
+      ];
+
+      const images = [
+        "https://gateway.pinata.cloud/ipfs/QmRwwo9TD9AgDyyz3sVE5ko1756PGkmEgHhwJby6o3a8et/0.png",
+        "https://gateway.pinata.cloud/ipfs/QmRwwo9TD9AgDyyz3sVE5ko1756PGkmEgHhwJby6o3a8et/1.png",
+        "https://gateway.pinata.cloud/ipfs/QmRwwo9TD9AgDyyz3sVE5ko1756PGkmEgHhwJby6o3a8et/2.png",
+        "https://gateway.pinata.cloud/ipfs/QmRwwo9TD9AgDyyz3sVE5ko1756PGkmEgHhwJby6o3a8et/3.png",
+        "https://gateway.pinata.cloud/ipfs/QmRwwo9TD9AgDyyz3sVE5ko1756PGkmEgHhwJby6o3a8et/4.png",
+        "https://gateway.pinata.cloud/ipfs/QmRwwo9TD9AgDyyz3sVE5ko1756PGkmEgHhwJby6o3a8et/5.png",
       ];
 
 
@@ -106,12 +115,12 @@ export const SliderParty = () => {
             customButtonGroup={<ButtonGroup />}
             renderButtonGroupOutside={true}
             >
-                <div className="main_div"> <div className="child_div"> 1 </div> </div>
-                <div className="main_div"> <div className="child_div"> 2 </div> </div>
-                <div className="main_div"> <div className="child_div"> 3 </div> </div>
-                <div className="main_div"> <div className="child_div"> 4 </div> </div>
-                <div className="main_div"> <div className="child_div"> 5 </div> </div>
-                <div className="main_div"> <div className="child_div"> 6 </div> </div>
+                <div className="main_div"> <div className="child_div"> <Image className="nft-image" src={ images[0] } alt="1" /></div> </div>
+                <div className="main_div"> <div className="child_div"> <img src={ images[1] } alt="2" /> </div> </div>
+                <div className="main_div"> <div className="child_div"> <img src={ images[2] } alt="3" /> </div> </div>
+                <div className="main_div"> <div className="child_div"> <img src={ images[3] } alt="4" /> </div> </div>
+                <div className="main_div"> <div className="child_div"> <img src={ images[4] } alt="5" /> </div> </div>
+                <div className="main_div"> <div className="child_div"> <img src={ images[5] } alt="6" /> </div> </div>
                 <div className="main_div"> <div className="child_div"> 7 </div> </div>
                 <div className="main_div"> <div className="child_div"> 8 </div> </div>
                 <div className="main_div"> <div className="child_div"> 9 </div> </div>
