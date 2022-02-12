@@ -30,9 +30,9 @@ export const PlayNow = () => {
             <div ref={page5}>
               <PageFive className="" />
             </div>
-            <div ref={page6}>
+            {/* <div ref={page6}>
               <PageSix className="" />
-            </div>
+            </div> */}
             <Footer />
         </>
       )
