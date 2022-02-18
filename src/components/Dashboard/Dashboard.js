@@ -3,9 +3,9 @@ import { PageOne } from '../GamePages/PageOne';
 import { PageTwo } from '../GamePages/PageTwo';
 import { PageThree } from '../GamePages/PageThree';
 import PageFour from '../GamePages/PageFour';
-import { Header } from '../Comman/Header';
+import { Header } from '../Components/Header';
 import { useRef } from 'react';
-import { Footer } from '../Comman/Footer';
+import { Footer } from '../Components/Footer';
 import header_2 from '../../assets/images/page_header_1.png';
 
 export const Dashboard = () => {

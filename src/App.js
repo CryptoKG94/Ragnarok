@@ -1,4 +1,5 @@
 import './App.css';
+import './assets/styles/common.css'
 import { Dashboard } from './components/Dashboard/Dashboard';
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import { PlayNow } from './components/Dashboard/PlayNow';

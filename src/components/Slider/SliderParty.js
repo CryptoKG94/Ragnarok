@@ -115,12 +115,12 @@ export const SliderParty = () => {
             customButtonGroup={<ButtonGroup />}
             renderButtonGroupOutside={true}
             >
-                <div className="main_div"> <div className="child_div"> <Image className="nft-image" src={ images[0] } alt="1" /></div> </div>
-                <div className="main_div"> <div className="child_div"> <img src={ images[1] } alt="2" /> </div> </div>
-                <div className="main_div"> <div className="child_div"> <img src={ images[2] } alt="3" /> </div> </div>
-                <div className="main_div"> <div className="child_div"> <img src={ images[3] } alt="4" /> </div> </div>
-                <div className="main_div"> <div className="child_div"> <img src={ images[4] } alt="5" /> </div> </div>
-                <div className="main_div"> <div className="child_div"> <img src={ images[5] } alt="6" /> </div> </div>
+                <div className="main_div"> <div className="child_div"> 1 </div> </div>
+                <div className="main_div"> <div className="child_div"> 2 </div> </div>
+                <div className="main_div"> <div className="child_div"> 3 </div> </div>
+                <div className="main_div"> <div className="child_div"> 4 </div> </div>
+                <div className="main_div"> <div className="child_div"> 5 </div> </div>
+                <div className="main_div"> <div className="child_div"> 6 </div> </div>
                 <div className="main_div"> <div className="child_div"> 7 </div> </div>
                 <div className="main_div"> <div className="child_div"> 8 </div> </div>
                 <div className="main_div"> <div className="child_div"> 9 </div> </div>
