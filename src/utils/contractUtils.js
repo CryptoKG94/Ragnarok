@@ -127,7 +127,7 @@ export const mintNFT = async ( count ) => {
                 price = price.multipliedBy(101).dividedBy(100);
             }
             subMintedCount ++;
-            amount.plus(price);
+            amount = amount.plus(price);
         }
 
         await contract.methods.mintNFT(count).send({from: walletAddress, value: amount});
