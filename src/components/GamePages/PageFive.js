@@ -13,6 +13,12 @@ export const PageFive = () => {
         <div className="party_hall_slider col-md-12">
             <SliderParty />
         </div>
+        {/* <div className="party_hall_slider col-md-12">
+            <SliderParty />
+        </div>
+        <div className="party_hall_slider col-md-12">
+            <SliderParty />
+        </div> */}
         <div style={{marginTop: '10vw', textAlign: 'center', position: 'absolute', bottom: '300px', left: '50%', transform: 'translateX(-50%)'}}>
             <img src={seasonal} alt="" style={{width: '39vw',height: '3.3vw'}} />
         </div>

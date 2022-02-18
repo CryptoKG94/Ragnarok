@@ -84,21 +84,21 @@ export const PlayNow = () => {
   }
 
   return (
-    <>
-      <Header func={pull_data} headerPages={headerPages} image={header_2} headerClass={'palyNowHeader'} />
-      {!address ?
-        <>
-          <img src={header_logo} className='header_con' alt="connect_wall" />
-          <div className="connect-button" onClick={() => onClickConnect()} ></div>
-        </>
-        :
-        <>
-          <img src={disconnect_logo} className='header_con' alt="connect_wall" />
-          <div className="connect-button" onClick={onClickDisconnect} ></div>
-        </>}
-      <div className="playnow-container">
+    <div className="play_container">
+      <Header func={pull_data} headerPages={headerPages} image={header_2} headerClass={'palyNowHeader'} style={{ position: 'relative' }}>
+        {!address ?
+          <>
+            <img src={header_logo} className='header_con' alt="connect_wall" onClick={() => onClickConnect()} />
+          </>
+          :
+          <>
+            <img src={disconnect_logo} className='header_con' alt="connect_wall" onClick={onClickDisconnect} />
+          </>}
+      </Header>
+
+      {/* <div className="playnow-container">
         <div className="button-group">
-          <div className="row" style={{marginLeft: 'auto', marginRight: 'auto'}}>
+          <div className="row" style={{ marginLeft: 'auto', marginRight: 'auto' }}>
             <div className="col-lg-4 col-md-4 col-sm-4 col-xs-4">
               <div className="mint-button" onClick={() => onMint(1)}>
                 <img src={imgBox} alt="" style={{ width: '15vw' }} />
@@ -119,10 +119,10 @@ export const PlayNow = () => {
             </div>
           </div>
         </div>
-      </div>
-      <div ref={page5}>
+      </div> */}
+      {/* <div ref={page5}>
         <PageFive className="" />
-      </div>
+      </div> */}
       {/* <div ref={page6}>
               <PageSix className="" />
             </div> */}
@@ -132,7 +132,7 @@ export const PlayNow = () => {
         handleClose={onToastClose}
         type={toastType}
       />
-      {/* <Footer /> */}
-    </>
+      <Footer />
+    </div>
   )
 }

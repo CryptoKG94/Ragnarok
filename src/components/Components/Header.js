@@ -11,7 +11,7 @@ export const Header = (props) => {
 
   return (
     <>
-        <div className={'commanNavbar comman_header ' + props.headerClass}>
+        <div className={'commanNavbar comman_header ' + props.headerClass} style={props.style}>
            
             <img src={props.image ? props.image : header_2} className="comman_header" alt="header"/>
               <div className="" id="navbarNav">
@@ -29,6 +29,7 @@ export const Header = (props) => {
                   }                    
                 </ul>
               </div>
+              {props.children}
         </div>
     </>
   )

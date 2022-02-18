@@ -125,7 +125,7 @@ export const SliderParty = () => {
                 <div className="main_div"> <div className="child_div"> 8 </div> </div>
                 <div className="main_div"> <div className="child_div"> 9 </div> </div>
                 <div className="main_div"> <div className="child_div"> 10 </div> </div>
-                {/* {images.map(image => {
+                {images.map(image => {
                     return (
                         <>
                             <Image
@@ -134,7 +134,7 @@ export const SliderParty = () => {
                             />
                         </>
                     )
-                })} */}
+                })}
             </Carousel>
      
         </div>            
