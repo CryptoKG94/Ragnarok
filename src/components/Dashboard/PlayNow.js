@@ -9,6 +9,10 @@ import { Footer } from '../Components/Footer';
 import ContractUtils from '../../utils/contractUtils';
 import Toast from '../Components/Toast';
 import { walletLocalStorageKey } from '../../config'
+import imgBox from "../../assets/images/buying/box.png"
+import x1 from "../../assets/images/buying/x1.png"
+import x10 from "../../assets/images/buying/x10.png"
+import x5 from "../../assets/images/buying/x5.png"
 
 export const PlayNow = () => {
   let page5 = useRef(null);
@@ -67,11 +71,11 @@ export const PlayNow = () => {
     if (res.success) {
       setShowToast(true)
       setToastType(1)
-			setToastMessage("Minted Successfully!");
+      setToastMessage("Minted Successfully!");
     } else {
       setShowToast(true);
-			setToastMessage(res.status);
-			setToastType(2)
+      setToastMessage(res.status);
+      setToastType(2)
     }
   }
 
@@ -84,30 +88,33 @@ export const PlayNow = () => {
       <Header func={pull_data} headerPages={headerPages} image={header_2} headerClass={'palyNowHeader'} />
       {!address ?
         <>
-        <img src={header_logo} className='header_con' alt="connect_wall" />
-        <div className="connect-button" onClick={() => onClickConnect()} ></div>
+          <img src={header_logo} className='header_con' alt="connect_wall" />
+          <div className="connect-button" onClick={() => onClickConnect()} ></div>
         </>
-        : 
+        :
         <>
-        <img src={disconnect_logo} className='header_con' alt="connect_wall" />
-        <div className="connect-button" onClick={onClickDisconnect} ></div>
+          <img src={disconnect_logo} className='header_con' alt="connect_wall" />
+          <div className="connect-button" onClick={onClickDisconnect} ></div>
         </>}
-      <div className="playnow-container"> 
+      <div className="playnow-container">
         <div className="button-group">
-          <div className="row">
-            <div className="col-lg-4 col-md-4">
+          <div className="row" style={{marginLeft: 'auto', marginRight: 'auto'}}>
+            <div className="col-lg-4 col-md-4 col-sm-4 col-xs-4">
               <div className="mint-button" onClick={() => onMint(1)}>
-                x1
+                <img src={imgBox} alt="" style={{ width: '15vw' }} />
+                <img src={x1} alt="" style={{ width: '4vw', height: '4vw', position: 'absolute' }} />
               </div>
             </div>
-            <div className="col-lg-4 col-md-4">
-            <div className="mint-button" onClick={() => onMint(5)}>
-                x5
+            <div className="col-lg-4 col-md-4 col-sm-4 col-xs-4">
+              <div className="mint-button" onClick={() => onMint(5)}>
+                <img src={imgBox} alt="" style={{ width: '15vw' }} />
+                <img src={x5} alt="" style={{ width: '4vw', height: '4vw', position: 'absolute' }} />
               </div>
             </div>
-            <div className="col-lg-4 col-md-4">
-            <div className="mint-button" onClick={() => onMint(10)}>
-                x10
+            <div className="col-lg-4 col-md-4 col-sm-4 col-xs-4">
+              <div className="mint-button" onClick={() => onMint(10)}>
+                <img src={imgBox} alt="" style={{ width: '15vw' }} />
+                <img src={x10} alt="" style={{ width: '4vw', height: '4vw', position: 'absolute' }} />
               </div>
             </div>
           </div>
@@ -125,7 +132,7 @@ export const PlayNow = () => {
         handleClose={onToastClose}
         type={toastType}
       />
-      <Footer />
+      {/* <Footer /> */}
     </>
   )
 }

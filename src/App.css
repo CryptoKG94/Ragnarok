@@ -1,8 +1,15 @@
+iframe{
+  display: none;
+  height: 0;
+  width: 0;
+}
+
 .image_background{
   background-position: center;
   background-repeat: no-repeat;
   background-size: cover;
   height: 100vh;
+  
 }
 .Game_Start{ height: 100%; width: 100%; }
 img{ height: 100%; width: 100%; }
@@ -159,6 +166,10 @@ button.react-multiple-carousel__arrow {
 } */
 .image_background.page_five {
   position: relative;
+  background: linear-gradient(180deg, rgba(0, 0, 0, 0.274), black 90% 100%), url("./assets/images/page_5_bg.png");
+  background-size: 100% 100%;
+  background-position: center;
+  background-repeat: no-repeat;
 }
 .carousel-button-group {
   display: flex;
