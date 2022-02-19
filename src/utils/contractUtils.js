@@ -143,30 +143,45 @@ export const mintNFT = async ( count ) => {
     }
 }
 
-export const getAssetInfo = async (tokenId, owner) => {
-    Contract.setProvider(provider)
-    let contract = new Contract(contractABI, contractAddress)
+export const getImageHash = async (hashVal) => {
+    try {
+        let response = await fetch(hashVal);
+        let responseJson = await response.json();
+        console.log(responseJson.image);
+
+        return responseJson.image;
+    } catch(error) {
+        console.error(error);
+        return "";
+    }
+}
+
+export const getAssetInfo = async () => {
+    if(!walletProvider)
+        return {
+            success: false,
+            status: 'Connect to Wallet'
+        }
+    const web3 = new Web3(walletProvider);
+    let contract = await new web3.eth.Contract(contractABI, contractAddress)
 
     try{
         let data={
-            saleCount: 0,
-            limit: 0,
-            bnbVal: 0
+            balance: 0,
+            tokenIds: [],
+            metadatas: []
         };
-        //console.log("getAssetInfo, tokenId = ", tokenId, " owner = ", owner)
-        //console.log("getAssetInfo, before TokenCount");
-        let res = await contract.methods.tokenCount(tokenId, owner).call();
-        // let res = await contract.methods.tokenCount(tokenId, owner).call()
-        // console.log("getAssetInfo, res = ", res)
-        data.saleCount = res[0];// parseInt(res);
-        data.limit = res[1];
-        //console.log("getAssetInfo, data = ", data);
-        //console.log("getAssetInfo: [tokenCount]res = ", res)
-        res = await contract.methods.tokenPrice(tokenId, owner).call()
-        //console.log("getAssetInfo: [tokenPrice]res = ", res)
-        data.bnbVal = res / (Math.pow(10, getBNBDecimals()))
-        //let tokenId = res.events.MintNewToken.returnValues['tokenId']
-        //console.log("getAssetInfo: data = ", data)
+
+        const balance = await contract.methods.balanceOf(walletAddress).call()
+
+        for (let i = 0; i < balance; i ++) {
+        const tokenId = await contract.methods.tokenOfOwnerByIndex(walletAddress, i).call()
+        const tokenUri = await contract.methods.tokenURI(tokenId).call()
+        const imageUrl = await getImageHash(tokenUri + ".json");
+        data.balance = balance
+        data.tokenIds.push(tokenId)
+        data.metadatas.push(imageUrl)
+        }
         return {
             success: true,
             status: data
