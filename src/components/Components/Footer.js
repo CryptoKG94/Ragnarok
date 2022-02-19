@@ -1,9 +1,8 @@
 import React from 'react'
 import Footer_bar from '../../assets/images/Footer_bar.png'
 
-export const Footer = () => {
+export const Footer = (props) => {
   return (
-
     <div className='footer_fixs'>
       <div className='foot_bar'>
         <div className="main_footer">
