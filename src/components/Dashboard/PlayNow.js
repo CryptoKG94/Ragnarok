@@ -14,6 +14,8 @@ import x1 from "../../assets/images/buying/x1.png"
 import x10 from "../../assets/images/buying/x10.png"
 import x5 from "../../assets/images/buying/x5.png"
 
+import bgSound from "../../assets/audio/battle bgm.mp3"
+
 export const PlayNow = () => {
   let page5 = useRef(null);
   let page6 = useRef(null);
@@ -127,7 +129,9 @@ export const PlayNow = () => {
         handleClose={onToastClose}
         type={toastType}
       />
-      <div style={{position: 'relative'}}><Footer /></div>
+      <div style={{ position: 'relative' }}><Footer /></div>
+      <audio controls autoPlay loop src={bgSound} type="audio/mp3" style={{display: 'none'}}>
+      </audio>
     </div>
   )
 }

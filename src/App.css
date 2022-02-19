@@ -332,3 +332,7 @@ table.main_table {
   background-repeat: no-repeat;
   min-height: 100vh;
 }
+
+* {
+  cursor: url("./assets/images/cursor/CURSOR1.png"), auto;
+}
