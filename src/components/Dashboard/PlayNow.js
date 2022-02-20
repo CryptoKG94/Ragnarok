@@ -52,6 +52,8 @@ export const PlayNow = () => {
       setToastMessage("Connected Successfully!")
       setAddress(res.address);
       window.localStorage.setItem(walletLocalStorageKey, res.address);
+
+      let assetInfos = await ContractUtils.getAssetInfo();
     }
     else {
       setShowToast(true)
@@ -95,29 +97,34 @@ export const PlayNow = () => {
             <img src={disconnect_logo} className='header_con' alt="connect_wall" onClick={onClickDisconnect} />
           </>}
       </Header>
-      <div className="row" style={{ marginLeft: 'auto', marginRight: 'auto', marginTop: 50 }}>
-        <div className="col-lg-4 col-md-4 col-sm-4 col-xs-4">
-          <div className="mint-button" onClick={() => onMint(1)}>
-            <img src={imgBox} alt="" style={{ width: '15vw', cursor: 'pointer' }} />
-            <img src={x1} alt="" style={{ width: '4vw', height: '4vw', position: 'absolute' , cursor: 'pointer'}} />
+
+      {/* <div className="playnow-container">
+        <div className="button-group">
+          <div className="row" style={{ marginLeft: 'auto', marginRight: 'auto' }}>
+            <div className="col-lg-4 col-md-4 col-sm-4 col-xs-4">
+              <div className="mint-button" onClick={() => onMint(1)}>
+                <img src={imgBox} alt="" style={{ width: '15vw' }} />
+                <img src={x1} alt="" style={{ width: '4vw', height: '4vw', position: 'absolute' }} />
+              </div>
+            </div>
+            <div className="col-lg-4 col-md-4 col-sm-4 col-xs-4">
+              <div className="mint-button" onClick={() => onMint(5)}>
+                <img src={imgBox} alt="" style={{ width: '15vw' }} />
+                <img src={x5} alt="" style={{ width: '4vw', height: '4vw', position: 'absolute' }} />
+              </div>
+            </div>
+            <div className="col-lg-4 col-md-4 col-sm-4 col-xs-4">
+              <div className="mint-button" onClick={() => onMint(10)}>
+                <img src={imgBox} alt="" style={{ width: '15vw' }} />
+                <img src={x10} alt="" style={{ width: '4vw', height: '4vw', position: 'absolute' }} />
+              </div>
+            </div>
           </div>
         </div>
-        <div className="col-lg-4 col-md-4 col-sm-4 col-xs-4">
-          <div className="mint-button" onClick={() => onMint(5)}>
-            <img src={imgBox} alt="" style={{ width: '15vw', cursor: 'pointer' }} />
-            <img src={x5} alt="" style={{ width: '4vw', height: '4vw', position: 'absolute' , cursor: 'pointer'}} />
-          </div>
-        </div>
-        <div className="col-lg-4 col-md-4 col-sm-4 col-xs-4">
-          <div className="mint-button" onClick={() => onMint(10)}>
-            <img src={imgBox} alt="" style={{ width: '15vw', cursor: 'pointer' }} />
-            <img src={x10} alt="" style={{ width: '4vw', height: '4vw', position: 'absolute', cursor: 'pointer' }} />
-          </div>
-        </div>
-      </div>
-      <div ref={page5}>
+      </div> */}
+      {/* <div ref={page5}>
         <PageFive className="" />
-      </div>
+      </div> */}
       {/* <div ref={page6}>
               <PageSix className="" />
             </div> */}
@@ -127,8 +134,7 @@ export const PlayNow = () => {
         handleClose={onToastClose}
         type={toastType}
       />
-      <div style={{ position: 'relative' }}><Footer /></div>
-
+      <Footer />
     </div>
   )
 }
