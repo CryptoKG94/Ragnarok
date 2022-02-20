@@ -83,7 +83,7 @@ export const CreateParty = () => {
     }
 
     const onCreateParty = () => {
-        
+        alert()
     }
 
     const onToastClose = () => {
