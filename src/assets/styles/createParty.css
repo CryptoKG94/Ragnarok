@@ -84,6 +84,7 @@
 .character_itm_list {
     display: flex;
     justify-content: space-between;
+    min-height: 3.5vw;
 }
 
 .character_itm {

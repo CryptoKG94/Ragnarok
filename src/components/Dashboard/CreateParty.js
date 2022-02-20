@@ -1,4 +1,5 @@
 import { React, useEffect, useState } from 'react'
+import { Image } from "semantic-ui-react";
 import { Header } from '../Components/Header';
 import header_2 from '../../assets/images/page_header_2.png';
 import header_logo from '../../assets/images/CONTACT_WALL.png';
@@ -39,6 +40,7 @@ export const CreateParty = () => {
 
     const [isConnected, setConnected] = useState(false);
     const [address, setAddress] = useState("");
+    const [nftAssets, setNFTAssets] = useState("");
 
     useEffect(() => {
 
@@ -68,6 +70,8 @@ export const CreateParty = () => {
             setToastMessage("Connected Successfully!")
             setAddress(res.address);
             window.localStorage.setItem(walletLocalStorageKey, res.address);
+            let assetInfos = await ContractUtils.getAssetInfo();
+            setNFTAssets(assetInfos.status);
         }
         else {
             setShowToast(true)
@@ -102,11 +106,11 @@ export const CreateParty = () => {
                         <img src={disconnect_logo} className='header_con' alt="connect_wall" onClick={onClickDisconnect} />
                     </>}
             </Header>
-            <div style={{paddingLeft: '3.4vw', paddingRight: '3.4vw', display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center', height: '100%'}}>
+            <div style={{ paddingLeft: '3.4vw', paddingRight: '3.4vw', display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center', height: '100%' }}>
                 <div className="party_title_container">
                     <div className="party_logo">
                         <img src={logo} alt="" style={{ height: '35vw', width: '25vw' }} />
-                        
+
                     </div>
                     <div className="party_title">
                         <div className='party_create_btn' onClick={onCreateParty}>
@@ -118,7 +122,7 @@ export const CreateParty = () => {
                             <div>Additional Party Member Fee: 1BUSD</div>
                         </div>
                         <div className='party_info_text'>
-                            <img src={text} alt="" style={{width: '16.7vw'}} />
+                            <img src={text} alt="" style={{ width: '16.7vw' }} />
                         </div>
                         <div className="party_sub_text">
                             <div>Party Level:</div>
@@ -145,19 +149,17 @@ export const CreateParty = () => {
                             <div className="character_itm_container">
                                 <div className="character_itm_close">X</div>
                                 <div className="character_itm_list">
-                                    <div className="character_itm"></div>
-                                    <div className="character_itm"></div>
-                                    <div className="character_itm"></div>
-                                    <div className="character_itm"></div>
-                                    <div className="character_itm"></div>
-                                    <div className="character_itm"></div>
-                                    <div className="character_itm"></div>
-                                    <div className="character_itm"></div>
-                                    <div className="character_itm"></div>
-                                    <div className="character_itm"></div>
-                                    <div className="character_itm"></div>
-                                    <div className="character_itm"></div>
-                                    <div className="character_itm"></div>
+                                    {nftAssets && nftAssets.metadatas && nftAssets.metadatas.map((image) => {
+                                        return (
+                                            <div className="character_itm">
+                                                <Image
+                                                    draggable={false}
+                                                    src={image}
+                                                    alt={image}
+                                                />
+                                            </div>
+                                        )
+                                    })}
                                 </div>
                             </div>
                             <div className="character_itm_container">
@@ -196,8 +198,8 @@ export const CreateParty = () => {
                                     <div className="character_itm"></div>
                                 </div>
                             </div>
-                            <div style={{marginTop: '1.5vw'}}>
-                                <div style={{display: 'flex', justifyContent: 'center'}}><div className='character_add'>ADD MORE PARTY HALL SLOT</div></div>
+                            <div style={{ marginTop: '1.5vw' }}>
+                                <div style={{ display: 'flex', justifyContent: 'center' }}><div className='character_add'>ADD MORE PARTY HALL SLOT</div></div>
                             </div>
                         </div>
                     </div>
