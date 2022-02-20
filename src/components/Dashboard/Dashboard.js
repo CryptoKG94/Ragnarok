@@ -45,8 +45,10 @@ export const Dashboard = () => {
                 <div ref={page4}>
                 <PageFour className="" />
                 </div>
+                <div style={{position: 'absolute', bottom: '-300vh', width: '100%', height: '100%'}}>
+                    <Footer />
+                </div>
             </div>
-            <Footer />
         </div>
         </>
     )
