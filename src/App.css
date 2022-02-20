@@ -333,6 +333,17 @@ table.main_table {
   min-height: 100vh;
 }
 
+.create_party_container {
+  background: url("./assets/images/createparty/bg.png");
+  background-size: cover;
+  background-position: center center;
+  background-repeat: no-repeat;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  position: relative;
+}
+
 * {
   cursor: url("./assets/images/cursor/CURSOR1.png"), auto;
 }

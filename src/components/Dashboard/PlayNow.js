@@ -14,8 +14,6 @@ import x1 from "../../assets/images/buying/x1.png"
 import x10 from "../../assets/images/buying/x10.png"
 import x5 from "../../assets/images/buying/x5.png"
 
-import bgSound from "../../assets/audio/battle bgm.mp3"
-
 export const PlayNow = () => {
   let page5 = useRef(null);
   let page6 = useRef(null);
@@ -100,20 +98,20 @@ export const PlayNow = () => {
       <div className="row" style={{ marginLeft: 'auto', marginRight: 'auto', marginTop: 50 }}>
         <div className="col-lg-4 col-md-4 col-sm-4 col-xs-4">
           <div className="mint-button" onClick={() => onMint(1)}>
-            <img src={imgBox} alt="" style={{ width: '15vw' }} />
-            <img src={x1} alt="" style={{ width: '4vw', height: '4vw', position: 'absolute' }} />
+            <img src={imgBox} alt="" style={{ width: '15vw', cursor: 'pointer' }} />
+            <img src={x1} alt="" style={{ width: '4vw', height: '4vw', position: 'absolute' , cursor: 'pointer'}} />
           </div>
         </div>
         <div className="col-lg-4 col-md-4 col-sm-4 col-xs-4">
           <div className="mint-button" onClick={() => onMint(5)}>
-            <img src={imgBox} alt="" style={{ width: '15vw' }} />
-            <img src={x5} alt="" style={{ width: '4vw', height: '4vw', position: 'absolute' }} />
+            <img src={imgBox} alt="" style={{ width: '15vw', cursor: 'pointer' }} />
+            <img src={x5} alt="" style={{ width: '4vw', height: '4vw', position: 'absolute' , cursor: 'pointer'}} />
           </div>
         </div>
         <div className="col-lg-4 col-md-4 col-sm-4 col-xs-4">
           <div className="mint-button" onClick={() => onMint(10)}>
-            <img src={imgBox} alt="" style={{ width: '15vw' }} />
-            <img src={x10} alt="" style={{ width: '4vw', height: '4vw', position: 'absolute' }} />
+            <img src={imgBox} alt="" style={{ width: '15vw', cursor: 'pointer' }} />
+            <img src={x10} alt="" style={{ width: '4vw', height: '4vw', position: 'absolute', cursor: 'pointer' }} />
           </div>
         </div>
       </div>
@@ -130,8 +128,7 @@ export const PlayNow = () => {
         type={toastType}
       />
       <div style={{ position: 'relative' }}><Footer /></div>
-      <audio controls autoPlay loop src={bgSound} type="audio/mp3" style={{display: 'none'}}>
-      </audio>
+
     </div>
   )
 }
