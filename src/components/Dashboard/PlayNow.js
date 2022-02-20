@@ -54,6 +54,8 @@ export const PlayNow = () => {
       setToastMessage("Connected Successfully!")
       setAddress(res.address);
       window.localStorage.setItem(walletLocalStorageKey, res.address);
+
+      let assetInfos = await ContractUtils.getAssetInfo();
     }
     else {
       setShowToast(true)

@@ -6,6 +6,7 @@ import "@openzeppelin/contracts/token/ERC721/extensions/ERC721Enumerable.sol";
 import "@openzeppelin/contracts/access/Ownable.sol";
 import "@openzeppelin/contracts/utils/math/SafeMath.sol";
 import "@openzeppelin/contracts/utils/Counters.sol";
+import "./uniswapv2/interfaces/IUniswapV2Router02.sol";
 
 contract RagnarokProject is ERC721Enumerable, Ownable {
     using Strings for uint256;
@@ -31,8 +32,21 @@ contract RagnarokProject is ERC721Enumerable, Ownable {
     bool public endSale = false;
 
     string private _baseURIextended;
-    uint256 private _priceextended;
+    uint256 private _priceextended;  // busd
     mapping (uint256 => bool) registerID;
+    mapping (uint256 => uint256) public tokenIds;
+
+    IUniswapV2Router02 public uniswapV2Router;
+
+    address public routerAddress = address(0x9Ac64Cc6e4415144C455BD8E4837Fea55603e5c3);
+
+    // pancakeswap testnet router address
+    // testnet PCS router: 0x9Ac64Cc6e4415144C455BD8E4837Fea55603e5c3
+    // mainnet PCS V2 router: 0x10ED43C718714eb63d5aA57B78B54704E256024E
+
+    address public constant busdToken = address(0x78867BbEeF44f2326bF8DDd1941a4439382EF2A7);
+    // BUSD mainnet 0xe9e7CEA3DedcA5984780Bafc599bD69ADd087D56
+    // BUSD testnet 0x78867BbEeF44f2326bF8DDd1941a4439382EF2A7
 
     uint256 public tokenMinted = 0;
     uint256 public subMintedCount = 0;
@@ -40,7 +54,7 @@ contract RagnarokProject is ERC721Enumerable, Ownable {
     using Counters for Counters.Counter;
     Counters.Counter private _tokenIdentifiers;
 
-    uint256 private constant MAX_TOKENID_NUMBER = 1 * 10 ** 10;
+    uint256 private constant MAX_TOKENID_NUMBER = 1 * 10 ** 7;
     uint256 public constant MAX_NFT_SUPPLY = 200000;
 
     
@@ -57,7 +71,10 @@ contract RagnarokProject is ERC721Enumerable, Ownable {
 
     constructor() ERC721("Ragnarok Project", "Ragnarok") {
         _baseURIextended = "https://ipfs.io/ipfs/";
-        _priceextended = 1000000000000000; // 0.001
+        _priceextended = 10000000000000000000; // 10busd
+
+        IUniswapV2Router02 _uniswapV2Router = IUniswapV2Router02(routerAddress);
+        uniswapV2Router = _uniswapV2Router;
     }
 
     function setEndSale(bool _endSale) public onlyOwner {
@@ -82,7 +99,17 @@ contract RagnarokProject is ERC721Enumerable, Ownable {
 
     function getNFTPrice() public view returns (uint256) {
         require(tokenMinted < MAX_NFT_SUPPLY, "Sale has already ended");
-        return _priceextended;
+        return getAmountsTokenForETH(_priceextended);
+    }
+
+    function getAmountsTokenForETH(uint256 busdAmount) internal view returns(uint256) {
+
+        address[] memory path = new address[](2);
+        path[0] = address(busdToken);
+        path[1] = uniswapV2Router.WETH();
+
+        uint256[] memory amountOutMins = uniswapV2Router.getAmountsOut(busdAmount, path);
+        return amountOutMins[path.length - 1];
     }
 
     function random() internal returns (uint) {
@@ -100,13 +127,19 @@ contract RagnarokProject is ERC721Enumerable, Ownable {
         require(tokenMinted < MAX_NFT_SUPPLY, "Sale has already ended");
 
         _tokenIdentifiers.increment();
-        _safeMint(msg.sender, _tokenIdentifiers.current());
+        uint256 newRECIdentifier = random();
+        _safeMint(msg.sender, newRECIdentifier);
+        registerID[newRECIdentifier] = true;
         tokenMinted += 1;
+        tokenIds[newRECIdentifier] = tokenMinted;
+        subMintedCount += 1;
     }
 
     function mintNFT(uint256 _cnt) public payable {
         require(tokenMinted < MAX_NFT_SUPPLY, "Sale has already ended");
-        require(getNFTPrice().mul(_cnt) <= msg.value, "ETH value sent is not correct");
+        // slippage 1%
+        uint256 minPriceForSale = getNFTPrice().mul(_cnt).mul(99).div(100);
+        require(minPriceForSale <= msg.value, "ETH value sent is not correct");
 
         if(!publicSale) {
             require(whitelist[msg.sender], "Not ");
@@ -145,6 +178,7 @@ contract RagnarokProject is ERC721Enumerable, Ownable {
             _safeMint(msg.sender, newRECIdentifier);
             registerID[newRECIdentifier] = true;
             tokenMinted += 1;
+            tokenIds[newRECIdentifier] = tokenMinted;
             subMintedCount += 1;
         }
 
@@ -180,10 +214,10 @@ contract RagnarokProject is ERC721Enumerable, Ownable {
         }
 
         if (bytes(_tokenURI).length > 0) {
-            return string(abi.encodePacked(_tokenURI, tokenId));
+            return string(abi.encodePacked(_tokenURI, tokenIds[tokenId].toString()));
         }
 
-        return super.tokenURI(tokenId);
+        return super.tokenURI(tokenIds[tokenId]);
     }
 
     function _baseURI() internal view virtual override returns (string memory) {
@@ -199,7 +233,7 @@ contract RagnarokProject is ERC721Enumerable, Ownable {
     }
 
     function setPrice(uint256 _priceextended_) external onlyOwner() {
-        _priceextended = _priceextended_;
+        _priceextended = _priceextended_; // as busd
     }
 
     function setMarketWallet(address _addr) external onlyOwner {
