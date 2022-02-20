@@ -152,7 +152,7 @@ export const PartyHall = () => {
                             <div className="character_itm_container">
                                 <div className="character_itm_close">X</div>
                                 <div className="character_itm_list">
-                                    {nftAssets && nftAssets.status && nftAssets.status.metadatas.map(image => {
+                                    {nftAssets && nftAssets.status && nftAssets.status.metadatas && nftAssets.status.metadatas.map(image => {
                                         return (
                                             <div className="character_itm">
                                                 <Image
