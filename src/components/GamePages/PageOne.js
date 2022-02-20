@@ -11,7 +11,7 @@ export const PageOne = () => {
         <div className="image_background page_one">
             <img className="background_one" src={background}  alt="Logo" />
             <img className="PLAY_TO_EARN" src={PLAY_TO_EARN} alt="Logo" />
-            <img className="PAGE_1_play" src={PAGE_1_play}  onClick={() => history.push("/playnow")} alt="Logo" />
+            <img className="PAGE_1_play" src={PAGE_1_play}  onClick={() => history.push("/createParty")} alt="Logo" />
         </div>
     </>
   )
