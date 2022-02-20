@@ -1,10 +1,10 @@
 import './App.css';
 import './assets/styles/common.css'
-import { Dashboard } from './components/Dashboard/Dashboard';
+import { Dashboard } from './pages/Dashboard/Dashboard';
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
-import { PlayNow } from './components/Dashboard/PlayNow';
-import Create from './components/CreateParty/Create';
-import Party from './components/CreateParty/Party'
+import bgSound from "./assets/audio/battle bgm.mp3"
+import { Valhalla } from './pages/Valhalla/Valhalla';
+import { PartyHall } from './pages/PartyHall/PartyHall';
 
 function App() {  
   return (
@@ -12,11 +12,12 @@ function App() {
       <Router>
           <Switch>
               <Route path="/" exact component={Dashboard} />
-              <Route path="/playnow" exact component={PlayNow} />
-              <Route path="/create" exact component={Create} />
-              <Route path="/party" exact component={Party} />
+              <Route path="/valhalla" exact component={Valhalla} />
+              <Route path="/partyhall" exact component={PartyHall} />
           </Switch>
       </Router>
+      <audio controls autoPlay loop src={bgSound} type="audio/mp3" style={{display: 'none'}}>
+      </audio>
     </>
   );
 }
