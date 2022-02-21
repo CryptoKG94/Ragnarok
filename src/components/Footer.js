@@ -17,7 +17,7 @@ export const Footer = (props) => {
 					<span className="ml-1">all credit goes to the rightful owner GRAVITY CO.</span>
 				</div>
 			</div>
-			<img src={Footer_bar} />
+			<img alt="" src={Footer_bar} />
 		</div>
 	)
 }

@@ -255,6 +255,7 @@ img.header_con {
   font-weight: 600;
   text-shadow: 8px 1px 4px #000;
   font-size: 1.3vw;
+  cursor: pointer;
 }
 .last_footer {
   display: flex;
@@ -346,4 +347,22 @@ table.main_table {
 
 * {
   cursor: url("./assets/images/cursor/CURSOR1.png"), auto;
+}
+
+.hover_container {
+  position: fixed;
+  left: 50%;
+  top: 40%;
+  transform: translate(-50%, -50%);
+  z-index: 10;
+  width: 350px;
+  height: 350px;
+  border-radius: 10px;
+  /* box-shadow: 0px 0px 15px 6px rgba(180, 145, 78, 1); */
+  padding: 80px;
+
+  background: url("./assets/images/partyHall/hover.png");
+  background-size: 100% 100%;
+  display: flex;
+  ;
 }
