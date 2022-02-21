@@ -1,4 +1,5 @@
 import { React, useEffect, useState } from 'react'
+import { Image } from "semantic-ui-react";
 import { Header } from '../../components/Header';
 import header_2 from '../../assets/images/page_header_2.png';
 import header_logo from '../../assets/images/CONTACT_WALL.png';
@@ -40,9 +41,14 @@ export const PartyHall = () => {
 
     const [address, setAddress] = useState("");
     const [mode, setMode] = useState(CHARACTER_MODE);
+    const [nftAssets, setNFTAssets] = useState("");
 
     useEffect(() => {
-
+        async function fetchNFTAssets() {
+            let assets = await ContractUtils.getAssetInfo();
+            setNFTAssets(assets);
+        }
+        fetchNFTAssets()
     }, [])
 
     const headerPages = [
@@ -70,6 +76,9 @@ export const PartyHall = () => {
             setToastMessage("Connected Successfully!")
             setAddress(res.address);
             window.localStorage.setItem(walletLocalStorageKey, res.address);
+
+            let assets = await ContractUtils.getAssetInfo();
+            setNFTAssets(assets);
         }
         else {
             setShowToast(true)
@@ -90,7 +99,7 @@ export const PartyHall = () => {
 
     const renderParty = () => {
         return (
-            <div style={{display: 'flex', flexDirection: 'column', justifyContent: 'flex-start', height: '80%'}}>
+            <div style={{ display: 'flex', flexDirection: 'column', justifyContent: 'flex-start', height: '80%' }}>
                 <div className="character_title">
                     <div className="character_title_props">CLASSES</div>
                     <div className="character_title_props">LEVEL</div>
@@ -169,19 +178,18 @@ export const PartyHall = () => {
                 <div className="character_itm_container">
                     <div className="character_itm_close">X</div>
                     <div className="character_itm_list">
-                        <div className="character_itm"></div>
-                        <div className="character_itm"></div>
-                        <div className="character_itm"></div>
-                        <div className="character_itm"></div>
-                        <div className="character_itm"></div>
-                        <div className="character_itm"></div>
-                        <div className="character_itm"></div>
-                        <div className="character_itm"></div>
-                        <div className="character_itm"></div>
-                        <div className="character_itm"></div>
-                        <div className="character_itm"></div>
-                        <div className="character_itm"></div>
-                        <div className="character_itm"></div>
+                        {nftAssets && nftAssets.status && nftAssets.status.metadatas && nftAssets.status.metadatas.map(image => {
+                            return (
+                                <div className="character_itm">
+                                    <Image
+                                        draggable={false}
+                                        src={image}
+                                        alt={image}
+                                        style={{ width: "3.5vw", height: "3.5vw" }}
+                                    />
+                                </div>
+                            )
+                        })}
                     </div>
                 </div>
                 <div className="character_itm_container">
@@ -272,11 +280,10 @@ export const PartyHall = () => {
                     <div className='character_table'>
                         <img src={borad} alt="" />
                         <div className="chararcter_lists">
-                        {
-                            mode === CHARACTER_MODE ? 
-                            renderCharacter() : renderParty()
-                        }
-
+                            {
+                                mode === CHARACTER_MODE ?
+                                renderCharacter() : renderParty()
+                            }
                         </div>
                     </div>
                 </div>

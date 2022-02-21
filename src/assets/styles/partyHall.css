@@ -131,6 +131,7 @@
 
 .character_itm_list {
     display: flex;
+    min-height: 3.5vw;
     justify-content: space-between;
 }
 
