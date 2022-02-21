@@ -45,13 +45,14 @@ export const PartyHall = () => {
     const [selectedNft, setSelectedNft] = useState(null);
 
     useEffect(() => {
-        async function fetchNFTAssets() {
-            let assets = await ContractUtils.getAssetInfo();
-            console.log("============assets=============", assets)
-            setNFTAssets(assets);
-        }
         fetchNFTAssets()
     }, [])
+
+    const fetchNFTAssets = async () => {
+        let assets = await ContractUtils.getAssetInfo();
+        console.log("============assets=============", assets)
+        setNFTAssets(assets);
+    }
 
     const headerFuncs = (target) => {
         history.push(target);
@@ -69,11 +70,6 @@ export const PartyHall = () => {
     const [toastMessage, setToastMessage] = useState("")
     const [toastType, setToastType] = useState(2) //1: success, 2: error
 
-    const pull_data = (page) => {
-        if (!page.current) return;
-        page.current.scrollIntoView({ behavior: "smooth" });
-    }
-
     const onClickConnect = async () => {
         let res = await ContractUtils.connectWallet();
         if (res.address) {
@@ -81,7 +77,6 @@ export const PartyHall = () => {
             setToastType(1)
             setToastMessage("Connected Successfully!")
             setAddress(res.address);
-            window.localStorage.setItem(walletLocalStorageKey, res.address);
 
             let assets = await ContractUtils.getAssetInfo();
             setNFTAssets(assets);
