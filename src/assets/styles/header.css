@@ -4,6 +4,7 @@
     display: flex;
     padding-left: 8vw;
     padding-right: 5vw;
+    height: 40%;
 }
 
 .playNowHeader > #navbarNav > .header_title.item0 { flex: 11; text-align: center; cursor: pointer;}

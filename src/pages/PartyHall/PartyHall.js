@@ -39,7 +39,7 @@ const PARTY_MODE = 2;
 export const PartyHall = () => {
     const history = useHistory();
 
-    const [address, setAddress] = useState("");
+    const [address, setAddress] = useState(ContractUtils.isWalletConnected());
     const [mode, setMode] = useState(CHARACTER_MODE);
     const [nftAssets, setNFTAssets] = useState("");
 
@@ -199,37 +199,11 @@ export const PartyHall = () => {
                 <div className="character_itm_container">
                     <div className="character_itm_close">X</div>
                     <div className="character_itm_list">
-                        <div className="character_itm"></div>
-                        <div className="character_itm"></div>
-                        <div className="character_itm"></div>
-                        <div className="character_itm"></div>
-                        <div className="character_itm"></div>
-                        <div className="character_itm"></div>
-                        <div className="character_itm"></div>
-                        <div className="character_itm"></div>
-                        <div className="character_itm"></div>
-                        <div className="character_itm"></div>
-                        <div className="character_itm"></div>
-                        <div className="character_itm"></div>
-                        <div className="character_itm"></div>
                     </div>
                 </div>
                 <div className="character_itm_container">
                     <div className="character_itm_close">X</div>
                     <div className="character_itm_list">
-                        <div className="character_itm"></div>
-                        <div className="character_itm"></div>
-                        <div className="character_itm"></div>
-                        <div className="character_itm"></div>
-                        <div className="character_itm"></div>
-                        <div className="character_itm"></div>
-                        <div className="character_itm"></div>
-                        <div className="character_itm"></div>
-                        <div className="character_itm"></div>
-                        <div className="character_itm"></div>
-                        <div className="character_itm"></div>
-                        <div className="character_itm"></div>
-                        <div className="character_itm"></div>
                     </div>
                 </div>
             </div>

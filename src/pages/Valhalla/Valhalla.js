@@ -17,13 +17,14 @@ import { useHistory } from 'react-router-dom';
 export const Valhalla = () => {
 
     const [isConnected, setConnected] = useState(false);
-    const [address, setAddress] = useState("");
+    const [address, setAddress] = useState(ContractUtils.isWalletConnected());
 
     useEffect(() => {
         // const _address = window.localStorage.getItem(walletLocalStorageKey);
         // if (_address) {
         //   setAddress(_address)
         // }
+        console.log(ContractUtils.isWalletConnected())
     }, [])
 
     const history = useHistory();
