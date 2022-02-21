@@ -42,10 +42,12 @@ export const PartyHall = () => {
     const [address, setAddress] = useState(ContractUtils.isWalletConnected());
     const [mode, setMode] = useState(CHARACTER_MODE);
     const [nftAssets, setNFTAssets] = useState("");
+    const [selectedNft, setSelectedNft] = useState(null);
 
     useEffect(() => {
         async function fetchNFTAssets() {
             let assets = await ContractUtils.getAssetInfo();
+            console.log("============assets=============", assets)
             setNFTAssets(assets);
         }
         fetchNFTAssets()
@@ -101,9 +103,17 @@ export const PartyHall = () => {
         alert()
     }
 
-    const renderParty = () => {
+    const onHoverNft = (nft) => () => {
+        setSelectedNft(nft);
+    }
+
+    const hoverOff = () => {
+        setSelectedNft(null);
+    }
+
+    const renderCharacter = () => {
         return (
-            <div style={{ display: 'flex', flexDirection: 'column', justifyContent: 'flex-start', height: '80%' }}>
+            <div style={{ display: 'flex', flexDirection: 'column', justifyContent: 'flex-start', height: '97%' }}>
                 <div className="character_title">
                     <div className="character_title_props">CLASSES</div>
                     <div className="character_title_props">LEVEL</div>
@@ -114,77 +124,9 @@ export const PartyHall = () => {
                 </div>
                 <div className="party_mode_container">
                     <div className="party_mode_itm_list">
-                        <div className="party_itm"></div>
-                        <div className="party_itm"></div>
-                        <div className="party_itm"></div>
-                        <div className="party_itm"></div>
-                        <div className="party_itm"></div>
-                        <div className="party_itm"></div>
-                        <div className="party_itm"></div>
-                        <div className="party_itm"></div>
-                        <div className="party_itm"></div>
-                        <div className="party_itm"></div>
-                        <div className="party_itm"></div>
-                        <div className="party_itm"></div>
-                        <div className="party_itm"></div>
-                        <div className="party_itm"></div>
-                        <div className="party_itm"></div>
-                        <div className="party_itm"></div>
-                        <div className="party_itm"></div>
-                        <div className="party_itm"></div>
-                        <div className="party_itm"></div>
-                        <div className="party_itm"></div>
-                        <div className="party_itm"></div>
-                        <div className="party_itm"></div>
-                        <div className="party_itm"></div>
-                        <div className="party_itm"></div>
-                        <div className="party_itm"></div>
-                        <div className="party_itm"></div>
-                        <div className="party_itm"></div>
-                        <div className="party_itm"></div>
-                        <div className="party_itm"></div>
-                        <div className="party_itm"></div>
-                        <div className="party_itm"></div>
-                        <div className="party_itm"></div>
-                        <div className="party_itm"></div>
-                        <div className="party_itm"></div>
-                        <div className="party_itm"></div>
-                        <div className="party_itm"></div>
-                        <div className="party_itm"></div>
-                        <div className="party_itm"></div>
-                        <div className="party_itm"></div>
-                        <div className="party_itm"></div>
-                        <div className="party_itm"></div>
-                        <div className="party_itm"></div>
-                        <div className="party_itm"></div>
-                        <div className="party_itm"></div>
-                        <div className="party_itm"></div>
-                        <div className="party_itm"></div>
-                        <div className="party_itm"></div>
-                        <div className="party_itm"></div>
-                        <div className="party_itm"></div>
-                        <div className="party_itm"></div>
-                        <div className="party_itm"></div>
-                        <div className="party_itm"></div>
-                        <div className="party_itm"></div>
-                        <div className="party_itm"></div>
-                        <div className="party_itm"></div>
-                        <div className="party_itm"></div>
-                    </div>
-                </div>
-            </div>
-        );
-    }
-
-    const renderCharacter = () => {
-        return <>
-            <div className="party_mode_container" style={{marginTop: '2vw'}}>
-                <div className="character_itm_container">
-                    <div className="character_itm_close">X</div>
-                    <div className="character_itm_list">
                         {nftAssets && nftAssets.status && nftAssets.status.metadatas && nftAssets.status.metadatas.map(image => {
                             return (
-                                <div className="character_itm">
+                                <div className="character_itm" onMouseEnter={onHoverNft(image)} onMouseLeave={hoverOff}>
                                     <Image
                                         draggable={false}
                                         src={image}
@@ -194,6 +136,19 @@ export const PartyHall = () => {
                                 </div>
                             )
                         })}
+                    </div>
+                </div>
+            </div>
+        );
+    }
+
+    const renderParty = () => {
+        return <>
+            <div className="party_mode_container" style={{ marginTop: '2vw' }}>
+                <div className="character_itm_container">
+                    <div className="character_itm_close">X</div>
+                    <div className="character_itm_list">
+
                     </div>
                 </div>
                 <div className="character_itm_container">
@@ -260,7 +215,7 @@ export const PartyHall = () => {
                         <div className="chararcter_lists">
                             {
                                 mode === CHARACTER_MODE ?
-                                renderCharacter() : renderParty()
+                                    renderCharacter() : renderParty()
                             }
                         </div>
                     </div>
@@ -268,7 +223,13 @@ export const PartyHall = () => {
                 <div></div>
             </div>
             <Footer />
-
+            {selectedNft && <div className='hover_container'>
+                <img src={selectedNft} alt="" style={{marginRight: 20, width: 120, height: 180}} />
+                <div style={{display: 'flex', flexDirection: 'column', justifyContent:'center'}}>
+                    <div style={{color: 'red', marginBottom: '30px'}}>Class: X</div>
+                    <div style={{color: 'red'}}>Level: XXX</div>
+                </div>
+            </div>}
         </div>
     )
 }
