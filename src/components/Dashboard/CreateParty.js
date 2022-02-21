@@ -85,7 +85,7 @@ export const CreateParty = () => {
 
     return (
         <div className="create_party_container">
-            <Header func={pull_data} headerPages={headerPages} image={header_2} headerClass={'palyNowHeader'} style={{ position: 'relative' }}>
+            <Header func={pull_data} headerPages={headerPages} image={header_2} headerClass={'playNowHeader'} style={{ position: 'relative' }}>
                 {!address ?
                     <>
                         <img src={header_logo} className='header_con' alt="connect_wall" onClick={() => onClickConnect()} />

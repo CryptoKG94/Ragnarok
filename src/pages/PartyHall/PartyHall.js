@@ -14,6 +14,7 @@ import createBtn from "../../assets/images/partyHall/btn.png"
 import text from "../../assets/images/partyHall/text.png"
 import borad from "../../assets/images/partyHall/borad.png"
 import styled from 'styled-components'
+import { useHistory } from 'react-router-dom';
 
 const CharacterBtn = styled.button`
     &:focus-visible {
@@ -36,10 +37,9 @@ const CHARACTER_MODE = 1;
 const PARTY_MODE = 2;
 
 export const PartyHall = () => {
-    let page5 = useRef(null);
-    let page6 = useRef(null);
+    const history = useHistory();
 
-    const [address, setAddress] = useState("");
+    const [address, setAddress] = useState(ContractUtils.isWalletConnected());
     const [mode, setMode] = useState(CHARACTER_MODE);
     const [nftAssets, setNFTAssets] = useState("");
 
@@ -51,12 +51,16 @@ export const PartyHall = () => {
         fetchNFTAssets()
     }, [])
 
+    const headerFuncs = (target) => {
+        history.push(target);
+    }
+
     const headerPages = [
-        { 'page': 'VALHALLA', 'scroll': page5 },
-        { 'page': 'PARTY HALL', 'scroll': page6 },
-        { 'page': 'ADVENTURE', 'scroll': null },
-        { 'page': 'MARKET PLACE', 'scroll': null },
-        { 'page': 'WEDDING HALL', 'scroll': null }
+        { page: 'VALHALLA', target: '/valhalla' },
+        { page: 'PARTY HALL', target: '/partyhall' },
+        { page: 'ADVENTURE', target: '/adventure' },
+        { page: 'MARKETPLACE', target: '/marketplace' },
+        { page: 'WEDDING HALL', target: '/weddinghall' }
     ];
 
     const [showToast, setShowToast] = useState(false)
@@ -174,7 +178,7 @@ export const PartyHall = () => {
 
     const renderCharacter = () => {
         return <>
-            <div className="party_mode_container">
+            <div className="party_mode_container" style={{marginTop: '2vw'}}>
                 <div className="character_itm_container">
                     <div className="character_itm_close">X</div>
                     <div className="character_itm_list">
@@ -195,37 +199,11 @@ export const PartyHall = () => {
                 <div className="character_itm_container">
                     <div className="character_itm_close">X</div>
                     <div className="character_itm_list">
-                        <div className="character_itm"></div>
-                        <div className="character_itm"></div>
-                        <div className="character_itm"></div>
-                        <div className="character_itm"></div>
-                        <div className="character_itm"></div>
-                        <div className="character_itm"></div>
-                        <div className="character_itm"></div>
-                        <div className="character_itm"></div>
-                        <div className="character_itm"></div>
-                        <div className="character_itm"></div>
-                        <div className="character_itm"></div>
-                        <div className="character_itm"></div>
-                        <div className="character_itm"></div>
                     </div>
                 </div>
                 <div className="character_itm_container">
                     <div className="character_itm_close">X</div>
                     <div className="character_itm_list">
-                        <div className="character_itm"></div>
-                        <div className="character_itm"></div>
-                        <div className="character_itm"></div>
-                        <div className="character_itm"></div>
-                        <div className="character_itm"></div>
-                        <div className="character_itm"></div>
-                        <div className="character_itm"></div>
-                        <div className="character_itm"></div>
-                        <div className="character_itm"></div>
-                        <div className="character_itm"></div>
-                        <div className="character_itm"></div>
-                        <div className="character_itm"></div>
-                        <div className="character_itm"></div>
                     </div>
                 </div>
             </div>
@@ -238,7 +216,7 @@ export const PartyHall = () => {
 
     return (
         <div className="create_party_container">
-            <Header func={pull_data} headerPages={headerPages} image={header_2} headerClass={'palyNowHeader'} style={{ position: 'relative' }}>
+            <Header func={headerFuncs} headerPages={headerPages} image={header_2} headerClass={'playNowHeader'} style={{ position: 'relative' }}>
                 {!address ?
                     <>
                         <img src={header_logo} className='header_con' alt="connect_wall" onClick={() => onClickConnect()} />

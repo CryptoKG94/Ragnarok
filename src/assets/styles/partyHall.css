@@ -116,7 +116,7 @@
 .character_itm_container {
     display: flex;
     flex-direction: column;
-    padding: 10px;
+    padding: 0.5vw;
     padding-top: 0;
     background: #7c56104d;
     border-bottom: 1px solid rgb(206, 206, 206);
@@ -132,13 +132,14 @@
 .character_itm_list {
     display: flex;
     min-height: 3.5vw;
-    justify-content: space-between;
+    flex-wrap: wrap;    
 }
 
 .character_itm {
     min-width: 3.5vw;
     min-height: 3.5vw;
     border: 1px solid black;
+    margin-right: 1vw;
 }
 
 .character_add {
