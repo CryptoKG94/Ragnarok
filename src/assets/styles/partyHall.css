@@ -147,6 +147,8 @@
     border: 2px solid black;
     font-size: 1.5vw;
     cursor: pointer;
+    padding-left: 4px;
+    padding-right: 1px;
 }
 
 .character_title {
