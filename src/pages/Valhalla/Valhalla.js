@@ -20,10 +20,10 @@ export const Valhalla = () => {
     const [address, setAddress] = useState("");
 
     useEffect(() => {
-        // const _address = window.localStorage.getItem(walletLocalStorageKey);
-        // if (_address) {
-        //   setAddress(_address)
-        // }
+        const _address = window.localStorage.getItem(walletLocalStorageKey);
+        if (_address) {
+          setAddress(_address)
+        }
     }, [])
 
     const history = useHistory();
@@ -53,8 +53,6 @@ export const Valhalla = () => {
             setToastMessage("Connected Successfully!")
             setAddress(res.address);
             window.localStorage.setItem(walletLocalStorageKey, res.address);
-
-            let assetInfos = await ContractUtils.getAssetInfo();
         }
         else {
             setShowToast(true)

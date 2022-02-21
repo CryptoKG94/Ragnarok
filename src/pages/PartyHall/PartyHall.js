@@ -44,6 +44,20 @@ export const PartyHall = () => {
             let assets = await ContractUtils.getAssetInfo();
             setNFTAssets(assets);
         }
+
+        // async function getAccountInfo() {
+        //     let res = await ContractUtils.getAccountInfo();
+        //     if (res.address) {
+        //         setAddress(res.address);
+        //     }
+        // }
+        // getAccountInfo()
+        const _address = window.localStorage.getItem(walletLocalStorageKey)
+        console.log(_address);
+        if (_address) {
+            setAddress(_address)
+        }
+
         fetchNFTAssets()
     }, [])
 
@@ -71,7 +85,6 @@ export const PartyHall = () => {
             setToastType(1)
             setToastMessage("Connected Successfully!")
             setAddress(res.address);
-            window.localStorage.setItem(walletLocalStorageKey, res.address);
 
             let assets = await ContractUtils.getAssetInfo();
             setNFTAssets(assets);
