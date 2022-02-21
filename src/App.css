@@ -334,7 +334,7 @@ table.main_table {
 }
 
 .create_party_container {
-  background: url("./assets/images/createparty/bg.png");
+  background: url("./assets/images/partyHall/bg.png");
   background-size: cover;
   background-position: center center;
   background-repeat: no-repeat;

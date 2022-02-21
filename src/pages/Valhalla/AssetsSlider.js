@@ -1,7 +1,7 @@
 import React from 'react'
 import background from '../../assets/images/page_5_bg.png';
 import background_slider from '../../assets/images/background_slider.png';
-import { SliderParty } from '../Slider/SliderParty';
+import { Slider } from '../../components/Slider';
 import seasonal from "../../assets/images/buying/seasonal.png"
 
 import Aura1 from "../../assets/images/buying/Character Aura/1.png"
@@ -35,11 +35,11 @@ import Wing6 from "../../assets/images/buying/wings/6.png"
 
 
 
-const AuraList = [Aura1, Aura2, Aura3, Aura4, Aura5, Aura6, Aura7, Aura8, ];
-const PetList = [Pet1, Pet2, Pet3, Pet4, Pet5, Pet6, Pet7, Pet8, Pet9, Pet10, Pet11, Pet12, ];
-const WingList = [Wing1, Wing2, Wing3, Wing4, Wing5, Wing6 ];
+const AuraList = [Aura1, Aura2, Aura3, Aura4, Aura5, Aura6, Aura7, Aura8,];
+const PetList = [Pet1, Pet2, Pet3, Pet4, Pet5, Pet6, Pet7, Pet8, Pet9, Pet10, Pet11, Pet12,];
+const WingList = [Wing1, Wing2, Wing3, Wing4, Wing5, Wing6];
 
-export const PageFive = () => {
+export const AssetsSlider = () => {
     return (
         <>
             {/* <div className="image_background page_five"> */}
@@ -57,15 +57,15 @@ export const PageFive = () => {
             </div>
             <div style={{ display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center', position: 'relative', height: '550px' }}>
                 {/* <div style={{ position: 'relative', height: '100%' }}> */}
-                    <div className="party_hall_slider col-md-12" style={{top: 0}}>
-                        <SliderParty images={AuraList} />
-                    </div>
-                    <div className="party_hall_slider col-md-12" style={{top: '150px'}}>
-                        <SliderParty images={PetList} />
-                    </div>
-                    <div className="party_hall_slider col-md-12" style={{top: '300px'}}>
-                        <SliderParty images={WingList} />
-                    </div>
+                <div className="party_hall_slider col-md-12" style={{ top: 0 }}>
+                    <Slider images={AuraList} />
+                </div>
+                <div className="party_hall_slider col-md-12" style={{ top: '150px' }}>
+                    <Slider images={PetList} />
+                </div>
+                <div className="party_hall_slider col-md-12" style={{ top: '300px' }}>
+                    <Slider images={WingList} />
+                </div>
                 {/* </div> */}
             </div>
         </>

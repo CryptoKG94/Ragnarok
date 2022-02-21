@@ -1,7 +1,7 @@
 import WalletConnectProvider from '@walletconnect/web3-provider';
 import Web3Modal from 'web3modal';
 import Contract from 'web3-eth-contract';
-import { provider, contractAddress } from '../config';
+import { baseURLforIPFS, provider, contractAddress } from '../config';
 import BigNumber from "bignumber.js";
 
 const Web3 = require('web3');
@@ -177,10 +177,10 @@ export const getAssetInfo = async () => {
         for (let i = 0; i < balance; i ++) {
         const tokenId = await contract.methods.tokenOfOwnerByIndex(walletAddress, i).call()
         const tokenUri = await contract.methods.tokenURI(tokenId).call()
-        const imageUrl = await getImageHash(tokenUri + ".json");
+        const imageUrl = await getImageHash(tokenUri + ".json")
         data.balance = balance
         data.tokenIds.push(tokenId)
-        data.metadatas.push(imageUrl)
+        data.metadatas.push(baseURLforIPFS + imageUrl)
         }
         return {
             success: true,

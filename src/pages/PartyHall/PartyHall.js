@@ -1,20 +1,19 @@
 import { React, useEffect, useState } from 'react'
-import { Header } from '../Components/Header';
+import { Image } from "semantic-ui-react";
+import { Header } from '../../components/Header';
 import header_2 from '../../assets/images/page_header_2.png';
 import header_logo from '../../assets/images/CONTACT_WALL.png';
 import disconnect_logo from '../../assets/images/DISCONNECT_WALL.png';
-import { PageFive } from '../GamePages/PageFive';
-import { useRef } from 'react';
-import { Footer } from '../Components/Footer';
+import { Footer } from '../../components/Footer';
 import ContractUtils from '../../utils/contractUtils';
-import Toast from '../Components/Toast';
 import { walletLocalStorageKey } from '../../config'
-import "../../assets/styles/createParty.css"
-import logo from "../../assets/images/createparty/logo.png"
-import createBtn from "../../assets/images/createparty/btn.png"
-import text from "../../assets/images/createparty/text.png"
-import borad from "../../assets/images/createparty/borad.png"
+import "../../assets/styles/partyHall.css"
+import logo from "../../assets/images/partyHall/logo.png"
+import createBtn from "../../assets/images/partyHall/btn.png"
+import text from "../../assets/images/partyHall/text.png"
+import borad from "../../assets/images/partyHall/borad.png"
 import styled from 'styled-components'
+import { useHistory } from 'react-router-dom';
 
 const CharacterBtn = styled.button`
     &:focus-visible {
@@ -33,28 +32,33 @@ const CharacterBtn = styled.button`
     margin-right: 3.3vw;
 `
 
-export const CreateParty = () => {
-    let page5 = useRef(null);
-    let page6 = useRef(null);
+export const PartyHall = () => {
+    const history = useHistory();
 
     const [isConnected, setConnected] = useState(false);
     const [address, setAddress] = useState("");
+    const [nftAssets, setNFTAssets] = useState("");
 
     useEffect(() => {
-
+        async function fetchNFTAssets() {
+            let assets = await ContractUtils.getAssetInfo();
+            setNFTAssets(assets);
+        }
+        fetchNFTAssets()
     }, [])
 
-    const headerPages = [
-        { 'page': 'VALHALLA', 'scroll': page5 },
-        { 'page': 'PARTY HALL', 'scroll': page6 },
-        { 'page': 'ADVENTURE', 'scroll': null },
-        { 'page': 'MARKET PLACE', 'scroll': null },
-        { 'page': 'WEDDING HALL', 'scroll': null }
-    ];
-    const pull_data = (page) => {
-        if (!page.current) return;
-        page.current.scrollIntoView({ behavior: "smooth" });
+
+    const headerFuncs = (target) => {
+        history.push(target);
     }
+
+    const headerPages = [
+        { page: 'VALHALLA', target: '/valhalla' },
+        { page: 'PARTY HALL', target: '/partyhall' },
+        { page: 'ADVENTURE', target: '/adventure' },
+        { page: 'MARKETPLACE', target: '/marketplace' },
+        { page: 'WEDDING HALL', target: '/weddinghall' }
+    ];
 
     const [showToast, setShowToast] = useState(false)
     const [toastMessage, setToastMessage] = useState("")
@@ -68,6 +72,9 @@ export const CreateParty = () => {
             setToastMessage("Connected Successfully!")
             setAddress(res.address);
             window.localStorage.setItem(walletLocalStorageKey, res.address);
+
+            let assets = await ContractUtils.getAssetInfo();
+            setNFTAssets(assets);
         }
         else {
             setShowToast(true)
@@ -83,7 +90,7 @@ export const CreateParty = () => {
     }
 
     const onCreateParty = () => {
-        alert()
+        alert('coming soon');
     }
 
     const onToastClose = () => {
@@ -92,7 +99,7 @@ export const CreateParty = () => {
 
     return (
         <div className="create_party_container">
-            <Header func={pull_data} headerPages={headerPages} image={header_2} headerClass={'palyNowHeader'} style={{ position: 'relative' }}>
+            <Header func={headerFuncs} headerPages={headerPages} image={header_2} headerClass={'palyNowHeader'} style={{ position: 'relative' }}>
                 {!address ?
                     <>
                         <img src={header_logo} className='header_con' alt="connect_wall" onClick={() => onClickConnect()} />
@@ -102,11 +109,11 @@ export const CreateParty = () => {
                         <img src={disconnect_logo} className='header_con' alt="connect_wall" onClick={onClickDisconnect} />
                     </>}
             </Header>
-            <div style={{paddingLeft: '3.4vw', paddingRight: '3.4vw', display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center', height: '100%'}}>
+            <div style={{ paddingLeft: '3.4vw', paddingRight: '3.4vw', display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center', height: '100%' }}>
                 <div className="party_title_container">
                     <div className="party_logo">
                         <img src={logo} alt="" style={{ height: '35vw', width: '25vw' }} />
-                        
+
                     </div>
                     <div className="party_title">
                         <div className='party_create_btn' onClick={onCreateParty}>
@@ -118,7 +125,7 @@ export const CreateParty = () => {
                             <div>Additional Party Member Fee: 1BUSD</div>
                         </div>
                         <div className='party_info_text'>
-                            <img src={text} alt="" style={{width: '16.7vw'}} />
+                            <img src={text} alt="" style={{ width: '16.7vw' }} />
                         </div>
                         <div className="party_sub_text">
                             <div>Party Level:</div>
@@ -145,19 +152,18 @@ export const CreateParty = () => {
                             <div className="character_itm_container">
                                 <div className="character_itm_close">X</div>
                                 <div className="character_itm_list">
-                                    <div className="character_itm"></div>
-                                    <div className="character_itm"></div>
-                                    <div className="character_itm"></div>
-                                    <div className="character_itm"></div>
-                                    <div className="character_itm"></div>
-                                    <div className="character_itm"></div>
-                                    <div className="character_itm"></div>
-                                    <div className="character_itm"></div>
-                                    <div className="character_itm"></div>
-                                    <div className="character_itm"></div>
-                                    <div className="character_itm"></div>
-                                    <div className="character_itm"></div>
-                                    <div className="character_itm"></div>
+                                    {nftAssets && nftAssets.status && nftAssets.status.metadatas && nftAssets.status.metadatas.map(image => {
+                                        return (
+                                            <div className="character_itm">
+                                                <Image
+                                                    draggable={false}
+                                                    src={image}
+                                                    alt={image}
+                                                    style={{ width: "3.5vw", height: "3.5vw" }}
+                                                />
+                                            </div>
+                                        )
+                                    })}
                                 </div>
                             </div>
                             <div className="character_itm_container">
@@ -196,8 +202,8 @@ export const CreateParty = () => {
                                     <div className="character_itm"></div>
                                 </div>
                             </div>
-                            <div style={{marginTop: '1.5vw'}}>
-                                <div style={{display: 'flex', justifyContent: 'center'}}><div className='character_add'>ADD MORE PARTY HALL SLOT</div></div>
+                            <div style={{ marginTop: '1.5vw' }}>
+                                <div style={{ display: 'flex', justifyContent: 'center' }}><div className='character_add'>ADD MORE PARTY HALL SLOT</div></div>
                             </div>
                         </div>
                     </div>

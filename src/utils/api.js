@@ -1,5 +1,5 @@
 const api = {
-    ipfsUrl: 'https://ipfs.infura.io/ipfs/',
+    ipfsUrl: 'https://worldofragnarok.mypinata.cloud/ipfs/',
     nfts: '/nfts',
     chainId: 56
 }
