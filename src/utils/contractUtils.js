@@ -243,9 +243,11 @@ export const getAssetInfo = async () => {
             const tokenId = await contract.methods.tokenOfOwnerByIndex(walletAddress, i).call()
             const tokenUri = await contract.methods.tokenURI(tokenId).call()
             const imageUrl = await getImageHash(tokenUri + ".json")
+            console.log('[kg] => imageURL: ', imageUrl);
             data.balance = balance
             data.tokenIds.push(tokenId)
-            data.metadatas.push(Constants.BaseURLforIPFS + imageUrl)
+            // data.metadatas.push(Constants.BaseURLforIPFS + imageUrl)
+            data.metadatas.push(imageUrl);
         }
         return {
             success: true,
