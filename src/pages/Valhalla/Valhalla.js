@@ -17,13 +17,14 @@ import { useHistory } from 'react-router-dom';
 export const Valhalla = () => {
 
     const [isConnected, setConnected] = useState(false);
-    const [address, setAddress] = useState("");
+    const [address, setAddress] = useState(ContractUtils.isWalletConnected());
 
     useEffect(() => {
-        const _address = window.localStorage.getItem(walletLocalStorageKey);
-        if (_address) {
-          setAddress(_address)
-        }
+        // const _address = window.localStorage.getItem(walletLocalStorageKey);
+        // if (_address) {
+        //   setAddress(_address)
+        // }
+        console.log(ContractUtils.isWalletConnected())
     }, [])
 
     const history = useHistory();
@@ -53,6 +54,8 @@ export const Valhalla = () => {
             setToastMessage("Connected Successfully!")
             setAddress(res.address);
             window.localStorage.setItem(walletLocalStorageKey, res.address);
+
+            let assetInfos = await ContractUtils.getAssetInfo();
         }
         else {
             setShowToast(true)
@@ -86,7 +89,7 @@ export const Valhalla = () => {
 
     return (
         <div className="play_container">
-            <Header func={headerFuncs} headerPages={headerPages} image={header_2} headerClass={'palyNowHeader'} style={{ position: 'relative' }}>
+            <Header func={headerFuncs} headerPages={headerPages} image={header_2} headerClass={'playNowHeader'} style={{ position: 'relative' }}>
                 {!address ?
                     <>
                         <img src={header_logo} className='header_con' alt="connect_wall" onClick={onClickConnect} />
@@ -98,21 +101,21 @@ export const Valhalla = () => {
             </Header>
             <div className="row" style={{ marginLeft: 'auto', marginRight: 'auto', marginTop: 50 }}>
                 <div className="col-lg-4 col-md-4 col-sm-4 col-xs-4">
-                    <div className="mint-button" onClick={() => onMint(1)}>
-                        <img src={imgBox} alt="" style={{ width: '15vw', cursor: 'pointer' }} />
-                        <img src={x1} alt="" style={{ width: '4vw', height: '4vw', position: 'absolute', cursor: 'pointer' }} />
+                    <div className="mint-button">
+                        <img src={imgBox} alt="" style={{ width: '15vw', cursor: 'pointer' }} onClick={() => onMint(1)} />
+                        <img src={x1} alt="" style={{ width: '4vw', height: '4vw', position: 'absolute', cursor: 'pointer' }} onClick={() => onMint(1)} />
                     </div>
                 </div>
                 <div className="col-lg-4 col-md-4 col-sm-4 col-xs-4">
-                    <div className="mint-button" onClick={() => onMint(5)}>
-                        <img src={imgBox} alt="" style={{ width: '15vw', cursor: 'pointer' }} />
-                        <img src={x5} alt="" style={{ width: '4vw', height: '4vw', position: 'absolute', cursor: 'pointer' }} />
+                    <div className="mint-button">
+                        <img src={imgBox} alt="" style={{ width: '15vw', cursor: 'pointer' }} onClick={() => onMint(5)} />
+                        <img src={x5} alt="" style={{ width: '4vw', height: '4vw', position: 'absolute', cursor: 'pointer' }} onClick={() => onMint(5)} />
                     </div>
                 </div>
                 <div className="col-lg-4 col-md-4 col-sm-4 col-xs-4">
-                    <div className="mint-button" onClick={() => onMint(10)}>
-                        <img src={imgBox} alt="" style={{ width: '15vw', cursor: 'pointer' }} />
-                        <img src={x10} alt="" style={{ width: '4vw', height: '4vw', position: 'absolute', cursor: 'pointer' }} />
+                    <div className="mint-button">
+                        <img src={imgBox} alt="" style={{ width: '15vw', cursor: 'pointer' }} onClick={() => onMint(10)} />
+                        <img src={x10} alt="" style={{ width: '4vw', height: '4vw', position: 'absolute', cursor: 'pointer' }} onClick={() => onMint(10)} />
                     </div>
                 </div>
             </div>
