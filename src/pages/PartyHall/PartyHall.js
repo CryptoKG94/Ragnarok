@@ -141,6 +141,42 @@ export const PartyHall = () => {
                     },
                     'desc',
                 )
+            case SortOption.GENDER:
+                return orderBy(
+                    metadatasToSort,
+                    (metadata) => {
+                        let sortIndex = metadata.attributes.findIndex(item => item.trait_type === SortOption.GENDER);
+                        return metadata.attributes[sortIndex].value;
+                    },
+                    'desc',
+                )
+            case SortOption.LOWER:
+                return orderBy(
+                    metadatasToSort,
+                    (metadata) => {
+                        let sortIndex = metadata.attributes.findIndex(item => item.trait_type === SortOption.LOWER);
+                        return metadata.attributes[sortIndex].value;
+                    },
+                    'desc',
+                )
+            case SortOption.MID:
+                return orderBy(
+                    metadatasToSort,
+                    (metadata) => {
+                        let sortIndex = metadata.attributes.findIndex(item => item.trait_type === SortOption.MID);
+                        return metadata.attributes[sortIndex].value;
+                    },
+                    'desc',
+                )
+            case SortOption.LEVEL:
+                return orderBy(
+                    metadatasToSort,
+                    (metadata) => {
+                        let sortIndex = metadata.attributes.findIndex(item => item.trait_type === SortOption.LEVEL);
+                        return metadata.attributes[sortIndex].value;
+                    },
+                    'desc',
+                )
             default:
                 return metadatasToSort
         }
