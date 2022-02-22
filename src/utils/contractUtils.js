@@ -208,13 +208,13 @@ export const mintNFT = async (count) => {
     }
 }
 
-export const getImageHash = async (hashVal) => {
+export const getMetaData = async (hashVal) => {
     try {
         let response = await fetch(hashVal);
         let responseJson = await response.json();
         console.log(responseJson.image);
 
-        return responseJson.image;
+        return responseJson;
     } catch (error) {
         console.error(error);
         return "";
@@ -242,12 +242,12 @@ export const getAssetInfo = async () => {
         for (let i = 0; i < balance; i++) {
             const tokenId = await contract.methods.tokenOfOwnerByIndex(walletAddress, i).call()
             const tokenUri = await contract.methods.tokenURI(tokenId).call()
-            const imageUrl = await getImageHash(tokenUri + ".json")
-            console.log('[kg] => imageURL: ', imageUrl);
+            const metadata = await getMetaData(tokenUri + ".json")
+            console.log('[kg] => imageURL: ', metadata.image);
             data.balance = balance
             data.tokenIds.push(tokenId)
             // data.metadatas.push(Constants.BaseURLforIPFS + imageUrl)
-            data.metadatas.push(imageUrl);
+            data.metadatas.push(metadata);
         }
         return {
             success: true,

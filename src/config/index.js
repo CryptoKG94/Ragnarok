@@ -1,3 +1,5 @@
+import { sortBy } from "lodash"
+
 export const BSC_BLOCK_TIME = 3
 
 const MAINNET = 56
@@ -20,6 +22,15 @@ export const NODE = {
     [TESTNET] : 'https://data-seed-prebsc-1-s1.binance.org:8545',
     [MUMBAI] : 'https://matic-mumbai.chainstacklabs.com',
     [POLYGON] : 'https://polygon-rpc.com/'
+}
+
+export const SortOption = {
+    CLASSES: 'Class',
+    LEVEL: 'Level',
+    GENDER: 'Gender',
+    UPPER: 'Headgear Upper',
+    MID: 'Headgear Mid',
+    LOWER: 'Headgear Lower'
 }
 
 export const connectorLocalStorageKey = "connectorIdv2"
