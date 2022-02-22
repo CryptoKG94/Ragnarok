@@ -16,9 +16,9 @@ function App() {
               <Route path="/partyhall" exact component={PartyHall} />
           </Switch>
       </Router>
-      <video controls autoPlay loop>
+      <audio controls autoPlay loop style={{display: 'none'}}>
         <source type="audio/mp3" src={bgSound}></source>
-      </video>
+      </audio>
     </>
   );
 }
