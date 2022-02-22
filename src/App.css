@@ -27,7 +27,7 @@ img.PAGE_1_play {
   width: auto;
   position: absolute;
   bottom: 0;
-  cursor: pointer;
+  cursor: url('./assets/images/cursor/CURSOR3.png'), auto;;
   display: block; 
   height:220px;
 }
@@ -47,7 +47,7 @@ img.PLAY_TO_EARN {
   position: absolute;
   right: 0;
   bottom: 0;
-  cursor: pointer;
+  cursor: url('./assets/images/cursor/CURSOR3.png'), auto;;
 }
 /* Page 2 end */
 
@@ -58,7 +58,7 @@ img.PLAY_TO_EARN {
 }
 .Tokenomics_Custom {
   height: 100px;
-  cursor: pointer;
+  cursor: url('./assets/images/cursor/CURSOR3.png'), auto;;
   width: auto;
   transform: translateY(100%);
 }
@@ -71,7 +71,7 @@ img.PLAY_TO_EARN {
   top: 30%;
   transform: translateY(-50%);
   position: absolute;
-  cursor: pointer;
+  cursor: url('./assets/images/cursor/CURSOR3.png'), auto;;
 }
 .background_four,.background_three,.background_two{
   position: absolute
@@ -230,7 +230,7 @@ img.header_con {
   z-index: -1;
   top: 1px;
   right: 3.3vw;
-  cursor: pointer;
+  cursor: url('./assets/images/cursor/CURSOR3.png'), auto;;
 }
 /* @media (max-width: 1500px){
   .react-multiple-carousel__arrow--left {
@@ -255,7 +255,7 @@ img.header_con {
   font-weight: 600;
   text-shadow: 8px 1px 4px #000;
   font-size: 1.3vw;
-  cursor: pointer;
+  cursor: url('./assets/images/cursor/CURSOR3.png'), auto;;
 }
 .last_footer {
   display: flex;
@@ -345,8 +345,12 @@ table.main_table {
   position: relative;
 }
 
-* {
+/* * {
   cursor: url("./assets/images/cursor/CURSOR1.png"), auto;
+  cursor: url('https://res.cloudinary.com/dvkugaw3b/image/upload/v1641562029/cursor-worm_kij6gi.png'), auto;
+} */
+* {
+  cursor: url('./assets/images/cursor/CURSOR1.png'), auto;
 }
 
 .hover_container {

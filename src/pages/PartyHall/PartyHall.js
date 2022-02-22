@@ -126,7 +126,7 @@ export const PartyHall = () => {
                                         draggable={false}
                                         src={image}
                                         alt={image}
-                                        style={{ width: "3.5vw", height: "3.5vw" }}
+                                        style={{ width: "5vw", height: "7.5vw" }}
                                     />
                                 </div>
                             )
@@ -183,8 +183,8 @@ export const PartyHall = () => {
 
                     </div>
                     <div className="party_title">
-                        <div className='party_create_btn' onClick={onCreateParty} style={{ cursor: 'pointer' }}>
-                            <img src={createBtn} alt="" style={{ cursor: 'pointer' }} />
+                        <div className='party_create_btn' onClick={onCreateParty}>
+                            <img src={createBtn} alt="" />
                         </div>
                         <div className="party_sub_text">
                             <div>Party Fee: 5BUSD</div>

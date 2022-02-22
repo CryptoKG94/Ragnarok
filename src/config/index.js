@@ -28,7 +28,7 @@ export const id = "salary"
 export const cakeId = "tether"
 export const currency = "usd"
 export const baseURLforIPFS = "https://worldofragnarok.mypinata.cloud/"
-export const contractAddress = "0x9800d7be5Fa198FA33e69810e87785E1A1aCC045"
+export const contractAddress = "0x579f85f595Ef302aC04ad996342300A085c221cC"
 
 export default {
     ChainID,

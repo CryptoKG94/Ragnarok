@@ -102,20 +102,20 @@ export const Valhalla = () => {
             <div className="row" style={{ marginLeft: 'auto', marginRight: 'auto', marginTop: 50 }}>
                 <div className="col-lg-4 col-md-4 col-sm-4 col-xs-4">
                     <div className="mint-button">
-                        <img src={imgBox} alt="" style={{ width: '15vw', cursor: 'pointer' }} onClick={() => onMint(1)} />
-                        <img src={x1} alt="" style={{ width: '4vw', height: '4vw', position: 'absolute', cursor: 'pointer' }} onClick={() => onMint(1)} />
+                        <img src={imgBox} alt="" style={{ width: '15vw'}} onClick={() => onMint(1)} />
+                        <img src={x1} alt="" style={{ width: '4vw', height: '4vw', position: 'absolute'}} onClick={() => onMint(1)} />
                     </div>
                 </div>
                 <div className="col-lg-4 col-md-4 col-sm-4 col-xs-4">
                     <div className="mint-button">
-                        <img src={imgBox} alt="" style={{ width: '15vw', cursor: 'pointer' }} onClick={() => onMint(5)} />
-                        <img src={x5} alt="" style={{ width: '4vw', height: '4vw', position: 'absolute', cursor: 'pointer' }} onClick={() => onMint(5)} />
+                        <img src={imgBox} alt="" style={{ width: '15vw'}} onClick={() => onMint(5)} />
+                        <img src={x5} alt="" style={{ width: '4vw', height: '4vw', position: 'absolute'}} onClick={() => onMint(5)} />
                     </div>
                 </div>
                 <div className="col-lg-4 col-md-4 col-sm-4 col-xs-4">
                     <div className="mint-button">
-                        <img src={imgBox} alt="" style={{ width: '15vw', cursor: 'pointer' }} onClick={() => onMint(10)} />
-                        <img src={x10} alt="" style={{ width: '4vw', height: '4vw', position: 'absolute', cursor: 'pointer' }} onClick={() => onMint(10)} />
+                        <img src={imgBox} alt="" style={{ width: '15vw'}} onClick={() => onMint(10)} />
+                        <img src={x10} alt="" style={{ width: '4vw', height: '4vw', position: 'absolute'}} onClick={() => onMint(10)} />
                     </div>
                 </div>
             </div>

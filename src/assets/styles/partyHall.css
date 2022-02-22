@@ -30,6 +30,11 @@
 
 .party_create_btn {
     margin-bottom: 10px;
+    cursor: url('../images/cursor/CURSOR3.png'), auto;
+}
+
+.party_create_btn img {
+    cursor: url('../images/cursor/CURSOR3.png'), auto;
 }
 
 .party_info_text {
@@ -47,6 +52,10 @@
     margin-left: 11vw;
     margin-bottom: -4vw;
     z-index: 2;
+}
+
+.character_btn_group button {
+    cursor: url('../images/cursor/CURSOR3.png'), auto;
 }
 
 .character_table {
@@ -146,7 +155,7 @@
     border-radius: 10px;
     border: 2px solid black;
     font-size: 1.5vw;
-    cursor: pointer;
+    cursor: url('../images/cursor/CURSOR3.png'), auto;
     padding-left: 4px;
     padding-right: 1px;
 }
