@@ -1,20 +1,22 @@
 import { React, useEffect, useState } from 'react'
+import { useHistory } from 'react-router-dom';
 import { Image } from "semantic-ui-react";
+import orderBy from 'lodash/orderBy'
 import { Header } from '../../components/Header';
+import { Footer } from '../../components/Footer';
+import ContractUtils from '../../utils/contractUtils';
+import { SortOption } from '../../config'
+import Toast from '../../components/Toast';
 import header_2 from '../../assets/images/page_header_2.png';
 import header_logo from '../../assets/images/CONTACT_WALL.png';
 import disconnect_logo from '../../assets/images/DISCONNECT_WALL.png';
-import { useRef } from 'react';
-import { Footer } from '../../components/Footer';
-import ContractUtils from '../../utils/contractUtils';
-import { walletLocalStorageKey } from '../../config'
 import "../../assets/styles/partyHall.css"
 import logo from "../../assets/images/partyHall/logo.png"
 import createBtn from "../../assets/images/partyHall/btn.png"
 import text from "../../assets/images/partyHall/text.png"
 import borad from "../../assets/images/partyHall/borad.png"
 import styled from 'styled-components'
-import { useHistory } from 'react-router-dom';
+import { findIndex } from 'lodash';
 
 const CharacterBtn = styled.button`
     &:focus-visible {
@@ -35,6 +37,7 @@ const CharacterBtn = styled.button`
 
 const CHARACTER_MODE = 1;
 const PARTY_MODE = 2;
+const NUMBER_OF_NFTS_VISIBLE = 13
 
 export const PartyHall = () => {
     const history = useHistory();
@@ -43,10 +46,18 @@ export const PartyHall = () => {
     const [mode, setMode] = useState(CHARACTER_MODE);
     const [nftAssets, setNFTAssets] = useState("");
     const [selectedNft, setSelectedNft] = useState(null);
+    const [sortOption, setSortOption] = useState(SortOption.CLASSES);
+    const [numberOfNFTsVisible, setNumberOfNFTsVisible] = useState(NUMBER_OF_NFTS_VISIBLE);
+
+    const [showToast, setShowToast] = useState(false)
+    const [toastMessage, setToastMessage] = useState("")
+    const [toastType, setToastType] = useState(2) //1: success, 2: error
 
     useEffect(() => {
         fetchNFTAssets()
     }, [])
+
+
 
     const fetchNFTAssets = async () => {
         let assets = await ContractUtils.getAssetInfo();
@@ -65,10 +76,6 @@ export const PartyHall = () => {
         { page: 'MARKETPLACE', target: '/marketplace' },
         { page: 'WEDDING HALL', target: '/weddinghall' }
     ];
-
-    const [showToast, setShowToast] = useState(false)
-    const [toastMessage, setToastMessage] = useState("")
-    const [toastType, setToastType] = useState(2) //1: success, 2: error
 
     const onClickConnect = async () => {
         let res = await ContractUtils.connectWallet();
@@ -106,6 +113,46 @@ export const PartyHall = () => {
         setSelectedNft(null);
     }
 
+    const onToastClose = () => {
+        setShowToast(false);
+    }
+
+    const handleSortOptionChange = (e) => {
+        setSortOption(e.target.value)
+    }
+
+    const sortNFTs = (metadatasToSort) => {
+        switch (sortOption) {
+            case SortOption.CLASSES:
+                return orderBy(
+                    metadatasToSort,
+                    (metadata) => {
+                        let sortIndex = metadata.attributes.findIndex(item => item.trait_type === SortOption.CLASSES);
+                        return metadata.attributes[sortIndex].value;
+                    },
+                    'desc',
+                )
+            case SortOption.UPPER:
+                return orderBy(
+                    metadatasToSort,
+                    (metadata) => {
+                        let sortIndex = metadata.attributes.findIndex(item => item.trait_type === SortOption.CLASSES);
+                        return metadata.attributes[sortIndex].value;
+                    },
+                    'desc',
+                )
+            default:
+                return metadatasToSort
+        }
+    }
+
+    let viewNFTs;
+    if (nftAssets && nftAssets.status && nftAssets.status.metadatas) {
+        viewNFTs = sortNFTs(nftAssets.status.metadatas).slice(0, numberOfNFTsVisible)
+    } else {
+        viewNFTs = [];
+    }
+
     const renderCharacter = () => {
         return (
             <div style={{ display: 'flex', flexDirection: 'column', justifyContent: 'flex-start', height: '97%' }}>
@@ -119,13 +166,13 @@ export const PartyHall = () => {
                 </div>
                 <div className="party_mode_container">
                     <div className="party_mode_itm_list">
-                        {nftAssets && nftAssets.status && nftAssets.status.metadatas && nftAssets.status.metadatas.map(image => {
+                        {viewNFTs.map(metadata => {
                             return (
-                                <div className="character_itm" onMouseEnter={onHoverNft(image)} onMouseLeave={hoverOff}>
+                                <div className="character_itm" onMouseEnter={onHoverNft(metadata.image)} onMouseLeave={hoverOff}>
                                     <Image
                                         draggable={false}
-                                        src={image}
-                                        alt={image}
+                                        src={metadata.image}
+                                        alt={metadata.image}
                                         style={{ width: "5vw", height: "7.5vw" }}
                                     />
                                 </div>
@@ -217,12 +264,18 @@ export const PartyHall = () => {
                 </div>
                 <div></div>
             </div>
+            <Toast
+                open={showToast}
+                message={toastMessage}
+                handleClose={onToastClose}
+                type={toastType}
+            />
             <Footer />
             {selectedNft && <div className='hover_container'>
-                <img src={selectedNft} alt="" style={{marginRight: 20, width: 120, height: 180}} />
-                <div style={{display: 'flex', flexDirection: 'column', justifyContent:'center'}}>
-                    <div style={{color: 'red', marginBottom: '30px'}}>Class: X</div>
-                    <div style={{color: 'red'}}>Level: XXX</div>
+                <img src={selectedNft} alt="" style={{ marginRight: 20, width: 120, height: 180 }} />
+                <div style={{ display: 'flex', flexDirection: 'column', justifyContent: 'center' }}>
+                    <div style={{ color: 'red', marginBottom: '30px' }}>Class: X</div>
+                    <div style={{ color: 'red' }}>Level: XXX</div>
                 </div>
             </div>}
         </div>
