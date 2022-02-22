@@ -38,15 +38,21 @@ contract RagnarokProject is ERC721Enumerable, Ownable {
 
     IUniswapV2Router02 public uniswapV2Router;
 
-    address public routerAddress = address(0x9Ac64Cc6e4415144C455BD8E4837Fea55603e5c3);
+    address public routerAddress = address(0x8954AfA98594b838bda56FE4C12a09D7739D179b);
 
     // pancakeswap testnet router address
     // testnet PCS router: 0x9Ac64Cc6e4415144C455BD8E4837Fea55603e5c3
     // mainnet PCS V2 router: 0x10ED43C718714eb63d5aA57B78B54704E256024E
 
-    address public constant busdToken = address(0x78867BbEeF44f2326bF8DDd1941a4439382EF2A7);
+    // mumbai router:   0x8954AfA98594b838bda56FE4C12a09D7739D179b
+    // polygon router:  0xa5E0829CaCEd8fFDD4De3c43696c57F7D7A678ff -- not confirmed
+
+    address public constant stableToken = address(0xcB1e72786A6eb3b44C2a2429e317c8a2462CFeb1);
     // BUSD mainnet 0xe9e7CEA3DedcA5984780Bafc599bD69ADd087D56
     // BUSD testnet 0x78867BbEeF44f2326bF8DDd1941a4439382EF2A7
+
+    // DAI mumbai  0xcB1e72786A6eb3b44C2a2429e317c8a2462CFeb1
+    // USDT polygon 
 
     uint256 public tokenMinted = 0;
     uint256 public subMintedCount = 0;
@@ -71,7 +77,8 @@ contract RagnarokProject is ERC721Enumerable, Ownable {
 
     constructor() ERC721("Ragnarok Project", "Ragnarok") {
         _baseURIextended = "https://ipfs.io/ipfs/";
-        _priceextended = 10000000000000000000; // 10busd
+        _priceextended = 10000000000000000000; // 10 DAI
+        // _priceextended = 10000000000000000; // 0.01 MATIC
 
         IUniswapV2Router02 _uniswapV2Router = IUniswapV2Router02(routerAddress);
         uniswapV2Router = _uniswapV2Router;
@@ -100,12 +107,13 @@ contract RagnarokProject is ERC721Enumerable, Ownable {
     function getNFTPrice() public view returns (uint256) {
         require(tokenMinted < MAX_NFT_SUPPLY, "Sale has already ended");
         return getAmountsTokenForETH(_priceextended);
+        // return _priceextended;
     }
 
     function getAmountsTokenForETH(uint256 busdAmount) internal view returns(uint256) {
 
         address[] memory path = new address[](2);
-        path[0] = address(busdToken);
+        path[0] = address(stableToken);
         path[1] = uniswapV2Router.WETH();
 
         uint256[] memory amountOutMins = uniswapV2Router.getAmountsOut(busdAmount, path);

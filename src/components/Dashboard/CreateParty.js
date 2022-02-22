@@ -102,8 +102,8 @@ export const CreateParty = () => {
 
                     </div>
                     <div className="party_title">
-                        <div className='party_create_btn' onClick={onCreateParty} style={{ cursor: 'pointer' }}>
-                            <img src={createBtn} alt="" style={{ cursor: 'pointer' }} />
+                        <div className='party_create_btn' onClick={onCreateParty} style={{ cursor: url('../images/cursor/CURSOR3.png'), auto }}>
+                            <img src={createBtn} alt="" style={{ cursor: url('../images/cursor/CURSOR3.png'), auto }} />
                         </div>
                         <div className="party_sub_text">
                             <div>Party Fee: 5BUSD</div>

@@ -18,7 +18,7 @@
     height: 110px;
     position: absolute;
     /* top: 57px; */
-    cursor: pointer;
+    cursor: url('./../images/cursor/CURSOR3.png'), auto;
     display: block;
     z-index: 100;
     left: 76%;
@@ -30,7 +30,6 @@
 	/* box-shadow: 0 1px 2px #aaa; */
 	/* min-height: 200px; */
     /* margin: 50px; */
-    /* cursor: pointer; */
     /* min-width: 200px; */
     display: flex;
     justify-content: center;
@@ -39,6 +38,10 @@
     /* padding-right: 1.66vw; */
     /* padding-left: 1.66vw; */
     position: relative;
+}
+
+.mint-button img {
+    cursor: url('./../images/cursor/CURSOR3.png'), auto;
 }
 
 .playnow-container {

@@ -24,17 +24,18 @@ const fs = require('fs');
 const mnemonic = process.env.REACT_APP_MNEMONIC;
 const privateKeys = process.env.PRIVATE_KEY;
 const BSCSCANAPIKEY = process.env.BSCSCANAPIKEY;
+const POLYGONAPIKEY = process.env.POLYGONAPIKEY;
 
 module.exports = {
-    /**
-   * Networks define how you connect to your ethereum client and let you set the
-   * defaults web3 uses to send transactions. If you don't specify one truffle
-   * will spin up a development blockchain for you on port 9545 when you
-   * run `develop` or `test`. You can ask a truffle command to use a specific
-   * network from the command line, e.g
-   *
-   * $ truffle test --network <network-name>
-   */
+  /**
+ * Networks define how you connect to your ethereum client and let you set the
+ * defaults web3 uses to send transactions. If you don't specify one truffle
+ * will spin up a development blockchain for you on port 9545 when you
+ * run `develop` or `test`. You can ask a truffle command to use a specific
+ * network from the command line, e.g
+ *
+ * $ truffle test --network <network-name>
+ */
 
   networks: {
     // Useful for testing. The `development` name is special - truffle uses it by default
@@ -48,37 +49,49 @@ module.exports = {
     //  port: 8545,            // Standard Ethereum port (default: none)
     //  network_id: "*",       // Any network (default: none)
     // },
-      mainnet: {
-        networkCheckTimeout: 2000000,
-        provider: () => new HDWalletProvider(mnemonic, 'https://mainnet.infura.io/v3/e2bd5ef678984444a73b16b0c0729070'),
-        network_id: 1,
-        timeoutBlocks: 500000,
-        gas: 6721975,
-             
-      },
-      ropsten: {
-        networkCheckTimeout: 2000000,
-        provider: () => new HDWalletProvider(mnemonic, 'https://ropsten.infura.io/v3/e2bd5ef678984444a73b16b0c0729070'),
-        network_id: 3,
-        timeoutBlocks: 500000,
-        gas: 6721975,
-             
-      },
-      rinkeby: {
-        networkCheckTimeout: 2000000,
-        provider: () => new HDWalletProvider(mnemonic, 'https://rinkeby.infura.io/v3/e2bd5ef678984444a73b16b0c0729070'),
-        network_id: 4,
-        timeoutBlocks: 500000,
-        gas: 6721975,
-      },
-      testnet: {
+    mainnet: {
+      networkCheckTimeout: 2000000,
+      provider: () => new HDWalletProvider(mnemonic, 'https://mainnet.infura.io/v3/e2bd5ef678984444a73b16b0c0729070'),
+      network_id: 1,
+      timeoutBlocks: 500000,
+      gas: 6721975,
+
+    },
+    ropsten: {
+      networkCheckTimeout: 2000000,
+      provider: () => new HDWalletProvider(mnemonic, 'https://ropsten.infura.io/v3/e2bd5ef678984444a73b16b0c0729070'),
+      network_id: 3,
+      timeoutBlocks: 500000,
+      gas: 6721975,
+
+    },
+    rinkeby: {
+      networkCheckTimeout: 2000000,
+      provider: () => new HDWalletProvider(mnemonic, 'https://rinkeby.infura.io/v3/e2bd5ef678984444a73b16b0c0729070'),
+      network_id: 4,
+      timeoutBlocks: 500000,
+      gas: 6721975,
+    },
+    testnet: {
       provider: () => new HDWalletProvider(privateKeys, `https://data-seed-prebsc-1-s1.binance.org:8545`),
       network_id: 97,
       confirmations: 10,
       timeoutBlocks: 200,
       skipDryRun: true
-      },
-      bsc: {
+    },
+    matic: {
+      provider: () => new HDWalletProvider(privateKeys, `https://rpc-mainnet.maticvigil.com`),
+      network_id: 137,
+      timeoutBlocks: 500000,
+      gas: 6721975,
+    },
+    mumbai: {
+      provider: () => new HDWalletProvider(privateKeys, `https://rpc-mumbai.maticvigil.com/`),
+      network_id: 80001,
+      timeoutBlocks: 500000,
+      gas: 6721975,
+    },
+    bsc: {
       provider: () => new HDWalletProvider(mnemonic, `https://bsc-dataseed1.binance.org`),
       network_id: 56,
       confirmations: 10,
@@ -123,22 +136,22 @@ module.exports = {
       version: "0.6.12",    // Fetch exact version from solc-bin (default: truffle's version)
       // docker: true,        // Use "0.5.1" you've installed locally with docker (default: false)
       settings: {          // See the solidity docs for advice about optimization and evmVersion
-       optimizer: {
-         enabled: true,
-         runs: 200
-       },
-      //  evmVersion: "byzantium"
+        optimizer: {
+          enabled: true,
+          runs: 200
+        },
+        //  evmVersion: "byzantium"
       }
     },
     solc: {
       version: "0.8.0",    // Fetch exact version from solc-bin (default: truffle's version)
       // docker: true,        // Use "0.5.1" you've installed locally with docker (default: false)
       settings: {          // See the solidity docs for advice about optimization and evmVersion
-       optimizer: {
-         enabled: true,
-         runs: 200
-       },
-       evmVersion: "byzantium"
+        optimizer: {
+          enabled: true,
+          runs: 200
+        },
+        evmVersion: "byzantium"
       }
       // }
     },
@@ -146,11 +159,11 @@ module.exports = {
       version: "0.8.1",    // Fetch exact version from solc-bin (default: truffle's version)
       // docker: true,        // Use "0.5.1" you've installed locally with docker (default: false)
       settings: {          // See the solidity docs for advice about optimization and evmVersion
-       optimizer: {
-         enabled: true,
-         runs: 200
-       },
-      //  evmVersion: "byzantium"
+        optimizer: {
+          enabled: true,
+          runs: 200
+        },
+        //  evmVersion: "byzantium"
       }
     }
   },
@@ -163,12 +176,13 @@ module.exports = {
 
   db: {
     enabled: false
-  }, 
+  },
 
   plugins: [
     'truffle-plugin-verify'
   ],
   api_keys: {
-    bscscan: BSCSCANAPIKEY
+    bscscan: BSCSCANAPIKEY,
+    polygonscan: POLYGONAPIKEY
   }
 };
