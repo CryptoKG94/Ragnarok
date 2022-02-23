@@ -147,6 +147,8 @@ img.comman_header {
 } 
 .react-multiple-carousel__arrow{
   background: none !important;
+  margin-left: -130px;
+  margin-right: -130px;
 }
 
 .party_hall_slider {
@@ -182,6 +184,11 @@ button.react-multiple-carousel__arrow {
 .container_slider{
   background-image: url('../src/assets/images/background_slider.png'); 
 }
+
+.react-multi-carousel-list {
+  position: inherit !important;
+}
+
 img.slider_image_background {
   height: 740px ;
 }
@@ -197,7 +204,7 @@ img.slider_image_background {
   align-items: center;
 }
 .party_hall_slider.col-md-12 {
-  width: 90%;
+  width: 80%;
   text-align: center;
   /* left: 50%; */
   /* transform: translateX(-50%); */
@@ -351,6 +358,15 @@ table.main_table {
 } */
 * {
   cursor: url('./assets/images/cursor/CURSOR1.png'), auto;
+}
+
+.nft-price-span {
+  font-size: 25px;
+  font-weight: 700;
+  color: white;
+  border: solid;
+  border-color: white;
+  padding: 7px 20px 7px 20px;
 }
 
 .hover_container {

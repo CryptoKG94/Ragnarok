@@ -1,4 +1,7 @@
 import { React, useEffect, useState } from 'react'
+import { useSelector, useDispatch } from 'react-redux';
+import * as selectors from '../../store/selectors';
+import { getNFTInfo } from "../../store/actions/thunks";
 import { Header } from '../../components/Header';
 import header_2 from '../../assets/images/page_header_2.png';
 import header_logo from '../../assets/images/CONTACT_WALL.png';
@@ -16,8 +19,15 @@ import { useHistory } from 'react-router-dom';
 
 export const Valhalla = () => {
 
+    const dispatch = useDispatch();
+    const nftInfo = useSelector(selectors.nftInfo);
+    console.log('[kg] => nftprice: ', nftInfo);
+
     const [isConnected, setConnected] = useState(false);
     const [address, setAddress] = useState(ContractUtils.isWalletConnected());
+    const [showToast, setShowToast] = useState(false)
+    const [toastMessage, setToastMessage] = useState("")
+    const [toastType, setToastType] = useState(2) //1: success, 2: error
 
     useEffect(() => {
         // const _address = window.localStorage.getItem(walletLocalStorageKey);
@@ -25,7 +35,8 @@ export const Valhalla = () => {
         //   setAddress(_address)
         // }
         console.log(ContractUtils.isWalletConnected())
-    }, [])
+        dispatch(getNFTInfo())
+    }, [dispatch])
 
     const history = useHistory();
     
@@ -41,10 +52,6 @@ export const Valhalla = () => {
         { page: 'MARKETPLACE', target: '/marketplace' },
         { page: 'WEDDING HALL', target: '/weddinghall' }
     ];
-
-    const [showToast, setShowToast] = useState(false)
-    const [toastMessage, setToastMessage] = useState("")
-    const [toastType, setToastType] = useState(2) //1: success, 2: error
 
     const onClickConnect = async () => {
         let res = await ContractUtils.connectWallet();
@@ -99,6 +106,9 @@ export const Valhalla = () => {
                         <img src={disconnect_logo} className='header_con' alt="connect_wall" onClick={onClickDisconnect} />
                     </>}
             </Header>
+            <div className="nft-price" style={{display: 'flex', justifyContent: 'center'}} >
+                <span className='nft-price-span'>Live Minting Cost: ${nftInfo && nftInfo.data}</span>
+            </div>
             <div className="row" style={{ marginLeft: 'auto', marginRight: 'auto', marginTop: 50 }}>
                 <div className="col-lg-4 col-md-4 col-sm-4 col-xs-4">
                     <div className="mint-button">

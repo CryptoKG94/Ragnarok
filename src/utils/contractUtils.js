@@ -170,6 +170,39 @@ export const disconnectWallet = async () => {
     walletProvider = null
 }
 
+export const getNFTPrice = async () => {
+
+    try {
+        if (window.ethereum) {
+            const web3 = new Web3(window.ethereum);
+            let contract = await new web3.eth.Contract(contractABI, Constants.ContractAddress)
+            const nftPrice = await contract.methods.getNFTPriceStable().call();
+            return {
+                success: true,
+                status: web3.utils.fromWei("" + nftPrice)
+            }
+        } else if (window.web3) {
+            const web3 = new Web3(window.web3.currentProvider);
+            let contract = await new web3.eth.Contract(contractABI, Constants.ContractAddress)
+            const nftPrice = await contract.methods.getNFTPriceStable().call();
+            return {
+                success: true,
+                status: nftPrice
+            }
+        } else {
+            return {
+                success: false,
+                status: 'Install MetaMask Wallet.'
+            }
+        }
+    } catch (err) {
+        return {
+            success: false,
+            status: err.message
+        }
+    }
+}
+
 export const mintNFT = async (count) => {
     if (!walletProvider)
         return {
@@ -310,6 +343,7 @@ const ContractUtils = {
     mintNFT,
     getAssetInfo,
     getAccountInfo,
+    getNFTPrice,
     getTokenURI,
     withdraw
 };
