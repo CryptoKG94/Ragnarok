@@ -17,11 +17,11 @@ export const Slider = (props) => {
         },
         smalldesktop: {
             breakpoint: { max: 1300, min: 1024 },
-            items: 6
+            items: 5
         },
         tablet: {
             breakpoint: { max: 1024, min: 1000 },
-            items: 5
+            items: 4
         },
         smalltablet: {
             breakpoint: { max: 1000, min: 464 },
@@ -84,7 +84,7 @@ export const Slider = (props) => {
                     removeArrowOnDeviceType={["tablet", "mobile"]}
                     dotListClass="custom-dot-list-style"
                     itemClass="carousel-item-padding-40-px"
-                    arrows={false}
+                    arrows={true}
                     customLeftArrow={<CustomLeftArrow />}
                     customRightArrow={<CustomRightArrow />}
                     customButtonGroup={<ButtonGroup />}

@@ -117,7 +117,14 @@ export const PartyHall = () => {
         setShowToast(false);
     }
 
-    const sortNFTs = (metadatasToSort) => {
+    const sortNFTs = (dataToSort) => {
+        let metadatasToSort = dataToSort.map((metadata) => {
+            let classIndex = metadata.attributes.findIndex(item => item.trait_type === SortOption.CLASSES)
+            let levelIndex = metadata.attributes.findIndex(item => item.trait_type === SortOption.LEVEL)
+            metadata.class = metadata.attributes[classIndex].value
+            metadata.level = metadata.attributes[levelIndex].value
+            return metadata;
+        });
         switch (sortOption) {
             case SortOption.CLASSES:
                 return orderBy(
@@ -200,7 +207,7 @@ export const PartyHall = () => {
                     <div className="party_mode_itm_list">
                         {viewNFTs.map(metadata => {
                             return (
-                                <div className="character_itm" onMouseEnter={onHoverNft(metadata.image)} onMouseLeave={hoverOff}>
+                                <div className="character_itm" onMouseEnter={onHoverNft(metadata)} onMouseLeave={hoverOff}>
                                     <Image
                                         draggable={false}
                                         src={metadata.image}
@@ -304,10 +311,12 @@ export const PartyHall = () => {
             />
             <Footer />
             {selectedNft && <div className='hover_container'>
-                <img src={selectedNft} alt="" style={{ marginRight: 20, width: 120, height: 180 }} />
+                <img src={selectedNft.image} alt="" style={{ marginRight: 20, width: 120, height: 180 }} />
                 <div style={{ display: 'flex', flexDirection: 'column', justifyContent: 'center' }}>
-                    <div style={{ color: 'red', marginBottom: '30px' }}>Class: X</div>
-                    <div style={{ color: 'red' }}>Level: XXX</div>
+                    <div style={{ color: 'red', fontWeight: 'bold' }}>Class: </div>
+                    <div style={{ color: 'white', fontWeight: 'bold', marginBottom: '30px'}}> {selectedNft.class} </div>
+                    <div style={{ color: 'red', fontWeight: 'bold' }}>Level: </div>
+                    <div style={{ color: 'white', fontWeight: 'bold', marginBottom: '30px' }}> {selectedNft.level} </div>
                 </div>
             </div>}
         </div>
