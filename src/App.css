@@ -353,6 +353,15 @@ table.main_table {
   cursor: url('./assets/images/cursor/CURSOR1.png'), auto;
 }
 
+.nft-price-span {
+  font-size: 25px;
+  font-weight: 700;
+  color: white;
+  border: solid;
+  border-color: white;
+  padding: 7px 20px 7px 20px;
+}
+
 .hover_container {
   position: fixed;
   left: 50%;

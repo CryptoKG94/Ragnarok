@@ -51,6 +51,7 @@
     "sol-merger": "^3.1.0",
     "styled-components": "^5.3.3",
     "truffle-hdwallet-provider": "^1.0.6",
+    "typesafe-actions": "^5.1.0",
     "url": "^0.11.0",
     "walletlink": "^2.2.10",
     "web-vitals": "^2.1.4",

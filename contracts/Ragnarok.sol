@@ -8,7 +8,7 @@ import "@openzeppelin/contracts/utils/math/SafeMath.sol";
 import "@openzeppelin/contracts/utils/Counters.sol";
 import "./uniswapv2/interfaces/IUniswapV2Router02.sol";
 
-contract RagnarokProject is ERC721Enumerable, Ownable {
+contract WorldOfRagnarok is ERC721Enumerable, Ownable {
     using Strings for uint256;
     using SafeMath for uint256;
 
@@ -75,7 +75,7 @@ contract RagnarokProject is ERC721Enumerable, Ownable {
     );
 
 
-    constructor() ERC721("Ragnarok Project", "Ragnarok") {
+    constructor() ERC721("World of Ragnarok", "WOR") {
         _baseURIextended = "https://ipfs.io/ipfs/";
         _priceextended = 10000000000000000000; // 10 DAI
         // _priceextended = 10000000000000000; // 0.01 MATIC
@@ -108,6 +108,11 @@ contract RagnarokProject is ERC721Enumerable, Ownable {
         require(tokenMinted < MAX_NFT_SUPPLY, "Sale has already ended");
         return getAmountsTokenForETH(_priceextended);
         // return _priceextended;
+    }
+
+    function getNFTPriceStable() public view returns (uint256) {
+        require(tokenMinted < MAX_NFT_SUPPLY, "Sale has already ended");
+        return _priceextended;
     }
 
     function getAmountsTokenForETH(uint256 busdAmount) internal view returns(uint256) {

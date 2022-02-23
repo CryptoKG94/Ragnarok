@@ -88,7 +88,7 @@ export const Slider = (props) => {
                     customLeftArrow={<CustomLeftArrow />}
                     customRightArrow={<CustomRightArrow />}
                     customButtonGroup={<ButtonGroup />}
-                    renderButtonGroupOutside={true}
+                    renderButtonGroupInside={true}
                 >
                     {props.images && props.images.map(image => {
                         return (

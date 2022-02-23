@@ -117,10 +117,6 @@ export const PartyHall = () => {
         setShowToast(false);
     }
 
-    const handleSortOptionChange = (e) => {
-        setSortOption(e.target.value)
-    }
-
     const sortNFTs = (metadatasToSort) => {
         switch (sortOption) {
             case SortOption.CLASSES:
@@ -193,12 +189,12 @@ export const PartyHall = () => {
         return (
             <div style={{ display: 'flex', flexDirection: 'column', justifyContent: 'flex-start', height: '97%' }}>
                 <div className="character_title">
-                    <div className="character_title_props">CLASSES</div>
-                    <div className="character_title_props">LEVEL</div>
-                    <div className="character_title_props">GENDER</div>
-                    <div className="character_title_props">UPPER</div>
-                    <div className="character_title_props">MID</div>
-                    <div className="character_title_props">LOWER</div>
+                    <div className="character_title_props" onClick={() => setSortOption(SortOption.CLASSES)}>CLASSES</div>
+                    <div className="character_title_props" onClick={() => setSortOption(SortOption.LEVEL)}>LEVEL</div>
+                    <div className="character_title_props" onClick={() => setSortOption(SortOption.GENDER)}>GENDER</div>
+                    <div className="character_title_props" onClick={() => setSortOption(SortOption.UPPER)}>UPPER</div>
+                    <div className="character_title_props" onClick={() => setSortOption(SortOption.MID)}>MID</div>
+                    <div className="character_title_props" onClick={() => setSortOption(SortOption.LOWER)}>LOWER</div>
                 </div>
                 <div className="party_mode_container">
                     <div className="party_mode_itm_list">
@@ -208,7 +204,7 @@ export const PartyHall = () => {
                                     <Image
                                         draggable={false}
                                         src={metadata.image}
-                                        alt={metadata.image}
+                                        // alt={metadata.image}
                                         style={{ width: "5vw", height: "7.5vw" }}
                                     />
                                 </div>
