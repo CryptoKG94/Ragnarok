@@ -7,6 +7,7 @@ import { Footer } from '../../components/Footer';
 import ContractUtils from '../../utils/contractUtils';
 import { SortOption } from '../../config'
 import Toast from '../../components/Toast';
+import Loading from '../../components/Loading';
 import header_2 from '../../assets/images/page_header_2.png';
 import header_logo from '../../assets/images/CONTACT_WALL.png';
 import disconnect_logo from '../../assets/images/DISCONNECT_WALL.png';
@@ -37,7 +38,7 @@ const CharacterBtn = styled.button`
 
 const CHARACTER_MODE = 1;
 const PARTY_MODE = 2;
-const NUMBER_OF_NFTS_VISIBLE = 13
+const NUMBER_OF_NFTS_VISIBLE = 100;
 
 export const PartyHall = () => {
     const history = useHistory();
@@ -50,6 +51,7 @@ export const PartyHall = () => {
     const [numberOfNFTsVisible, setNumberOfNFTsVisible] = useState(NUMBER_OF_NFTS_VISIBLE);
 
     const [showToast, setShowToast] = useState(false)
+    const [loading, setLoading] = useState(false)
     const [toastMessage, setToastMessage] = useState("")
     const [toastType, setToastType] = useState(2) //1: success, 2: error
 
@@ -85,7 +87,9 @@ export const PartyHall = () => {
             setToastMessage("Connected Successfully!")
             setAddress(res.address);
 
+            setLoading(true)
             let assets = await ContractUtils.getAssetInfo();
+            setLoading(false)
             setNFTAssets(assets);
         }
         else {
@@ -309,12 +313,15 @@ export const PartyHall = () => {
                 handleClose={onToastClose}
                 type={toastType}
             />
+            <Loading
+                open={loading}
+            />
             <Footer />
             {selectedNft && <div className='hover_container'>
                 <img src={selectedNft.image} alt="" style={{ marginRight: 20, width: 120, height: 180 }} />
                 <div style={{ display: 'flex', flexDirection: 'column', justifyContent: 'center' }}>
                     <div style={{ color: 'red', fontWeight: 'bold' }}>Class: </div>
-                    <div style={{ color: 'white', fontWeight: 'bold', marginBottom: '30px'}}> {selectedNft.class} </div>
+                    <div style={{ color: 'white', fontWeight: 'bold', marginBottom: '30px' }}> {selectedNft.class} </div>
                     <div style={{ color: 'red', fontWeight: 'bold' }}>Level: </div>
                     <div style={{ color: 'white', fontWeight: 'bold', marginBottom: '30px' }}> {selectedNft.level} </div>
                 </div>
