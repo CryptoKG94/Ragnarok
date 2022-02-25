@@ -37,7 +37,7 @@ const CharacterBtn = styled.button`
 
 const CHARACTER_MODE = 1;
 const PARTY_MODE = 2;
-const NUMBER_OF_NFTS_VISIBLE = 13
+const NUMBER_OF_NFTS_VISIBLE = 100
 
 export const PartyHall = () => {
     const history = useHistory();
