@@ -76,19 +76,19 @@ export const Slider = (props) => {
                 <Carousel
                     responsive={responsive}
                     infinite={true}
-                    autoPlaySpeed={2000}
+                    // autoPlaySpeed={2000}
                     keyBoardControl={true}
-                    customTransition="all .5"
-                    transitionDuration={1500}
+                    // customTransition="all .5"
+                    // transitionDuration={500}
                     containerClass="carousel-container"
                     removeArrowOnDeviceType={["tablet", "mobile"]}
                     dotListClass="custom-dot-list-style"
                     itemClass="carousel-item-padding-40-px"
-                    arrows={true}
+                    arrows={false}
                     customLeftArrow={<CustomLeftArrow />}
                     customRightArrow={<CustomRightArrow />}
                     customButtonGroup={<ButtonGroup />}
-                    renderButtonGroupInside={true}
+                    renderButtonGroupOutside={true}
                 >
                     {props.images && props.images.map(image => {
                         return (
