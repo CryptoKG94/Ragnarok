@@ -62,7 +62,9 @@ export const PartyHall = () => {
 
 
     const fetchNFTAssets = async () => {
+        setLoading(true)
         let assets = await ContractUtils.getAssetInfo();
+        setLoading(false)
         console.log("============assets=============", assets)
         setNFTAssets(assets);
     }
@@ -87,10 +89,7 @@ export const PartyHall = () => {
             setToastMessage("Connected Successfully!")
             setAddress(res.address);
 
-            setLoading(true)
-            let assets = await ContractUtils.getAssetInfo();
-            setLoading(false)
-            setNFTAssets(assets);
+            fetchNFTAssets()
         }
         else {
             setShowToast(true)
