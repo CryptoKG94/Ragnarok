@@ -1,4 +1,4 @@
-const Ragnarok = artifacts.require("RagnarokProject");
+const Ragnarok = artifacts.require("WorldOfRagnarok");
 
 module.exports = async function(deployer) {
   //deploy Token
