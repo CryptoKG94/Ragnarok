@@ -2,6 +2,7 @@ import { React, useEffect } from 'react'
 import { Image } from "semantic-ui-react";
 import Carousel from 'react-multi-carousel';
 import 'react-multi-carousel/lib/styles.css';
+
 import right_arrow from '../assets/images/right_arrow.png'
 import left_arrow from '../assets/images/left_arrow.png'
 
@@ -40,7 +41,7 @@ export const Slider = (props) => {
     function CustomRightArrow({ onClick }) {
         return (
             <button
-                onClick={onClick}
+                onClick={()=>onClick()}
                 aria-label="Go to next slide"
                 className="react-multiple-carousel__arrow react-multiple-carousel__arrow--right"
             >
@@ -53,7 +54,7 @@ export const Slider = (props) => {
 
         return (
             <button
-                onClick={onClick}
+                onClick={()=>onClick()}
                 aria-label="Go to previous slide"
                 className="react-multiple-carousel__arrow react-multiple-carousel__arrow--left"
             >
@@ -63,12 +64,15 @@ export const Slider = (props) => {
     }
 
     const ButtonGroup = ({ next, previous }) => {
+        console.log(next)
         return (
             <div className="carousel-button-group">
                 <CustomLeftArrow
                     onClick={() => previous()}
                 />
-                <CustomRightArrow onClick={() => next()} />
+                <CustomRightArrow 
+                    onClick={next} 
+                    />
             </div>
         );
     }
@@ -81,10 +85,11 @@ export const Slider = (props) => {
                     autoPlay={true}
                     responsive={responsive}
                     infinite={true}
-                    // autoPlaySpeed={2000}
+                    // autoPlay={false}
                     keyBoardControl={true}
                     // customTransition="all .5"
                     // transitionDuration={500}
+                    // autoPlaySpeed={24 * 3600 * 365 * 1000 * 10}
                     containerClass="carousel-container"
                     removeArrowOnDeviceType={["tablet", "mobile"]}
                     dotListClass="custom-dot-list-style"

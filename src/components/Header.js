@@ -7,6 +7,7 @@ import Pdf from '../assets/whitepaper.pdf';
 export const Header = (props) => {
 	const history = useHistory();
 	const SetPage = (page) => {
+		if(!page) return;
 		props.func(page);
 	}
 
