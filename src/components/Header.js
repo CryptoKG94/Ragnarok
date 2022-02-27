@@ -6,6 +6,7 @@ import '../assets/styles/header.css'
 export const Header = (props) => {
 	const history = useHistory();
 	const SetPage = (page) => {
+		if(!page) return;
 		props.func(page);
 	}
 

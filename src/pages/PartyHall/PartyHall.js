@@ -76,9 +76,9 @@ export const PartyHall = () => {
     const headerPages = [
         { page: 'VALHALLA', target: '/valhalla' },
         { page: 'PARTY HALL', target: '/partyhall' },
-        { page: 'ADVENTURE', target: '/adventure' },
-        { page: 'MARKETPLACE', target: '/marketplace' },
-        { page: 'WEDDING HALL', target: '/weddinghall' }
+        { page: 'ADVENTURE', target: 'null' },
+        { page: 'MARKETPLACE', target: 'null' },
+        { page: 'WEDDING HALL', target: 'null' }
     ];
 
     const onClickConnect = async () => {

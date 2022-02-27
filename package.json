@@ -40,7 +40,8 @@
     "react-bootstrap": "^2.1.2",
     "react-copy-to-clipboard": "^5.0.4",
     "react-dom": "^17.0.2",
-    "react-multi-carousel": "^2.6.5",
+    "react-loading": "^2.0.3",
+    "react-multi-carousel": "1.4.1",
     "react-multi-carousel-jsm": "^2.7.0",
     "react-redux": "^7.2.6",
     "react-responsive-carousel": "^3.2.22",
@@ -48,6 +49,7 @@
     "react-scripts": "4.0.3",
     "redux-localstorage-simple": "^2.4.1",
     "semantic-ui-react": "^2.1.1",
+    "slick-carousel": "^1.8.1",
     "sol-merger": "^3.1.0",
     "styled-components": "^5.3.3",
     "truffle-hdwallet-provider": "^1.0.6",
@@ -58,8 +60,7 @@
     "web3": "^1.6.1",
     "web3-eth-contract": "^1.6.1",
     "web3-react": "^5.0.5",
-    "web3modal": "^1.9.5",
-    "react-loading": "^2.0.3"
+    "web3modal": "^1.9.5"
   },
   "resolutions": {
     "@ethersproject/abi": "5.2.0",
