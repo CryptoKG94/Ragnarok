@@ -1,7 +1,8 @@
-import React from 'react'
+import { React, useEffect } from 'react'
 import { Image } from "semantic-ui-react";
 import Carousel from 'react-multi-carousel';
 import 'react-multi-carousel/lib/styles.css';
+
 import right_arrow from '../assets/images/right_arrow.png'
 import left_arrow from '../assets/images/left_arrow.png'
 
@@ -17,11 +18,11 @@ export const Slider = (props) => {
         },
         smalldesktop: {
             breakpoint: { max: 1300, min: 1024 },
-            items: 6
+            items: 5
         },
         tablet: {
             breakpoint: { max: 1024, min: 1000 },
-            items: 5
+            items: 4
         },
         smalltablet: {
             breakpoint: { max: 1000, min: 464 },
@@ -33,14 +34,18 @@ export const Slider = (props) => {
         }
     };
 
+    useEffect(() => {
+        // imitialize slider
+      }, []);
+
     function CustomRightArrow({ onClick }) {
         return (
             <button
-                onClick={onClick}
+                onClick={()=>onClick()}
                 aria-label="Go to next slide"
                 className="react-multiple-carousel__arrow react-multiple-carousel__arrow--right"
             >
-                <img src={right_arrow} alt="Logo" />
+                <img src={right_arrow} className="slide-arrow-button" alt="Logo" />
             </button>
         );
     }
@@ -49,22 +54,25 @@ export const Slider = (props) => {
 
         return (
             <button
-                onClick={onClick}
+                onClick={()=>onClick()}
                 aria-label="Go to previous slide"
                 className="react-multiple-carousel__arrow react-multiple-carousel__arrow--left"
             >
-                <img src={left_arrow} alt="Logo" />
+                <img src={left_arrow} className="slide-arrow-button" alt="Logo" />
             </button>
         );
     }
 
     const ButtonGroup = ({ next, previous }) => {
+        console.log(next)
         return (
             <div className="carousel-button-group">
                 <CustomLeftArrow
                     onClick={() => previous()}
                 />
-                <CustomRightArrow onClick={() => next()} />
+                <CustomRightArrow 
+                    onClick={next} 
+                    />
             </div>
         );
     }
@@ -74,12 +82,14 @@ export const Slider = (props) => {
             <div className="container_slider ">
 
                 <Carousel
+                    autoPlay={true}
                     responsive={responsive}
                     infinite={true}
-                    autoPlaySpeed={2000}
+                    // autoPlay={false}
                     keyBoardControl={true}
-                    customTransition="all .5"
-                    transitionDuration={1500}
+                    // customTransition="all .5"
+                    // transitionDuration={500}
+                    // autoPlaySpeed={24 * 3600 * 365 * 1000 * 10}
                     containerClass="carousel-container"
                     removeArrowOnDeviceType={["tablet", "mobile"]}
                     dotListClass="custom-dot-list-style"

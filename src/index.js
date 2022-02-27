@@ -5,11 +5,15 @@ import App from './App';
 import reportWebVitals from './reportWebVitals';
 import { DAppProvider } from "@usedapp/core";
 
+//redux store
+import { Provider } from 'react-redux'
+import store from './store';
+
 ReactDOM.render(
   <React.StrictMode>
-    <DAppProvider config={{}}>
+    <Provider store={store}>
       <App />
-    </DAppProvider>
+    </Provider>
   </React.StrictMode>,
   document.getElementById('root')
 );

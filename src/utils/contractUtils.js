@@ -1,11 +1,11 @@
 import WalletConnectProvider from '@walletconnect/web3-provider';
 import Web3Modal from 'web3modal';
 import Contract from 'web3-eth-contract';
-import { baseURLforIPFS, provider, contractAddress, walletLocalStorageKey } from '../config';
+import Constants from '../config';
 import BigNumber from "bignumber.js";
 
 const Web3 = require('web3');
-const jsonFile = require("../contracts/RagnarokProject.json");
+const jsonFile = require("../contracts/WorldOfRagnarok.json");
 const contractABI = jsonFile["abi"];
 
 let walletProvider = null;
@@ -67,6 +67,39 @@ export const getAccountInfo = async () => {
     }
 }
 
+export const setupNetwork = async () => {
+    const provider = window.ethereum
+    if (provider) {
+        // const chainId = parseInt(process.env.REACT_APP_CHAIN_ID, 10)
+        const chainId = Constants.ChainID
+        try {
+            await provider.request({
+                method: 'wallet_addEthereumChain',
+                params: [
+                    {
+                        chainId: `0x${chainId.toString(16)}`,
+                        chainName: 'Binance Smart Chain Mainnet',
+                        nativeCurrency: {
+                            name: 'BNB',
+                            symbol: 'bnb',
+                            decimals: 18,
+                        },
+                        rpcUrls: [Constants.Node],
+                        blockExplorerUrls: [Constants.BASE_BSC_SCAN_URLS[chainId]],
+                    },
+                ],
+            })
+            return true
+        } catch (error) {
+            console.error('Failed to setup the network in Metamask:', error)
+            return false
+        }
+    } else {
+        console.error("Can't setup the BSC network on metamask because window.ethereum is undefined")
+        return false
+    }
+}
+
 export const connectWallet = async () => {
     try {
         //console.log("Wallet Connecting ... ")
@@ -86,17 +119,18 @@ export const connectWallet = async () => {
         });
 
         const chainId = await window.web3.eth.chainId();
-        if (chainId != 97) { //56: mainnet, 97: testnet
-            return {
-                address: "",
-                status: "Please connect to the BSC Testnet."
-            }
+        if (chainId != Constants.ChainID) { //56: mainnet, 97: testnet
+            await setupNetwork();
         }
+
+        provider.on("chainChanged", (chainId) => {
+            setupNetwork();
+        });
 
         const accounts = await window.web3.eth.getAccounts();
         const address = accounts[0];
 
-        window.localStorage.setItem(walletLocalStorageKey, address);
+        window.localStorage.setItem(Constants.WalletLocalStorageKey, address);
 
         walletProvider = provider;
         walletAddress = address;
@@ -132,8 +166,41 @@ export const disconnectWallet = async () => {
     if (walletProvider?.disconnect && typeof walletProvider.disconnect === 'function') {
         await walletProvider.disconnect()
     }
-    window.localStorage.removeItem(walletLocalStorageKey);
+    window.localStorage.removeItem(Constants.WalletLocalStorageKey);
     walletProvider = null
+}
+
+export const getNFTPrice = async () => {
+
+    try {
+        if (window.ethereum) {
+            const web3 = new Web3(window.ethereum);
+            let contract = await new web3.eth.Contract(contractABI, Constants.ContractAddress)
+            const nftPrice = await contract.methods.getNFTPriceStable().call();
+            return {
+                success: true,
+                status: web3.utils.fromWei("" + nftPrice)
+            }
+        } else if (window.web3) {
+            const web3 = new Web3(window.web3.currentProvider);
+            let contract = await new web3.eth.Contract(contractABI, Constants.ContractAddress)
+            const nftPrice = await contract.methods.getNFTPriceStable().call();
+            return {
+                success: true,
+                status: nftPrice
+            }
+        } else {
+            return {
+                success: false,
+                status: 'Install MetaMask Wallet.'
+            }
+        }
+    } catch (err) {
+        return {
+            success: false,
+            status: err.message
+        }
+    }
 }
 
 export const mintNFT = async (count) => {
@@ -143,7 +210,7 @@ export const mintNFT = async (count) => {
             status: 'Connect to Wallet'
         }
     const web3 = new Web3(walletProvider);
-    let contract = await new web3.eth.Contract(contractABI, contractAddress)
+    let contract = await new web3.eth.Contract(contractABI, Constants.ContractAddress)
 
     try {
         const nftPrice = await contract.methods.getNFTPrice().call();
@@ -174,13 +241,13 @@ export const mintNFT = async (count) => {
     }
 }
 
-export const getImageHash = async (hashVal) => {
+export const getMetaData = async (hashVal) => {
     try {
         let response = await fetch(hashVal);
         let responseJson = await response.json();
         console.log(responseJson.image);
 
-        return responseJson.image;
+        return responseJson;
     } catch (error) {
         console.error(error);
         return "";
@@ -194,7 +261,7 @@ export const getAssetInfo = async () => {
             status: 'Connect to Wallet'
         }
     const web3 = new Web3(walletProvider);
-    let contract = await new web3.eth.Contract(contractABI, contractAddress)
+    let contract = await new web3.eth.Contract(contractABI, Constants.ContractAddress)
 
     try {
         let data = {
@@ -208,10 +275,12 @@ export const getAssetInfo = async () => {
         for (let i = 0; i < balance; i++) {
             const tokenId = await contract.methods.tokenOfOwnerByIndex(walletAddress, i).call()
             const tokenUri = await contract.methods.tokenURI(tokenId).call()
-            const imageUrl = await getImageHash(tokenUri + ".json")
+            const metadata = await getMetaData(tokenUri)
+            console.log('[kg] => imageURL: ', metadata.image);
             data.balance = balance
             data.tokenIds.push(tokenId)
-            data.metadatas.push(baseURLforIPFS + imageUrl)
+            // data.metadatas.push(Constants.BaseURLforIPFS + imageUrl)
+            data.metadatas.push(metadata);
         }
         return {
             success: true,
@@ -227,8 +296,8 @@ export const getAssetInfo = async () => {
 }
 
 export const getTokenURI = async (tokenId) => {
-    Contract.setProvider(provider)
-    let contract = new Contract(contractABI, contractAddress)
+    Contract.setProvider(Constants.NODE)
+    let contract = new Contract(contractABI, Constants.ContractAddress)
     try {
         let res = await contract.methods.tokenURI(tokenId).call()
         return {
@@ -250,7 +319,7 @@ export const withdraw = async () => {
             status: 'Connect to Wallet'
         }
     const web3 = new Web3(walletProvider);
-    let contract = await new web3.eth.Contract(contractABI, contractAddress)
+    let contract = await new web3.eth.Contract(contractABI, Constants.ContractAddress)
     try {
         await contract.methods.withdraw().send();
         return {
@@ -274,6 +343,7 @@ const ContractUtils = {
     mintNFT,
     getAssetInfo,
     getAccountInfo,
+    getNFTPrice,
     getTokenURI,
     withdraw
 };
