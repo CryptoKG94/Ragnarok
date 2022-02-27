@@ -173,6 +173,32 @@
     cursor: url('../images/cursor/CURSOR3.png'), auto;
 }
 
+.character_title_gender {
+    position: relative;
+}
+
+.sort_gender{
+    position: absolute;
+    top: 100%;
+    left: 0%;
+    width: 150%;
+    border-radius: 8px;
+    background-color: #ddb481;
+    padding: 10px;
+    display: flex;
+    flex-direction: column;
+}
+
+.sort_gender_column {
+    display: flex;
+    justify-content: start;
+    align-items: center;
+}
+
+.radio_container {
+    margin-left: 3vw;
+}
+
 .party_itm {
     min-width: 3.5vw;
     min-height: 4vw;

@@ -55,6 +55,13 @@ export const PartyHall = () => {
     const [toastMessage, setToastMessage] = useState("")
     const [toastType, setToastType] = useState(2) //1: success, 2: error
 
+    const initialShowConf = {
+        class: false,
+        level: false,
+        gender: false
+    }
+    const [showSortConf, setShowSortConf] = useState(initialShowConf)
+
     useEffect(() => {
         fetchNFTAssets()
     }, [])
@@ -128,6 +135,7 @@ export const PartyHall = () => {
             metadata.level = metadata.attributes[levelIndex].value
             return metadata;
         });
+        console.log(sortOption)
         switch (sortOption) {
             case SortOption.CLASSES:
                 return orderBy(
@@ -196,15 +204,53 @@ export const PartyHall = () => {
     }
 
     const renderCharacter = () => {
+        console.log(showSortConf.gender)
         return (
             <div style={{ display: 'flex', flexDirection: 'column', justifyContent: 'flex-start', height: '97%' }}>
                 <div className="character_title">
                     <div className="character_title_props" onClick={() => setSortOption(SortOption.CLASSES)}>CLASSES</div>
-                    <div className="character_title_props" onClick={() => setSortOption(SortOption.LEVEL)}>LEVEL</div>
-                    <div className="character_title_props" onClick={() => setSortOption(SortOption.GENDER)}>GENDER</div>
-                    <div className="character_title_props" onClick={() => setSortOption(SortOption.UPPER)}>UPPER</div>
-                    <div className="character_title_props" onClick={() => setSortOption(SortOption.MID)}>MID</div>
-                    <div className="character_title_props" onClick={() => setSortOption(SortOption.LOWER)}>LOWER</div>
+                    {/* <div className="character_title_props" onClick={() => setSortOption(SortOption.LEVEL)}>LEVEL</div> */}
+                    <div className="character_title_props character_title_gender" onClick={
+                        (e)=>{
+                                e.stopPropagation();
+                                setShowSortConf(
+                                    (conf)=>{return {...initialShowConf, level: !conf.level}}
+                                )
+                        }}
+                    >
+                        LEVEL
+                        <div className='sort_gender' style={!showSortConf.level ? {display: 'none'}: {width: '300%'}}>
+                            <div className='sort_gender_column'><input id="lb_order_Ascending" type="radio" onClick={() => setSortOption(SortOption.LEVEL)} value="ASC" name="order" style={{marginRight: 10}} />
+                            <label htmlFor="lb_order_Ascending">Ascending</label></div>
+                            <div className='sort_gender_column'><input id="lb_order_Decending" type="radio" onClick={() => {setSortOption(SortOption.LEVEL)}} style={{marginRight: 10}}  value="DSC" name="order" />
+                            <label htmlFor="lb_order_Decending">Decending</label></div>
+                        </div>
+                    </div>
+                    <div className="character_title_props character_title_gender" onClick={
+                        (e)=>{
+                                e.stopPropagation();
+                                setShowSortConf(
+                                    (conf)=>{return {...initialShowConf, gender: !conf.gender}}
+                                )
+                        }}
+                    >
+                        GENDER
+                        <div className='sort_gender' style={!showSortConf.gender ? {display: 'none'}: {}}>
+                            <div className='sort_gender_column'><input id="lb_gender_male" type="radio" onClick={() => setSortOption(SortOption.GENDER)} value="UPPER" name="gender" style={{marginRight: 10}} />
+                            <label htmlFor="lb_gender_male">Male</label></div>
+                            <div className='sort_gender_column'><input id="lb_gender_female" type="radio" onClick={() => {setSortOption(SortOption.GENDER)}} style={{marginRight: 10}}  value="MID" name="gender" />
+                            <label htmlFor="lb_gender_female">Female</label></div>
+                        </div>
+                    </div>
+                    <div className="character_title_props" >
+                        <input id="lb_upper" type="radio" onClick={() => setSortOption(SortOption.UPPER)} value="UPPER" name="case" style={{marginRight: 10}} />
+                        <label htmlFor="lb_upper">UPPER</label>
+                        <input className='radio_container' id="lb_mid" type="radio" onClick={() => {setSortOption(SortOption.MID)}} value="MID" name="case" />
+                        <label htmlFor="lb_mid">MID</label>
+                        <input className='radio_container' id="lb_lower" type="radio" onClick={() => setSortOption(SortOption.LOWER)} value="LOWER" name="case" />
+                         <label htmlFor="lb_lower">LOWER</label>
+                    </div>
+                   
                 </div>
                 <div className="party_mode_container">
                     <div className="party_mode_itm_list">
@@ -254,7 +300,7 @@ export const PartyHall = () => {
     }
 
     return (
-        <div className="create_party_container">
+        <div className="create_party_container" onClick={()=>{console.log("container");setShowSortConf(initialShowConf)}}>
             <Header func={headerFuncs} headerPages={headerPages} image={header_2} headerClass={'playNowHeader'} style={{ position: 'relative' }}>
                 {!address ?
                     <>
