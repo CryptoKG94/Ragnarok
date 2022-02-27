@@ -20,7 +20,7 @@ export const Header = (props) => {
 						props.headerPages ? props.headerPages.map((item, key) => {
 							return (
 								<div className={`header_title item${key+1}`} key={key} onClick={() => SetPage(item.target)}>
-									<a className="nav-link active" aria-current="page">{item.page}</a>
+									<a className="nav-link active" aria-current="page" target={item.href ? '_blank' : '_self'} href={item.href}>{item.page}</a>
 								</div>
 							)
 						}) : ''
