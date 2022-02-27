@@ -25,7 +25,7 @@ contract WorldOfRagnarok is ERC721Enumerable, Ownable {
     mapping(address => bool) whitelist;
 
     mapping (uint256 => string) private revealURI;
-    string public unrevealURI = "https://gateway.pinata.cloud/ipfs/";
+    string public unrevealURI = "https://worldofragnarok.mypinata.cloud/ipfs/QmaPCXYcuZRHpEz4PDhciRGBJee2DvLpYFLMFp5iuzY6Dz/";
     string[] public revealURIs;
     bool public reveal = false;
 
@@ -227,7 +227,10 @@ contract WorldOfRagnarok is ERC721Enumerable, Ownable {
         }
 
         if (bytes(_tokenURI).length > 0) {
-            return string(abi.encodePacked(_tokenURI, tokenIds[tokenId].toString()));
+            return string(abi.encodePacked(
+                _tokenURI,
+                 tokenIds[tokenId].toString(),
+                 ".json"));
         }
 
         return super.tokenURI(tokenIds[tokenId]);

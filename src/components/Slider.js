@@ -1,4 +1,4 @@
-    import React from 'react'
+import { React, useEffect } from 'react'
 import { Image } from "semantic-ui-react";
 import Carousel from 'react-multi-carousel';
 import 'react-multi-carousel/lib/styles.css';
@@ -34,6 +34,10 @@ export const Slider = (props) => {
         }
     };
 
+    useEffect(() => {
+        // imitialize slider
+      }, []);
+
     function CustomRightArrow({ onClick }) {
         return (
             <button
@@ -41,7 +45,7 @@ export const Slider = (props) => {
                 aria-label="Go to next slide"
                 className="react-multiple-carousel__arrow react-multiple-carousel__arrow--right"
             >
-                <img src={right_arrow} alt="Logo" />
+                <img src={right_arrow} className="slide-arrow-button" alt="Logo" />
             </button>
         );
     }
@@ -54,7 +58,7 @@ export const Slider = (props) => {
                 aria-label="Go to previous slide"
                 className="react-multiple-carousel__arrow react-multiple-carousel__arrow--left"
             >
-                <img src={left_arrow} alt="Logo" />
+                <img src={left_arrow} className="slide-arrow-button" alt="Logo" />
             </button>
         );
     }
@@ -78,6 +82,7 @@ export const Slider = (props) => {
             <div className="container_slider ">
 
                 <Carousel
+                    autoPlay={true}
                     responsive={responsive}
                     infinite={true}
                     // autoPlay={false}

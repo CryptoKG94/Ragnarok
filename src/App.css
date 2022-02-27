@@ -76,6 +76,13 @@ img.PLAY_TO_EARN {
 .background_four,.background_three,.background_two{
   position: absolute
 }
+.tokenomics_new {
+  position: absolute;
+  position: absolute;
+  margin-top: 10px;
+  height: 100%;
+  width: auto;
+}
 /* Page 4 end */
 
 /* Responsive */
@@ -149,6 +156,8 @@ img.comman_header {
   background: none !important;
   margin-left: -130px;
   margin-right: -130px;
+  cursor: url('./assets/images/cursor/CURSOR3.png'), auto !important;
+  
 }
 
 .party_hall_slider {
@@ -223,6 +232,9 @@ li.react-multi-carousel-item.react-multi-carousel-item--active {
   display: flex;
   justify-content: center;
 }
+img.slide-arrow-button {
+  cursor: url('./assets/images/cursor/CURSOR3.png'), auto !important;
+}
 .react-multiple-carousel__arrow--left {
   left: calc(4% + 50px);
 }
@@ -237,7 +249,7 @@ img.header_con {
   z-index: -1;
   top: 1px;
   right: 3.3vw;
-  cursor: url('./assets/images/cursor/CURSOR3.png'), auto;;
+  cursor: url('./assets/images/cursor/CURSOR3.png'), auto;
 }
 /* @media (max-width: 1500px){
   .react-multiple-carousel__arrow--left {
@@ -372,7 +384,7 @@ table.main_table {
 .hover_container {
   position: absolute;
   left: 50%;
-  top: 40%;
+  top: 43%;
   transform: translate(-50%, -50%);
   z-index: 10;
   width: 350px;

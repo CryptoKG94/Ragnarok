@@ -5,7 +5,7 @@ import Constants from '../config';
 import BigNumber from "bignumber.js";
 
 const Web3 = require('web3');
-const jsonFile = require("../contracts/RagnarokProject.json");
+const jsonFile = require("../contracts/WorldOfRagnarok.json");
 const contractABI = jsonFile["abi"];
 
 let walletProvider = null;
@@ -275,7 +275,7 @@ export const getAssetInfo = async () => {
         for (let i = 0; i < balance; i++) {
             const tokenId = await contract.methods.tokenOfOwnerByIndex(walletAddress, i).call()
             const tokenUri = await contract.methods.tokenURI(tokenId).call()
-            const metadata = await getMetaData(tokenUri + ".json")
+            const metadata = await getMetaData(tokenUri)
             console.log('[kg] => imageURL: ', metadata.image);
             data.balance = balance
             data.tokenIds.push(tokenId)

@@ -217,7 +217,7 @@ export const PartyHall = () => {
                         }}
                     >
                         CLASSES
-                        <div className='sort_classes' style={!showSortConf.class ? { display: 'none' } : { width: '300%' }}>
+                        <div className='sort_classes' style={!showSortConf.class ? { display: 'none' } : { width: '200%' }}>
                             <ul>
                                 <li>
                                     <input id="classes_job1" type="radio" onClick={() => setSortOption(SortOption.CLASSES)} value="ASC" name="classes" style={{ marginRight: 10 }} />
@@ -376,7 +376,7 @@ export const PartyHall = () => {
                         }}
                     >
                         LEVEL
-                        <div className='sort_gender' style={!showSortConf.level ? { display: 'none' } : { width: '300%' }}>
+                        <div className='sort_gender' style={!showSortConf.level ? { display: 'none' } : { width: '200%' }}>
                             <div className='sort_gender_column'><input id="lb_order_Ascending" type="radio" onClick={() => setSortOption(SortOption.LEVEL)} value="ASC" name="order" style={{ marginRight: 10 }} />
                                 <label htmlFor="lb_order_Ascending">Ascending</label></div>
                             <div className='sort_gender_column'><input id="lb_order_Decending" type="radio" onClick={() => { setSortOption(SortOption.LEVEL) }} style={{ marginRight: 10 }} value="DSC" name="order" />
@@ -399,12 +399,12 @@ export const PartyHall = () => {
                                 <label htmlFor="lb_gender_female">Female</label></div>
                         </div>
                     </div>
-                    <div className="character_title_props" >
+                    <div className="character_title_props" style={{ width: '22vw'}}>
                         <input id="lb_upper" type="radio" onClick={() => setSortOption(SortOption.UPPER)} value="UPPER" name="case" style={{ marginRight: 10 }} />
                         <label htmlFor="lb_upper">UPPER</label>
-                        <input className='radio_container' id="lb_mid" type="radio" onClick={() => { setSortOption(SortOption.MID) }} value="MID" name="case" />
+                        <input className='radio_container' id="lb_mid" type="radio" onClick={() => { setSortOption(SortOption.MID) }} value="MID" name="case" style={{ marginRight: 10 }} />
                         <label htmlFor="lb_mid">MID</label>
-                        <input className='radio_container' id="lb_lower" type="radio" onClick={() => setSortOption(SortOption.LOWER)} value="LOWER" name="case" />
+                        <input className='radio_container' id="lb_lower" type="radio" onClick={() => setSortOption(SortOption.LOWER)} value="LOWER" name="case" style={{ marginRight: 10 }} />
                         <label htmlFor="lb_lower">LOWER</label>
                     </div>
 
