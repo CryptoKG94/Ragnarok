@@ -49,6 +49,26 @@ img.PLAY_TO_EARN {
   bottom: 0;
   cursor: url('./assets/images/cursor/CURSOR3.png'), auto;;
 }
+
+.getting_started_images {
+  width: 60%;
+  height: 100%;
+  position: relative;
+}
+.getting_started_ {
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  height: 70%;
+  width: 100%;
+  display: flex;
+  align-items: center;
+}
+.getting_started_ img {
+  width: 33%;
+  height: 40%;
+}
+
 /* Page 2 end */
 
 /* Page 3 Start */
@@ -73,11 +93,15 @@ img.PLAY_TO_EARN {
   position: absolute;
   cursor: url('./assets/images/cursor/CURSOR3.png'), auto;;
 }
+.roadmap_new {
+  position: absolute;
+  height: 100%;
+  width: 100%;
+}
 .background_four,.background_three,.background_two{
   position: absolute
 }
 .tokenomics_new {
-  position: absolute;
   position: absolute;
   margin-top: 10px;
   height: 100%;
