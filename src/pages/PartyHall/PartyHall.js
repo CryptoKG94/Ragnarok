@@ -1,4 +1,4 @@
-import { React, useEffect, useState } from 'react'
+import { React, useCallback, useEffect, useState } from 'react'
 import { useHistory } from 'react-router-dom';
 import { Image } from "semantic-ui-react";
 import orderBy from 'lodash/orderBy'
@@ -40,6 +40,12 @@ const CHARACTER_MODE = 1;
 const PARTY_MODE = 2;
 const NUMBER_OF_NFTS_VISIBLE = 100;
 
+const MALE = "asc";
+const FEMALE = "desc";
+
+const ASC = 'asc';
+const DSC = 'desc';
+
 export const PartyHall = () => {
     const history = useHistory();
 
@@ -54,6 +60,8 @@ export const PartyHall = () => {
     const [loading, setLoading] = useState(false)
     const [toastMessage, setToastMessage] = useState("")
     const [toastType, setToastType] = useState(2) //1: success, 2: error
+    const [gender, setGender] = useState(MALE);
+    const [order, setOrder] = useState(ASC)
 
     const initialShowConf = {
         class: false,
@@ -87,7 +95,6 @@ export const PartyHall = () => {
         setLoading(true)
         let assets = await ContractUtils.getAssetInfo();
         setLoading(false)
-        console.log("============assets=============", assets)
         setNFTAssets(assets);
     }
 
@@ -142,7 +149,7 @@ export const PartyHall = () => {
         setShowToast(false);
     }
 
-    const sortNFTs = (dataToSort) => {
+    const sortNFTs = useCallback((dataToSort) => {
         let metadatasToSort = dataToSort.map((metadata) => {
             let classIndex = metadata.attributes.findIndex(item => item.trait_type === SortOption.CLASSES)
             let levelIndex = metadata.attributes.findIndex(item => item.trait_type === SortOption.LEVEL)
@@ -150,7 +157,6 @@ export const PartyHall = () => {
             metadata.level = metadata.attributes[levelIndex].value
             return metadata;
         });
-        console.log(sortOption)
         switch (sortOption) {
             case SortOption.CLASSES:
                 return orderBy(
@@ -177,7 +183,7 @@ export const PartyHall = () => {
                         let sortIndex = metadata.attributes.findIndex(item => item.trait_type === SortOption.GENDER);
                         return metadata.attributes[sortIndex].value;
                     },
-                    'desc',
+                    gender,
                 )
             case SortOption.LOWER:
                 return orderBy(
@@ -204,12 +210,12 @@ export const PartyHall = () => {
                         let sortIndex = metadata.attributes.findIndex(item => item.trait_type === SortOption.LEVEL);
                         return metadata.attributes[sortIndex].value;
                     },
-                    'desc',
+                    order,
                 )
             default:
                 return metadatasToSort
         }
-    }
+    },[order, gender, sortOption])
 
     let viewNFTs;
     if (nftAssets && nftAssets.status && nftAssets.status.metadatas) {
@@ -219,7 +225,6 @@ export const PartyHall = () => {
     }
 
     const renderCharacter = () => {
-        console.log(showSortConf.gender)
         return (
             <div style={{ display: 'flex', flexDirection: 'column', justifyContent: 'flex-start', height: '97%' }}>
                 <div className="character_title">
@@ -392,9 +397,28 @@ export const PartyHall = () => {
                     >
                         LEVEL
                         <div className='sort_gender' style={!showSortConf.level ? { display: 'none' } : { width: '200%' }}>
-                            <div className='sort_gender_column'><input id="lb_order_Ascending" type="radio" onClick={() => setSortOption(SortOption.LEVEL)} value="ASC" name="order" style={{ marginRight: 10 }} />
+                            <div className='sort_gender_column'>
+                                <input id="lb_order_Ascending" type="radio" 
+                                    onClick={
+                                        () => {
+                                            setOrder(ASC)
+                                            setSortOption(SortOption.LEVEL)
+                                    }} 
+                                    value="ASC" 
+                                    name="order" 
+                                    style={{ marginRight: 10 }} 
+                                />
                                 <label htmlFor="lb_order_Ascending">Ascending</label></div>
-                            <div className='sort_gender_column'><input id="lb_order_Decending" type="radio" onClick={() => { setSortOption(SortOption.LEVEL) }} style={{ marginRight: 10 }} value="DSC" name="order" />
+                            <div className='sort_gender_column'>
+                                <input id="lb_order_Decending" type="radio" 
+                                    onClick={() => { 
+                                        setOrder(DSC)
+                                        setSortOption(SortOption.LEVEL)
+                                    }} 
+                                    style={{ marginRight: 10 }} 
+                                    value="DSC" 
+                                    name="order" 
+                                />
                                 <label htmlFor="lb_order_Decending">Decending</label></div>
                         </div>
                     </div>
@@ -408,9 +432,11 @@ export const PartyHall = () => {
                     >
                         GENDER
                         <div className='sort_gender' style={!showSortConf.gender ? { display: 'none' } : {}}>
-                            <div className='sort_gender_column'><input id="lb_gender_male" type="radio" onClick={() => setSortOption(SortOption.GENDER)} value="UPPER" name="gender" style={{ marginRight: 10 }} />
+                            <div className='sort_gender_column'>
+                                <input id="lb_gender_male" type="radio" onClick={() => {setGender(MALE); setSortOption(SortOption.GENDER)}} value="UPPER" name="gender" style={{ marginRight: 10 }} />
                                 <label htmlFor="lb_gender_male">Male</label></div>
-                            <div className='sort_gender_column'><input id="lb_gender_female" type="radio" onClick={() => { setSortOption(SortOption.GENDER) }} style={{ marginRight: 10 }} value="MID" name="gender" />
+                            <div className='sort_gender_column'>
+                                <input id="lb_gender_female" type="radio" onClick={() => {setGender(FEMALE); setSortOption(SortOption.GENDER) }} style={{ marginRight: 10 }} value="MID" name="gender" />
                                 <label htmlFor="lb_gender_female">Female</label></div>
                         </div>
                     </div>
@@ -426,9 +452,9 @@ export const PartyHall = () => {
                 </div>
                 <div className="party_mode_container">
                     <div className="party_mode_itm_list">
-                        {viewNFTs.map(metadata => {
+                        {viewNFTs.map((metadata, key) => {
                             return (
-                                <div className="character_itm" onMouseEnter={onHoverNft(metadata)} onMouseLeave={hoverOff}>
+                                <div className="character_itm" key={key} onMouseEnter={onHoverNft(metadata)} onMouseLeave={hoverOff}>
                                     <Image
                                         draggable={false}
                                         src={metadata.image}
@@ -472,7 +498,7 @@ export const PartyHall = () => {
     }
 
     return (
-        <div className="create_party_container" onClick={() => { console.log("container"); setShowSortConf(initialShowConf) }}>
+        <div className="create_party_container" onClick={() => { setShowSortConf(initialShowConf) }}>
             <Header func={headerFuncs} headerPages={headerPages} image={header_2} headerClass={'playNowHeader'} style={{ position: 'relative' }}>
                 {!address ?
                     <>
