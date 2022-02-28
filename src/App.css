@@ -91,10 +91,11 @@ img.PLAY_TO_EARN {
   top: 30%;
   transform: translateY(-50%);
   position: absolute;
-  cursor: url('./assets/images/cursor/CURSOR3.png'), auto;;
+  cursor: url('./assets/images/cursor/CURSOR3.png'), auto;
 }
 .roadmap_new {
   position: absolute;
+  /* margin-top: 40px; */
   height: 100%;
   width: 100%;
 }
@@ -411,11 +412,11 @@ table.main_table {
   top: 43%;
   transform: translate(-50%, -50%);
   z-index: 10;
-  width: 350px;
-  height: 350px;
+  width: 300px;
+  height: 300px;
   border-radius: 10px;
   /* box-shadow: 0px 0px 15px 6px rgba(180, 145, 78, 1); */
-  padding: 80px;
+  padding: 60px 40px;
 
   background: url("./assets/images/partyHall/hover.png");
   background-size: 100% 100%;

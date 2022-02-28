@@ -71,7 +71,8 @@ export const PartyHall = () => {
         //     }
         // }
         // getAccountInfo()
-        const _address = window.localStorage.getItem(walletLocalStorageKey)
+        // const _address = window.localStorage.getItem(walletLocalStorageKey)
+        const _address = ContractUtils.isWalletConnected()
         console.log(_address);
         if (_address) {
             setAddress(_address)
@@ -535,11 +536,9 @@ export const PartyHall = () => {
             <Footer />
             {selectedNft && <div className='hover_container'>
                 <img src={selectedNft.image} alt="" style={{ marginRight: 20, width: 120, height: 180 }} />
-                <div style={{ display: 'flex', flexDirection: 'column', justifyContent: 'center' }}>
-                    <div style={{ color: 'red', fontWeight: 'bold' }}>Class: </div>
-                    <div style={{ color: 'white', fontWeight: 'bold', marginBottom: '30px' }}> {selectedNft.class} </div>
-                    <div style={{ color: 'red', fontWeight: 'bold' }}>Level: </div>
-                    <div style={{ color: 'white', fontWeight: 'bold', marginBottom: '30px' }}> {selectedNft.level} </div>
+                <div style={{ display: 'flex', flexDirection: 'column', textAlign: 'center', justifyContent: 'right' }}>
+                    <div style={{ color: 'white', fontWeight: 'bold', margin: '50px 10px 85px 10px' }}> {selectedNft.class} </div>
+                    <div style={{ color: 'white', fontWeight: 'bold', margin: '0 10px 10px 10px' }}> {selectedNft.level} </div>
                 </div>
             </div>}
         </div>
