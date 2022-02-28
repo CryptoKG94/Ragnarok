@@ -1,4 +1,4 @@
-import { React, useEffect, useState } from 'react'
+import { React, useCallback, useEffect, useState } from 'react'
 import { useHistory } from 'react-router-dom';
 import { Image } from "semantic-ui-react";
 import orderBy from 'lodash/orderBy'
@@ -40,8 +40,8 @@ const CHARACTER_MODE = 1;
 const PARTY_MODE = 2;
 const NUMBER_OF_NFTS_VISIBLE = 100;
 
-const MALE = "Male";
-const FEMALE = "Female";
+const MALE = "asc";
+const FEMALE = "desc";
 
 const ASC = 'asc';
 const DSC = 'desc';
@@ -80,7 +80,6 @@ export const PartyHall = () => {
         setLoading(true)
         let assets = await ContractUtils.getAssetInfo();
         setLoading(false)
-        console.log("============assets=============", assets)
         setNFTAssets(assets);
     }
 
@@ -135,7 +134,7 @@ export const PartyHall = () => {
         setShowToast(false);
     }
 
-    const sortNFTs = (dataToSort) => {
+    const sortNFTs = useCallback((dataToSort) => {
         let metadatasToSort = dataToSort.map((metadata) => {
             let classIndex = metadata.attributes.findIndex(item => item.trait_type === SortOption.CLASSES)
             let levelIndex = metadata.attributes.findIndex(item => item.trait_type === SortOption.LEVEL)
@@ -143,7 +142,6 @@ export const PartyHall = () => {
             metadata.level = metadata.attributes[levelIndex].value
             return metadata;
         });
-        console.log(sortOption)
         switch (sortOption) {
             case SortOption.CLASSES:
                 return orderBy(
@@ -164,14 +162,13 @@ export const PartyHall = () => {
                     'desc',
                 )
             case SortOption.GENDER:
-                console.log(metadatasToSort)
                 return orderBy(
                     metadatasToSort,
                     (metadata) => {
                         let sortIndex = metadata.attributes.findIndex(item => item.trait_type === SortOption.GENDER);
                         return metadata.attributes[sortIndex].value;
                     },
-                    'desc',
+                    gender,
                 )
             case SortOption.LOWER:
                 return orderBy(
@@ -203,7 +200,7 @@ export const PartyHall = () => {
             default:
                 return metadatasToSort
         }
-    }
+    },[order, gender, sortOption])
 
     let viewNFTs;
     if (nftAssets && nftAssets.status && nftAssets.status.metadatas) {
