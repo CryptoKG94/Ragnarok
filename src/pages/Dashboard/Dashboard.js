@@ -7,7 +7,6 @@ import { Header } from '../../components/Header';
 import { useRef } from 'react';
 import { Footer } from '../../components/Footer';
 import header_2 from '../../assets/images/page_header_1.png';
-import pdf from '../../assets/World-of-Ragnarok-Official-White-Paper.pdf'
 
 export const Dashboard = () => {
     let home = useRef(null);
@@ -26,7 +25,7 @@ export const Dashboard = () => {
         { page: 'GETTING STARTED', target: gettingStarted },
         { page: 'TOKENOMICS', target: tokenomics },
         { page: 'ROAD MAP', target: roadMap },
-        { page: 'LITEPAPER', target: null, href: pdf }
+        { page: 'LITEPAPER', target: null }
     ];
 
     return (
