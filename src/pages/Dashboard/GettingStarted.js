@@ -13,11 +13,11 @@ export const GettingStarted = () => {
                 <img className="background_two" src={background} alt="Logo" />
                 <img className="GETTING_STARTED" src={GETTING_STARTED} alt="Logo" />
                 <div className="getting_started_images">
-                    <img className="getting_started_" src={getting_started_} alt="Logo" />
-                    <div className="getting_started_" style={{padding: '50px'}}>
-                    <img src={mint_your_character} alt="Logo"/>
-                    <img src={organize_party} alt="Logo" />
-                    <img src={Adventure_Battle} alt="Logo" />
+                    <img className="getting_started_ getting_started_bg" src={getting_started_} alt="Logo" />
+                    <div className="getting_started_" style={{ padding: '50px' }}>
+                        <img src={mint_your_character} alt="Logo" />
+                        <img src={organize_party} alt="Logo" />
+                        <img src={Adventure_Battle} alt="Logo" />
                     </div>
                 </div>
             </div>
