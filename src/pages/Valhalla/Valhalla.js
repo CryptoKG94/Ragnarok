@@ -17,6 +17,7 @@ import x1 from "../../assets/images/buying/x1.png"
 import x10 from "../../assets/images/buying/x10.png"
 import x5 from "../../assets/images/buying/x5.png"
 import { useHistory } from 'react-router-dom';
+import mintBtn from "../../assets/images/mintbtn.gif"
 
 export const Valhalla = () => {
 
@@ -29,6 +30,7 @@ export const Valhalla = () => {
     const [showToast, setShowToast] = useState(false)
     const [toastMessage, setToastMessage] = useState("")
     const [toastType, setToastType] = useState(2) //1: success, 2: error
+    const [mintType, setMintType] = useState(0)
 
     const [countDown, setCountDown] = useState(SECOND_TO_START)
     const [startMint, setStartMint] = useState(false)
@@ -107,10 +109,12 @@ export const Valhalla = () => {
         }
         
         let res = await ContractUtils.mintNFT(cnt);
+        console.log("--------cnt---------",cnt)
         if (res.success) {
             setShowToast(true)
             setToastType(1)
             setToastMessage("Minted Successfully!");
+            setMintType(cnt)
         } else {
             setShowToast(true);
             setToastMessage(res.status);
@@ -147,18 +151,21 @@ export const Valhalla = () => {
                     <div className="mint-button">
                         <img src={imgBox} alt="" style={{ width: '15vw' }} onClick={() => onMint(1)} />
                         <img src={x1} alt="" style={{ width: '4vw', height: '4vw', position: 'absolute' }} onClick={() => onMint(1)} />
+                        {mintType === 1 && showToast &&<img src={mintBtn} alt="" style={{ width: '12vw', height: '12vw', position: 'absolute'}} />}
                     </div>
                 </div>
                 <div className="col-lg-4 col-md-4 col-sm-4 col-xs-4">
                     <div className="mint-button">
                         <img src={imgBox} alt="" style={{ width: '15vw' }} onClick={() => onMint(5)} />
                         <img src={x5} alt="" style={{ width: '4vw', height: '4vw', position: 'absolute' }} onClick={() => onMint(5)} />
+                        {mintType === 5 && showToast &&<img src={mintBtn} alt="" style={{ width: '12vw', height: '12vw', position: 'absolute'}} />}
                     </div>
                 </div>
                 <div className="col-lg-4 col-md-4 col-sm-4 col-xs-4">
                     <div className="mint-button">
                         <img src={imgBox} alt="" style={{ width: '15vw' }} onClick={() => onMint(10)} />
                         <img src={x10} alt="" style={{ width: '4vw', height: '4vw', position: 'absolute' }} onClick={() => onMint(10)} />
+                        {mintType === 10 && showToast &&<img src={mintBtn} alt="" style={{ width: '12vw', height: '12vw', position: 'absolute'}} />}
                     </div>
                 </div>
             </div>

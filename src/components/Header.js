@@ -7,6 +7,7 @@ import Pdf from '../assets/whitepaper.pdf';
 export const Header = (props) => {
 	const history = useHistory();
 	const SetPage = (page) => {
+		if(!page) return;
 		props.func(page);
 	}
 
@@ -21,7 +22,7 @@ export const Header = (props) => {
 							return (
 								<div className={`header_title item${key + 1}`} key={key} onClick={() => SetPage(item.target)}>
 									{item.page === "LITEPAPER" ?
-										<a className="nav-link active" aria-current="page" href={Pdf} without rel="noopener noreferrer" target="_blank">{item.page}</a>
+										<a className="nav-link active" aria-current="page" href={Pdf} rel="noopener noreferrer" target="_blank">{item.page}</a>
 										:
 										<a className="nav-link active" aria-current="page">{item.page}</a>
 									}

@@ -3,6 +3,7 @@ import ReactDOM from 'react-dom';
 import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
+import { DAppProvider } from "@usedapp/core";
 
 //redux store
 import { Provider } from 'react-redux'

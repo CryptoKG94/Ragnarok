@@ -166,7 +166,7 @@
 }
 
 .character_title_props {
-    font-size: 1.4vw;
+    font-size: 1.2vw;
     margin-right: 3vw;
     margin-bottom: 0.5vw;
     margin-top: 1vw;
@@ -174,6 +174,66 @@
     border-radius: 5px;
     width: 6vw;
     cursor: url('../images/cursor/CURSOR3.png'), auto;
+}
+
+.character_title_gender {
+    position: relative;
+}
+
+.sort_gender{
+    position: absolute;
+    top: 100%;
+    left: 0%;
+    width: 150%;
+    border-radius: 8px;
+    background-color: #ddb481;
+    padding: 10px;
+    display: flex;
+    flex-direction: column;
+}
+
+.sort_classes{
+    position: absolute;
+    top: 100%;
+    left: 0%;
+    width: 150%;
+    border-radius: 8px;
+    background-color: #ddb481;
+    padding: 10px;
+    overflow: auto;
+    height: 10vw
+    /* display: flex; */
+    /* flex-direction: column; */
+}
+
+.sort_classes::-webkit-scrollbar {
+    width: 10px;
+}
+
+.sort_classes::-webkit-scrollbar-track {
+    background-color: rgb(167, 118, 54);
+    border-radius: 5px;
+}
+
+.sort_classes::-webkit-scrollbar-thumb {
+    box-shadow: inset 8px 0px 6px rgb(66, 60, 52);
+    border-radius: 5px;
+}
+
+.sort_classes ul {
+    list-style-type: none;
+    padding-left: 0;
+    text-align: left;
+}
+
+.sort_gender_column {
+    display: flex;
+    justify-content: start;
+    align-items: center;
+}
+
+.radio_container {
+    margin-left: 3vw;
 }
 
 .party_itm {

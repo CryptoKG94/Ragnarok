@@ -47,8 +47,49 @@ img.PLAY_TO_EARN {
   position: absolute;
   right: 0;
   bottom: 0;
-  cursor: url('./assets/images/cursor/CURSOR3.png'), auto;;
+  /* cursor: url('./assets/images/cursor/CURSOR3.png'), auto;; */
 }
+
+.getting_started_images {
+  width: 60%;
+  height: 100%;
+  position: relative;
+}
+.getting_started_ {
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  height: 70%;
+  width: 100%;
+  display: flex;
+  align-items: center;
+}
+.getting_started_>img {
+  width: 33%;
+  height: 40%;
+}
+
+.getting_started_bg {
+  height: 50%;
+  left: 2px;
+  bottom: 57px;
+}
+
+.getting_started_>div {
+  width: 33%;
+  height: 40%;
+}
+
+.getting_started_learn_more {
+  margin-top: 70px;
+  height: 20%;
+  width: 50%;
+  margin-left: 25%;
+}
+.getting_started_learn_more img {
+  cursor: url('./assets/images/cursor/CURSOR3.png'), auto;
+}
+
 /* Page 2 end */
 
 /* Page 3 Start */
@@ -71,7 +112,13 @@ img.PLAY_TO_EARN {
   top: 30%;
   transform: translateY(-50%);
   position: absolute;
-  cursor: url('./assets/images/cursor/CURSOR3.png'), auto;;
+  cursor: url('./assets/images/cursor/CURSOR3.png'), auto;
+}
+.roadmap_new {
+  position: absolute;
+  /* margin-top: 40px; */
+  height: 100%;
+  width: 100%;
 }
 .background_four,.background_three,.background_two{
   position: absolute
@@ -387,11 +434,11 @@ table.main_table {
   top: 43%;
   transform: translate(-50%, -50%);
   z-index: 10;
-  width: 350px;
-  height: 350px;
+  width: 300px;
+  height: 300px;
   border-radius: 10px;
   /* box-shadow: 0px 0px 15px 6px rgba(180, 145, 78, 1); */
-  padding: 80px;
+  padding: 60px 40px;
 
   background: url("./assets/images/partyHall/hover.png");
   background-size: 100% 100%;
