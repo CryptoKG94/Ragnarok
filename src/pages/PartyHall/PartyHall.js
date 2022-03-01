@@ -105,9 +105,9 @@ export const PartyHall = () => {
     const headerPages = [
         { page: 'VALHALLA', target: '/valhalla' },
         { page: 'PARTY HALL', target: '/partyhall' },
-        { page: 'ADVENTURE', target: 'null' },
-        { page: 'MARKETPLACE', target: 'null' },
-        { page: 'WEDDING HALL', target: 'null' }
+        { page: 'ADVENTURE' },
+        { page: 'MARKETPLACE' },
+        { page: 'WEDDING HALL' }
     ];
 
     const onClickConnect = async () => {
@@ -237,7 +237,7 @@ export const PartyHall = () => {
                         }}
                     >
                         CLASSES
-                        <div className='sort_classes' style={!showSortConf.class ? { display: 'none' } : { width: '200%' }}>
+                        <div className='sort_classes' style={!showSortConf.class ? { display: 'none' } : { width: '270px' }}>
                             <ul>
                                 <li>
                                     <input id="classes_job1" type="radio" onClick={() => setSortOption(SortOption.CLASSES)} value="ASC" name="classes" style={{ marginRight: 10 }} />
@@ -396,7 +396,7 @@ export const PartyHall = () => {
                         }}
                     >
                         LEVEL
-                        <div className='sort_gender' style={!showSortConf.level ? { display: 'none' } : { width: '200%' }}>
+                        <div className='sort_gender' style={!showSortConf.level ? { display: 'none' } : { width: '150px' }}>
                             <div className='sort_gender_column'>
                                 <input id="lb_order_Ascending" type="radio" 
                                     onClick={
