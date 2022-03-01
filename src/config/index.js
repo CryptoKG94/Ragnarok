@@ -42,6 +42,7 @@ export const baseURLforIPFS = "https://worldofragnarok.mypinata.cloud/"
 export const contractAddress = "0x1dfA69312d07C76422547b808CD8692b11b89370"
 
 export const SECOND_TO_START = 864000 // 10 days
+export const EndDay = new Date('Mar 11 2022 00:00:00');
 
 export default {
     ChainID,
