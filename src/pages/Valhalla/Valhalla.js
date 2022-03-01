@@ -11,7 +11,7 @@ import { Footer } from '../../components/Footer';
 import ContractUtils from '../../utils/contractUtils';
 import { allocateTimeUnits } from '../../utils';
 import Toast from '../../components/Toast';
-import { walletLocalStorageKey, SECOND_TO_START } from '../../config'
+import { walletLocalStorageKey, SECOND_TO_START, EndDay } from '../../config'
 import imgBox from "../../assets/images/buying/box.png"
 import x1 from "../../assets/images/buying/x1.png"
 import x10 from "../../assets/images/buying/x10.png"
@@ -32,25 +32,13 @@ export const Valhalla = () => {
     const [toastType, setToastType] = useState(2) //1: success, 2: error
     const [mintType, setMintType] = useState(0)
 
-    const [countDown, setCountDown] = useState(SECOND_TO_START)
+    const [countDown, setCountDown] = useState(SECOND_TO_START * 1000)
     const [startMint, setStartMint] = useState(false)
 
     useEffect(() => {
-        let interval = 0;
-        if (countDown > 0) {
-            interval = setInterval(() => {
-                console.log(countDown);
-                setCountDown(count => count - 1);
-            }, 1000);
-        } else {
-            clearInterval(interval);
-            setStartMint(true)
-        }
-
-        return () => clearInterval(interval);
-    }, [countDown]);
-
-    let strTime = allocateTimeUnits(countDown * 1000);
+        let diff = EndDay.getTime() - new Date().getTime();
+        setCountDown(diff)
+    }, [])
 
     useEffect(() => {
         // const _address = window.localStorage.getItem(walletLocalStorageKey);
@@ -60,6 +48,23 @@ export const Valhalla = () => {
         console.log(ContractUtils.isWalletConnected())
         dispatch(getNFTInfo())
     }, [dispatch])
+
+    useEffect(() => {
+        let interval = 0;
+        if (countDown > 0) {
+            interval = setInterval(() => {
+                console.log(countDown);
+                setCountDown(count => count - 1000);
+            }, 1000);
+        } else {
+            clearInterval(interval);
+            setStartMint(true)
+        }
+
+        return () => clearInterval(interval);
+    }, [countDown]);
+
+    let strTime = allocateTimeUnits(countDown);
 
     const history = useHistory();
 
