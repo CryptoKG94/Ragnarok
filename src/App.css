@@ -125,8 +125,9 @@ img.PLAY_TO_EARN {
 }
 .tokenomics_new {
   position: absolute;
-  margin-top: 10px;
-  height: 100%;
+  margin-top: 10vh;
+  margin-right: 30px;
+  height: 90%;
   width: auto;
 }
 /* Page 4 end */

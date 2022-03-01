@@ -41,6 +41,8 @@ export const currency = "usd"
 export const baseURLforIPFS = "https://worldofragnarok.mypinata.cloud/"
 export const contractAddress = "0x1dfA69312d07C76422547b808CD8692b11b89370"
 
+export const SECOND_TO_START = 864000 // 10 days
+
 export default {
     ChainID,
     Node: NODE[ChainID],

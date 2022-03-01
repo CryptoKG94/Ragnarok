@@ -45,3 +45,17 @@ export const formatSize = (size) => {
     }
     return sz + "KB";
 }
+
+export const allocateTimeUnits = (timeDifference) => {
+    const milliSecondsInASecond = 1000;
+    const hoursInADay = 24;
+    const minutesInAnHour = 60;
+    const SecondsInAMinute  = 60;
+    let secondsToDday = Math.floor((timeDifference) / (milliSecondsInASecond) % SecondsInAMinute);
+    let minutesToDday = Math.floor((timeDifference) / (milliSecondsInASecond * minutesInAnHour) % SecondsInAMinute);
+    let hoursToDday = Math.floor((timeDifference) / (milliSecondsInASecond * minutesInAnHour * SecondsInAMinute) % hoursInADay);
+    let daysToDday = Math.floor((timeDifference) / (milliSecondsInASecond * minutesInAnHour * SecondsInAMinute * hoursInADay));
+
+    let strTime = daysToDday + " Day " + hoursToDday + " Hour " + minutesToDday + " Min " + secondsToDday + " Sec"
+    return strTime;
+}

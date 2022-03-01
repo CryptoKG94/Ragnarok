@@ -1,11 +1,11 @@
 import { React, useEffect, useState } from 'react'
-import { Header } from '../Components/Header';
+import { Header } from '../../components/Header';
 import header_2 from '../../assets/images/page_header_2.png';
 import header_logo from '../../assets/images/CONTACT_WALL.png';
 import disconnect_logo from '../../assets/images/DISCONNECT_WALL.png';
 import { PageFive } from '../GamePages/PageFive';
 import { useRef } from 'react';
-import { Footer } from '../Components/Footer';
+import { Footer } from '../../components/Footer';
 import ContractUtils from '../../utils/contractUtils';
 import Toast from '../Components/Toast';
 import { walletLocalStorageKey } from '../../config'
