@@ -46,6 +46,10 @@ const FEMALE = "desc";
 const ASC = 'asc';
 const DSC = 'desc';
 
+const UPPER = 'UPPER'
+const MID = 'MID';
+const LOWER = 'LOWER'
+
 export const PartyHall = () => {
     const history = useHistory();
 
@@ -62,6 +66,7 @@ export const PartyHall = () => {
     const [toastType, setToastType] = useState(2) //1: success, 2: error
     const [gender, setGender] = useState(MALE);
     const [order, setOrder] = useState(ASC)
+    const [size, setSize] = useState(UPPER)
 
     const initialShowConf = {
         class: false,
@@ -69,6 +74,8 @@ export const PartyHall = () => {
         gender: false
     }
     const [showSortConf, setShowSortConf] = useState(initialShowConf)
+
+    const [checkedVal, setCheckedVal] = useState("");
 
     useEffect(() => {
 
@@ -208,14 +215,15 @@ export const PartyHall = () => {
                     metadatasToSort,
                     (metadata) => {
                         let sortIndex = metadata.attributes.findIndex(item => item.trait_type === SortOption.LEVEL);
-                        return metadata.attributes[sortIndex].value;
+                        console.log(metadata.attributes[sortIndex].value)
+                        return Number(metadata.attributes[sortIndex].value);
                     },
                     order,
                 )
             default:
                 return metadatasToSort
         }
-    },[order, gender, sortOption])
+    }, [order, gender, sortOption])
 
     let viewNFTs;
     if (nftAssets && nftAssets.status && nftAssets.status.metadatas) {
@@ -398,26 +406,32 @@ export const PartyHall = () => {
                         LEVEL
                         <div className='sort_gender' style={!showSortConf.level ? { display: 'none' } : { width: '150px' }}>
                             <div className='sort_gender_column'>
-                                <input id="lb_order_Ascending" type="radio" 
-                                    onClick={
-                                        () => {
+                                <input id="lb_order_Ascending" type="radio"
+                                    onChange={
+                                        (e) => {
+                                            e.stopPropagation();
+                                            setCheckedVal(e.currentTarget.value)
                                             setOrder(ASC)
                                             setSortOption(SortOption.LEVEL)
-                                    }} 
-                                    value="ASC" 
-                                    name="order" 
-                                    style={{ marginRight: 10 }} 
+                                        }}
+                                    value={ASC}
+                                    name="order"
+                                    checked={checkedVal === ASC}
+                                    style={{ marginRight: 10 }}
                                 />
                                 <label htmlFor="lb_order_Ascending">Ascending</label></div>
                             <div className='sort_gender_column'>
-                                <input id="lb_order_Decending" type="radio" 
-                                    onClick={() => { 
+                                <input id="lb_order_Decending" type="radio"
+                                    onChange={(e) => {
+                                        e.stopPropagation();
+                                        setCheckedVal(e.currentTarget.value)
                                         setOrder(DSC)
                                         setSortOption(SortOption.LEVEL)
-                                    }} 
-                                    style={{ marginRight: 10 }} 
-                                    value="DSC" 
-                                    name="order" 
+                                    }}
+                                    style={{ marginRight: 10 }}
+                                    value={DSC}
+                                    name="order"
+                                    checked={checkedVal === DSC}
                                 />
                                 <label htmlFor="lb_order_Decending">Decending</label></div>
                         </div>
@@ -433,19 +447,62 @@ export const PartyHall = () => {
                         GENDER
                         <div className='sort_gender' style={!showSortConf.gender ? { display: 'none' } : {}}>
                             <div className='sort_gender_column'>
-                                <input id="lb_gender_male" type="radio" onClick={() => {setGender(MALE); setSortOption(SortOption.GENDER)}} value="UPPER" name="gender" style={{ marginRight: 10 }} />
+                                <input
+                                    id="lb_gender_male"
+                                    type="radio"
+                                    onChange={(e) => {e.stopPropagation();setCheckedVal(e.currentTarget.value); setGender(MALE); setSortOption(SortOption.GENDER) }}
+                                    value={MALE}
+                                    name="gender"
+                                    checked={checkedVal === MALE}
+                                    style={{ marginRight: 10 }}
+                                />
                                 <label htmlFor="lb_gender_male">Male</label></div>
                             <div className='sort_gender_column'>
-                                <input id="lb_gender_female" type="radio" onClick={() => {setGender(FEMALE); setSortOption(SortOption.GENDER) }} style={{ marginRight: 10 }} value="MID" name="gender" />
+                                <input
+                                    id="lb_gender_female"
+                                    type="radio"
+                                    onChange={(e) => {e.stopPropagation();setCheckedVal(e.currentTarget.value); setGender(FEMALE); setSortOption(SortOption.GENDER) }}
+                                    style={{ marginRight: 10 }}
+                                    value={FEMALE}
+                                    name="gender"
+                                    checked={checkedVal === FEMALE}
+                                />
                                 <label htmlFor="lb_gender_female">Female</label></div>
                         </div>
                     </div>
-                    <div className="character_title_props" style={{ width: '22vw'}}>
-                        <input id="lb_upper" type="radio" onClick={() => setSortOption(SortOption.UPPER)} value="UPPER" name="case" style={{ marginRight: 10 }} />
+                    {console.log(size)}
+                    <div className="character_title_props" style={{ width: '22vw' }}>
+                        <input 
+                            id="lb_upper" 
+                            type="radio" 
+                            onChange={(e) => {e.stopPropagation();setCheckedVal(e.currentTarget.value); setSize(UPPER); setSortOption(SortOption.UPPER);}} 
+                            value={UPPER} 
+                            name="case"
+                            checked={checkedVal === UPPER}
+                            style={{ marginRight: 10 }} 
+                        />
                         <label htmlFor="lb_upper">UPPER</label>
-                        <input className='radio_container' id="lb_mid" type="radio" onClick={() => { setSortOption(SortOption.MID) }} value="MID" name="case" style={{ marginRight: 10 }} />
+                        <input 
+                            className='radio_container' 
+                            id="lb_mid" 
+                            type="radio" 
+                            onChange={(e) => {e.stopPropagation();setCheckedVal(e.currentTarget.value); setSortOption(SortOption.MID); setSize(MID) }} 
+                            value={MID} 
+                            checked={checkedVal === MID}
+                            name="case" 
+                            style={{ marginRight: 10 }} 
+                        />
                         <label htmlFor="lb_mid">MID</label>
-                        <input className='radio_container' id="lb_lower" type="radio" onClick={() => setSortOption(SortOption.LOWER)} value="LOWER" name="case" style={{ marginRight: 10 }} />
+                        <input 
+                            className='radio_container' 
+                            id="lb_lower" 
+                            type="radio" 
+                            onChange={(e) => {e.stopPropagation();setCheckedVal(e.currentTarget.value);setSortOption(SortOption.LOWER); setSize(LOWER)}} 
+                            value={LOWER} 
+                            checked={checkedVal === LOWER}
+                            name="case" 
+                            style={{ marginRight: 10 }} 
+                        />
                         <label htmlFor="lb_lower">LOWER</label>
                     </div>
 
