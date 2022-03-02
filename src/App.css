@@ -26,29 +26,14 @@ img{ height: 100%; width: 100%; }
 img.PAGE_1_play {
   width: auto;
   position: absolute;
-  bottom: 0;
+  bottom: 20px;
   cursor: url('./assets/images/cursor/CURSOR3.png'), auto;;
   display: block; 
   height:220px;
 }
-img.PLAY_TO_EARN {
-  width: auto;
-  position: absolute;
-  bottom: 150px;
-  display: block; 
-  height: 110px;
-}
 /* Page 1 end */
 
 /* Page 2 Start */
-.GETTING_STARTED {
-  width: 750px;
-  height: 550px;
-  position: absolute;
-  right: 0;
-  bottom: 0;
-  /* cursor: url('./assets/images/cursor/CURSOR3.png'), auto;; */
-}
 
 .getting_started_images {
   width: 60%;
