@@ -520,9 +520,9 @@ export const PartyHall = () => {
                             <img src={createBtn} alt="" />
                         </div>
                         <div className="party_sub_text">
-                            <div>Party Fee: 5BUSD</div>
+                            <div>Party Fee: 2 ROK</div>
                             <div>Fee Maximum Member: 5</div>
-                            <div>Additional Party Member Fee: 1BUSD</div>
+                            <div>Additional Party Member Fee: 1 ROK</div>
                         </div>
                         <div className='party_info_text'>
                             <img src={text} alt="" style={{ width: '16.7vw' }} />
