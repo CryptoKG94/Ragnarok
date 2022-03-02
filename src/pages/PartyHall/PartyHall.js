@@ -141,7 +141,6 @@ export const PartyHall = () => {
     }
 
     const onCreateParty = () => {
-        alert()
     }
 
     const onHoverNft = (nft) => () => {
@@ -404,7 +403,7 @@ export const PartyHall = () => {
                         }}
                     >
                         LEVEL
-                        <div className='sort_gender' style={!showSortConf.level ? { display: 'none' } : { width: '150px' }}>
+                        <div className='sort_gender' style={!showSortConf.level ? { display: 'none' } : { width: '180px' }}>
                             <div className='sort_gender_column'>
                                 <input id="lb_order_Ascending" type="radio"
                                     onChange={
