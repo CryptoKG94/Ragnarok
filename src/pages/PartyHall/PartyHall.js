@@ -208,7 +208,8 @@ export const PartyHall = () => {
                     metadatasToSort,
                     (metadata) => {
                         let sortIndex = metadata.attributes.findIndex(item => item.trait_type === SortOption.LEVEL);
-                        return metadata.attributes[sortIndex].value;
+                        console.log(metadata.attributes[sortIndex].value)
+                        return Number(metadata.attributes[sortIndex].value);
                     },
                     order,
                 )
