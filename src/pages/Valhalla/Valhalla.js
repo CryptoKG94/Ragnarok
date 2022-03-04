@@ -9,8 +9,9 @@ import disconnect_logo from '../../assets/images/DISCONNECT_WALL.png';
 import { AssetsSlider } from './AssetsSlider';
 import { Footer } from '../../components/Footer';
 import ContractUtils from '../../utils/contractUtils';
+import { allocateTimeUnits } from '../../utils';
 import Toast from '../../components/Toast';
-import { walletLocalStorageKey } from '../../config'
+import { walletLocalStorageKey, SECOND_TO_START, EndDay } from '../../config'
 import imgBox from "../../assets/images/buying/box.png"
 import x1 from "../../assets/images/buying/x1.png"
 import x10 from "../../assets/images/buying/x10.png"
@@ -31,6 +32,14 @@ export const Valhalla = () => {
     const [toastType, setToastType] = useState(2) //1: success, 2: error
     const [mintType, setMintType] = useState(0)
 
+    const [countDown, setCountDown] = useState(SECOND_TO_START * 1000)
+    const [startMint, setStartMint] = useState(false)
+
+    useEffect(() => {
+        let diff = EndDay.getTime() - new Date().getTime();
+        setCountDown(diff)
+    }, [])
+
     useEffect(() => {
         // const _address = window.localStorage.getItem(walletLocalStorageKey);
         // if (_address) {
@@ -40,8 +49,25 @@ export const Valhalla = () => {
         dispatch(getNFTInfo())
     }, [dispatch])
 
+    useEffect(() => {
+        let interval = 0;
+        if (countDown > 0) {
+            interval = setInterval(() => {
+                console.log(countDown);
+                setCountDown(count => count - 1000);
+            }, 1000);
+        } else {
+            clearInterval(interval);
+            setStartMint(true)
+        }
+
+        return () => clearInterval(interval);
+    }, [countDown]);
+
+    let strTime = allocateTimeUnits(countDown);
+
     const history = useHistory();
-    
+
 
     const headerFuncs = (target) => {
         history.push(target);
@@ -80,6 +106,13 @@ export const Valhalla = () => {
     }
 
     const onMint = async (cnt) => {
+        if (!startMint) {
+            setShowToast(true);
+            setToastMessage("Can't mint now");
+            setToastType(2);
+            return;
+        }
+        
         let res = await ContractUtils.mintNFT(cnt);
         console.log("--------cnt---------",cnt)
         if (res.success) {
@@ -110,28 +143,33 @@ export const Valhalla = () => {
                         <img src={disconnect_logo} className='header_con' alt="connect_wall" onClick={onClickDisconnect} />
                     </>}
             </Header>
-            <div className="nft-price" style={{display: 'flex', justifyContent: 'center'}} >
-                <span className='nft-price-span'>Live Minting Cost: ${nftInfo && nftInfo.data}</span>
+            <div className="nft-price" style={{ display: 'flex', justifyContent: 'center' }} >
+                {
+                    startMint ?
+                        <span className='nft-price-span'>Live Minting Cost: ${nftInfo && nftInfo.data}</span>
+                        :
+                        <span className='nft-price-span'> {strTime} </span>
+                }
             </div>
             <div className="row" style={{ marginLeft: 'auto', marginRight: 'auto', marginTop: 50 }}>
                 <div className="col-lg-4 col-md-4 col-sm-4 col-xs-4">
                     <div className="mint-button">
-                        <img src={imgBox} alt="" style={{ width: '15vw'}} onClick={() => onMint(1)} />
-                        <img src={x1} alt="" style={{ width: '4vw', height: '4vw', position: 'absolute'}} onClick={() => onMint(1)} />
+                        <img src={imgBox} alt="" style={{ width: '15vw' }} onClick={() => onMint(1)} />
+                        <img src={x1} alt="" style={{ width: '4vw', height: '4vw', position: 'absolute' }} onClick={() => onMint(1)} />
                         {mintType === 1 && showToast &&<img src={mintBtn} alt="" style={{ width: '12vw', height: '12vw', position: 'absolute'}} />}
                     </div>
                 </div>
                 <div className="col-lg-4 col-md-4 col-sm-4 col-xs-4">
                     <div className="mint-button">
-                        <img src={imgBox} alt="" style={{ width: '15vw'}} onClick={() => onMint(5)} />
-                        <img src={x5} alt="" style={{ width: '4vw', height: '4vw', position: 'absolute'}} onClick={() => onMint(5)} />
+                        <img src={imgBox} alt="" style={{ width: '15vw' }} onClick={() => onMint(5)} />
+                        <img src={x5} alt="" style={{ width: '4vw', height: '4vw', position: 'absolute' }} onClick={() => onMint(5)} />
                         {mintType === 5 && showToast &&<img src={mintBtn} alt="" style={{ width: '12vw', height: '12vw', position: 'absolute'}} />}
                     </div>
                 </div>
                 <div className="col-lg-4 col-md-4 col-sm-4 col-xs-4">
                     <div className="mint-button">
-                        <img src={imgBox} alt="" style={{ width: '15vw'}} onClick={() => onMint(10)} />
-                        <img src={x10} alt="" style={{ width: '4vw', height: '4vw', position: 'absolute'}} onClick={() => onMint(10)} />
+                        <img src={imgBox} alt="" style={{ width: '15vw' }} onClick={() => onMint(10)} />
+                        <img src={x10} alt="" style={{ width: '4vw', height: '4vw', position: 'absolute' }} onClick={() => onMint(10)} />
                         {mintType === 10 && showToast &&<img src={mintBtn} alt="" style={{ width: '12vw', height: '12vw', position: 'absolute'}} />}
                     </div>
                 </div>

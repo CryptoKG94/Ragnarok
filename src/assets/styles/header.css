@@ -46,7 +46,7 @@ li.nav-item {
     color: #fff !important;
     font-family: ui-serif;
     font-weight: 600;
-    cursor: url('../images/cursor/CURSOR3.png'), auto;;
+    cursor: url('../images/cursor/CURSOR3.png'), auto;
     text-shadow: 3px 8px 3px #000;
 }
 a.nav-link {

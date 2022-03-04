@@ -47,7 +47,7 @@ img.PLAY_TO_EARN {
   position: absolute;
   right: 0;
   bottom: 0;
-  cursor: url('./assets/images/cursor/CURSOR3.png'), auto;;
+  /* cursor: url('./assets/images/cursor/CURSOR3.png'), auto;; */
 }
 
 .getting_started_images {
@@ -64,9 +64,30 @@ img.PLAY_TO_EARN {
   display: flex;
   align-items: center;
 }
-.getting_started_ img {
+.getting_started_>img {
   width: 33%;
   height: 40%;
+}
+
+.getting_started_bg {
+  height: 50%;
+  left: 2px;
+  bottom: 57px;
+}
+
+.getting_started_>div {
+  width: 33%;
+  height: 40%;
+}
+
+.getting_started_learn_more {
+  margin-top: 70px;
+  height: 20%;
+  width: 50%;
+  margin-left: 25%;
+}
+.getting_started_learn_more img {
+  cursor: url('./assets/images/cursor/CURSOR3.png'), auto;
 }
 
 /* Page 2 end */
@@ -104,8 +125,9 @@ img.PLAY_TO_EARN {
 }
 .tokenomics_new {
   position: absolute;
-  margin-top: 10px;
-  height: 100%;
+  margin-top: 10vh;
+  margin-right: 30px;
+  height: 90%;
   width: auto;
 }
 /* Page 4 end */

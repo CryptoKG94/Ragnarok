@@ -21,8 +21,8 @@ contract WorldOfRagnarok is ERC721Enumerable, Ownable {
     address public marketWallet = address(0);
     address public otherWallet = address(0);
 
-    bool public publicSale = true;
-    mapping(address => bool) whitelist;
+    bool public publicSale = false;
+    mapping(address => bool) private whitelist;
 
     mapping (uint256 => string) private revealURI;
     string public unrevealURI = "https://worldofragnarok.mypinata.cloud/ipfs/QmaPCXYcuZRHpEz4PDhciRGBJee2DvLpYFLMFp5iuzY6Dz/";
@@ -32,9 +32,13 @@ contract WorldOfRagnarok is ERC721Enumerable, Ownable {
     bool public endSale = false;
 
     string private _baseURIextended;
-    uint256 private _priceextended;  // busd
+    uint256 private _priceextended;     // usdc
+    uint256 private _pricePrivate;      // usdc
     mapping (uint256 => bool) registerID;
     mapping (uint256 => uint256) public tokenIds;
+
+    // increase price
+    bool public increasePrice = false;
 
     IUniswapV2Router02 public uniswapV2Router;
 
@@ -77,8 +81,8 @@ contract WorldOfRagnarok is ERC721Enumerable, Ownable {
 
     constructor() ERC721("World of Ragnarok", "WOR") {
         _baseURIextended = "https://ipfs.io/ipfs/";
-        _priceextended = 10000000000000000000; // 10 DAI
-        // _priceextended = 10000000000000000; // 0.01 MATIC
+        _priceextended = 10000000000000000000; // 10 usdc(now dai)
+        _pricePrivate = 9500000000000000000;
 
         IUniswapV2Router02 _uniswapV2Router = IUniswapV2Router02(routerAddress);
         uniswapV2Router = _uniswapV2Router;
@@ -100,6 +104,22 @@ contract WorldOfRagnarok is ERC721Enumerable, Ownable {
         }
     }
 
+    function remoteWhitelist(address _addr) public onlyOwner {
+        require(_addr != address(0), "Zero Address");
+        whitelist[_addr] = false;
+    }
+
+    function removeBatchWhitelist(address[] calldata addrs) external onlyOwner {
+        for (uint256 i = 0; i < addrs.length; i++) {
+            require(addrs[i] != address(0), "Zero Address");
+            whitelist[addrs[i]] = false;
+        }
+    }
+
+    function isInWhitelist(address user) external view returns (bool) {
+        return whitelist[user];
+    }
+
     function getNFTBalance(address _owner) public view returns (uint256) {
        return ERC721.balanceOf(_owner);
     }
@@ -110,9 +130,9 @@ contract WorldOfRagnarok is ERC721Enumerable, Ownable {
         // return _priceextended;
     }
 
-    function getNFTPriceStable() public view returns (uint256) {
+    function getNFTPricePrivate() public view returns (uint256) {
         require(tokenMinted < MAX_NFT_SUPPLY, "Sale has already ended");
-        return _priceextended;
+        return getAmountsTokenForETH(_pricePrivate);
     }
 
     function getAmountsTokenForETH(uint256 busdAmount) internal view returns(uint256) {
@@ -145,18 +165,22 @@ contract WorldOfRagnarok is ERC721Enumerable, Ownable {
         registerID[newRECIdentifier] = true;
         tokenMinted += 1;
         tokenIds[newRECIdentifier] = tokenMinted;
-        subMintedCount += 1;
+
+        if (increasePrice)
+            subMintedCount += 1;
     }
 
     function mintNFT(uint256 _cnt) public payable {
         require(tokenMinted < MAX_NFT_SUPPLY, "Sale has already ended");
+
         // slippage 1%
         uint256 minPriceForSale = getNFTPrice().mul(_cnt).mul(99).div(100);
-        require(minPriceForSale <= msg.value, "ETH value sent is not correct");
-
-        if(!publicSale) {
-            require(whitelist[msg.sender], "Not ");
-            require(_cnt <= 5, "Exceded the Minting Count");
+        if ( !publicSale && whitelist[msg.sender] ) {
+            minPriceForSale = getNFTPricePrivate().mul(_cnt).mul(99).div(100);
+            require(minPriceForSale <= msg.value, "ETH value sent is not correct");
+            // require(_cnt <= 5, "Exceded the Minting Count");
+        } else {
+            require(minPriceForSale <= msg.value, "ETH value sent is not correct");
         }
 
         uint256 devFeePrice = msg.value * devFee /  feeDivisor;
@@ -192,7 +216,9 @@ contract WorldOfRagnarok is ERC721Enumerable, Ownable {
             registerID[newRECIdentifier] = true;
             tokenMinted += 1;
             tokenIds[newRECIdentifier] = tokenMinted;
-            subMintedCount += 1;
+
+            if (increasePrice)
+                subMintedCount += 1;
         }
 
         emit MintNFT(tokenMinted, _msgSender(), _cnt, _priceextended);
@@ -250,6 +276,18 @@ contract WorldOfRagnarok is ERC721Enumerable, Ownable {
 
     function setPrice(uint256 _priceextended_) external onlyOwner() {
         _priceextended = _priceextended_; // as busd
+    }
+
+    function _privatePrice() public view returns (uint256) {
+        return _pricePrivate;
+    }
+
+    function setPrivatePrice(uint256 _privatePrice_) external onlyOwner() {
+        _pricePrivate = _privatePrice_; // as busd
+    }
+
+    function setIncreasePrice(bool _bIncreasePrice) external onlyOwner() {
+        increasePrice = _bIncreasePrice;
     }
 
     function setMarketWallet(address _addr) external onlyOwner {
