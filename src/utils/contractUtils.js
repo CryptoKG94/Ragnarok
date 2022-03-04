@@ -176,7 +176,7 @@ export const getNFTPrice = async () => {
         if (window.ethereum) {
             const web3 = new Web3(window.ethereum);
             let contract = await new web3.eth.Contract(contractABI, Constants.ContractAddress)
-            const nftPrice = await contract.methods.getNFTPriceStable().call();
+            const nftPrice = await contract.methods._price().call();
             return {
                 success: true,
                 status: web3.utils.fromWei("" + nftPrice)
