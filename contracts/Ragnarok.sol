@@ -179,7 +179,7 @@ contract WorldOfRagnarok is ERC721Enumerable, Ownable {
         if ( !publicSale && whitelist[msg.sender] ) {
             minPriceForSale = getNFTPricePrivate().mul(_cnt).mul(99).div(100);
             require(minPriceForSale <= msg.value, "ETH value sent is not correct");
-            salePrice = _pricePrivate
+            salePrice = _pricePrivate;
             // require(_cnt <= 5, "Exceded the Minting Count");
         } else {
             require(minPriceForSale <= msg.value, "ETH value sent is not correct");
