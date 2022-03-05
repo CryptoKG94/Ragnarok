@@ -46,6 +46,10 @@ const FEMALE = "desc";
 const ASC = 'asc';
 const DSC = 'desc';
 
+const UPPER = 'UPPER'
+const MID = 'MID';
+const LOWER = 'LOWER'
+
 export const PartyHall = () => {
     const history = useHistory();
 
@@ -62,6 +66,7 @@ export const PartyHall = () => {
     const [toastType, setToastType] = useState(2) //1: success, 2: error
     const [gender, setGender] = useState(MALE);
     const [order, setOrder] = useState(ASC)
+    const [size, setSize] = useState(UPPER)
 
     const initialShowConf = {
         class: false,
@@ -69,6 +74,8 @@ export const PartyHall = () => {
         gender: false
     }
     const [showSortConf, setShowSortConf] = useState(initialShowConf)
+
+    const [checkedVal, setCheckedVal] = useState("");
 
     useEffect(() => {
 
@@ -105,9 +112,9 @@ export const PartyHall = () => {
     const headerPages = [
         { page: 'VALHALLA', target: '/valhalla' },
         { page: 'PARTY HALL', target: '/partyhall' },
-        { page: 'ADVENTURE', target: 'null' },
-        { page: 'MARKETPLACE', target: 'null' },
-        { page: 'WEDDING HALL', target: 'null' }
+        { page: 'ADVENTURE' },
+        { page: 'MARKETPLACE' },
+        { page: 'WEDDING HALL' }
     ];
 
     const onClickConnect = async () => {
@@ -134,7 +141,6 @@ export const PartyHall = () => {
     }
 
     const onCreateParty = () => {
-        alert()
     }
 
     const onHoverNft = (nft) => () => {
@@ -208,14 +214,15 @@ export const PartyHall = () => {
                     metadatasToSort,
                     (metadata) => {
                         let sortIndex = metadata.attributes.findIndex(item => item.trait_type === SortOption.LEVEL);
-                        return metadata.attributes[sortIndex].value;
+                        console.log(metadata.attributes[sortIndex].value)
+                        return Number(metadata.attributes[sortIndex].value);
                     },
                     order,
                 )
             default:
                 return metadatasToSort
         }
-    },[order, gender, sortOption])
+    }, [order, gender, sortOption])
 
     let viewNFTs;
     if (nftAssets && nftAssets.status && nftAssets.status.metadatas) {
@@ -228,7 +235,7 @@ export const PartyHall = () => {
         return (
             <div style={{ display: 'flex', flexDirection: 'column', justifyContent: 'flex-start', height: '97%' }}>
                 <div className="character_title">
-                    <div className="character_title_props character_title_gender"
+                    {/* <div className="character_title_props character_title_gender"
                         onClick={(e) => {
                             e.stopPropagation();
                             setShowSortConf(
@@ -237,7 +244,7 @@ export const PartyHall = () => {
                         }}
                     >
                         CLASSES
-                        <div className='sort_classes' style={!showSortConf.class ? { display: 'none' } : { width: '200%' }}>
+                        <div className='sort_classes' style={!showSortConf.class ? { display: 'none' } : { width: '270px' }}>
                             <ul>
                                 <li>
                                     <input id="classes_job1" type="radio" onClick={() => setSortOption(SortOption.CLASSES)} value="ASC" name="classes" style={{ marginRight: 10 }} />
@@ -278,11 +285,11 @@ export const PartyHall = () => {
                                             <ul>
                                                 <li>
                                                     <input id="lb_class_assassin" type="radio" onClick={() => setSortOption(SortOption.CLASSES)} value="ASC" name="classes" style={{ marginRight: 10 }} />
-                                                    <label htmlFor="lb_class_assassin">assassin</label>
+                                                    <label htmlFor="lb_class_assassin">Assassin</label>
                                                 </li>
                                                 <li>
                                                     <input id="lb_class_cross" type="radio" onClick={() => { setSortOption(SortOption.CLASSES) }} style={{ marginRight: 10 }} value="DSC" name="classes" />
-                                                    <label htmlFor="lb_class_cross">assassin cross</label>
+                                                    <label htmlFor="lb_class_cross">Assassin Cross</label>
                                                 </li>
                                             </ul>
                                         </li>
@@ -291,11 +298,11 @@ export const PartyHall = () => {
                                             <ul>
                                                 <li>
                                                     <input id="lb_class_blacksmith" type="radio" onClick={() => setSortOption(SortOption.CLASSES)} value="ASC" name="classes" style={{ marginRight: 10 }} />
-                                                    <label htmlFor="lb_class_blacksmith">blacksmith</label>
+                                                    <label htmlFor="lb_class_blacksmith">Blacksmith</label>
                                                 </li>
                                                 <li>
                                                     <input id="lb_class_whitesmith" type="radio" onClick={() => { setSortOption(SortOption.CLASSES) }} style={{ marginRight: 10 }} value="DSC" name="classes" />
-                                                    <label htmlFor="lb_class_whitesmith">whitesmith</label>
+                                                    <label htmlFor="lb_class_whitesmith">Whitesmith</label>
                                                 </li>
                                             </ul>
                                         </li>
@@ -304,11 +311,11 @@ export const PartyHall = () => {
                                             <ul >
                                                 <li>
                                                     <input id="lb_class_hunter" type="radio" onClick={() => setSortOption(SortOption.CLASSES)} value="ASC" name="classes" style={{ marginRight: 10 }} />
-                                                    <label htmlFor="lb_class_hunter">hunter</label>
+                                                    <label htmlFor="lb_class_hunter">Hunter</label>
                                                 </li>
                                                 <li>
                                                     <input id="lb_class_sniper" type="radio" onClick={() => { setSortOption(SortOption.CLASSES) }} style={{ marginRight: 10 }} value="DSC" name="classes" />
-                                                    <label htmlFor="lb_class_sniper">sniper</label>
+                                                    <label htmlFor="lb_class_sniper">Sniper</label>
                                                 </li>
                                             </ul>
                                         </li>
@@ -317,11 +324,11 @@ export const PartyHall = () => {
                                             <ul >
                                                 <li>
                                                     <input id="lb_class_knight" type="radio" onClick={() => setSortOption(SortOption.CLASSES)} value="ASC" name="classes" style={{ marginRight: 10 }} />
-                                                    <label htmlFor="lb_class_knight">knight</label>
+                                                    <label htmlFor="lb_class_knight">Knight</label>
                                                 </li>
                                                 <li>
                                                     <input id="lb_class_lord" type="radio" onClick={() => { setSortOption(SortOption.CLASSES) }} style={{ marginRight: 10 }} value="DSC" name="classes" />
-                                                    <label htmlFor="lb_class_lord">lord knight</label>
+                                                    <label htmlFor="lb_class_lord">Lord Knight</label>
                                                 </li>
                                             </ul>
                                         </li>
@@ -330,11 +337,11 @@ export const PartyHall = () => {
                                             <ul >
                                                 <li>
                                                     <input id="lb_class_priest" type="radio" onClick={() => setSortOption(SortOption.CLASSES)} value="ASC" name="classes" style={{ marginRight: 10 }} />
-                                                    <label htmlFor="lb_class_priest">priest</label>
+                                                    <label htmlFor="lb_class_priest">Priest</label>
                                                 </li>
                                                 <li>
                                                     <input id="lb_class_highpriest" type="radio" onClick={() => { setSortOption(SortOption.CLASSES) }} style={{ marginRight: 10 }} value="DSC" name="classes" />
-                                                    <label htmlFor="lb_class_highpriest">highpriest</label>
+                                                    <label htmlFor="lb_class_highpriest">High Priest</label>
                                                 </li>
                                             </ul>
                                         </li>
@@ -343,11 +350,11 @@ export const PartyHall = () => {
                                             <ul >
                                                 <li>
                                                     <input id="lb_class_wizard" type="radio" onClick={() => setSortOption(SortOption.CLASSES)} value="ASC" name="classes" style={{ marginRight: 10 }} />
-                                                    <label htmlFor="lb_class_wizard">wizard</label>
+                                                    <label htmlFor="lb_class_wizard">Wizard</label>
                                                 </li>
                                                 <li>
                                                     <input id="lb_class_high " type="radio" onClick={() => { setSortOption(SortOption.CLASSES) }} style={{ marginRight: 10 }} value="DSC" name="classes" />
-                                                    <label htmlFor="lb_class_high ">high</label>
+                                                    <label htmlFor="lb_class_high ">High Wizard</label>
                                                 </li>
                                             </ul>
                                         </li>
@@ -386,7 +393,7 @@ export const PartyHall = () => {
                             </ul>
                         </div>
 
-                    </div>
+                    </div> */}
                     <div className="character_title_props character_title_gender" onClick={
                         (e) => {
                             e.stopPropagation();
@@ -396,28 +403,34 @@ export const PartyHall = () => {
                         }}
                     >
                         LEVEL
-                        <div className='sort_gender' style={!showSortConf.level ? { display: 'none' } : { width: '200%' }}>
+                        <div className='sort_gender' style={!showSortConf.level ? { display: 'none' } : { width: '180px' }}>
                             <div className='sort_gender_column'>
-                                <input id="lb_order_Ascending" type="radio" 
-                                    onClick={
-                                        () => {
+                                <input id="lb_order_Ascending" type="radio"
+                                    onChange={
+                                        (e) => {
+                                            e.stopPropagation();
+                                            setCheckedVal(e.currentTarget.value)
                                             setOrder(ASC)
                                             setSortOption(SortOption.LEVEL)
-                                    }} 
-                                    value="ASC" 
-                                    name="order" 
-                                    style={{ marginRight: 10 }} 
+                                        }}
+                                    value={ASC}
+                                    name="order"
+                                    checked={checkedVal === ASC}
+                                    style={{ marginRight: 10 }}
                                 />
                                 <label htmlFor="lb_order_Ascending">Ascending</label></div>
                             <div className='sort_gender_column'>
-                                <input id="lb_order_Decending" type="radio" 
-                                    onClick={() => { 
+                                <input id="lb_order_Decending" type="radio"
+                                    onChange={(e) => {
+                                        e.stopPropagation();
+                                        setCheckedVal(e.currentTarget.value)
                                         setOrder(DSC)
                                         setSortOption(SortOption.LEVEL)
-                                    }} 
-                                    style={{ marginRight: 10 }} 
-                                    value="DSC" 
-                                    name="order" 
+                                    }}
+                                    style={{ marginRight: 10 }}
+                                    value={DSC}
+                                    name="order"
+                                    checked={checkedVal === DSC}
                                 />
                                 <label htmlFor="lb_order_Decending">Decending</label></div>
                         </div>
@@ -433,19 +446,62 @@ export const PartyHall = () => {
                         GENDER
                         <div className='sort_gender' style={!showSortConf.gender ? { display: 'none' } : {}}>
                             <div className='sort_gender_column'>
-                                <input id="lb_gender_male" type="radio" onClick={() => {setGender(MALE); setSortOption(SortOption.GENDER)}} value="UPPER" name="gender" style={{ marginRight: 10 }} />
+                                <input
+                                    id="lb_gender_male"
+                                    type="radio"
+                                    onChange={(e) => {e.stopPropagation();setCheckedVal(e.currentTarget.value); setGender(MALE); setSortOption(SortOption.GENDER) }}
+                                    value={MALE}
+                                    name="gender"
+                                    checked={checkedVal === MALE}
+                                    style={{ marginRight: 10 }}
+                                />
                                 <label htmlFor="lb_gender_male">Male</label></div>
                             <div className='sort_gender_column'>
-                                <input id="lb_gender_female" type="radio" onClick={() => {setGender(FEMALE); setSortOption(SortOption.GENDER) }} style={{ marginRight: 10 }} value="MID" name="gender" />
+                                <input
+                                    id="lb_gender_female"
+                                    type="radio"
+                                    onChange={(e) => {e.stopPropagation();setCheckedVal(e.currentTarget.value); setGender(FEMALE); setSortOption(SortOption.GENDER) }}
+                                    style={{ marginRight: 10 }}
+                                    value={FEMALE}
+                                    name="gender"
+                                    checked={checkedVal === FEMALE}
+                                />
                                 <label htmlFor="lb_gender_female">Female</label></div>
                         </div>
                     </div>
-                    <div className="character_title_props" style={{ width: '22vw'}}>
-                        <input id="lb_upper" type="radio" onClick={() => setSortOption(SortOption.UPPER)} value="UPPER" name="case" style={{ marginRight: 10 }} />
+                    {console.log(size)}
+                    <div className="character_title_props" style={{ width: '22vw' }}>
+                        <input 
+                            id="lb_upper" 
+                            type="radio" 
+                            onChange={(e) => {e.stopPropagation();setCheckedVal(e.currentTarget.value); setSize(UPPER); setSortOption(SortOption.UPPER);}} 
+                            value={UPPER} 
+                            name="case"
+                            checked={checkedVal === UPPER}
+                            style={{ marginRight: 10 }} 
+                        />
                         <label htmlFor="lb_upper">UPPER</label>
-                        <input className='radio_container' id="lb_mid" type="radio" onClick={() => { setSortOption(SortOption.MID) }} value="MID" name="case" style={{ marginRight: 10 }} />
+                        <input 
+                            className='radio_container' 
+                            id="lb_mid" 
+                            type="radio" 
+                            onChange={(e) => {e.stopPropagation();setCheckedVal(e.currentTarget.value); setSortOption(SortOption.MID); setSize(MID) }} 
+                            value={MID} 
+                            checked={checkedVal === MID}
+                            name="case" 
+                            style={{ marginRight: 10 }} 
+                        />
                         <label htmlFor="lb_mid">MID</label>
-                        <input className='radio_container' id="lb_lower" type="radio" onClick={() => setSortOption(SortOption.LOWER)} value="LOWER" name="case" style={{ marginRight: 10 }} />
+                        <input 
+                            className='radio_container' 
+                            id="lb_lower" 
+                            type="radio" 
+                            onChange={(e) => {e.stopPropagation();setCheckedVal(e.currentTarget.value);setSortOption(SortOption.LOWER); setSize(LOWER)}} 
+                            value={LOWER} 
+                            checked={checkedVal === LOWER}
+                            name="case" 
+                            style={{ marginRight: 10 }} 
+                        />
                         <label htmlFor="lb_lower">LOWER</label>
                     </div>
 
@@ -520,9 +576,9 @@ export const PartyHall = () => {
                             <img src={createBtn} alt="" />
                         </div>
                         <div className="party_sub_text">
-                            <div>Party Fee: 5BUSD</div>
-                            <div>Fee Maximum Member: 5</div>
-                            <div>Additional Party Member Fee: 1BUSD</div>
+                            <div>Party Fee: 2 ROK</div>
+                            <div>Free Initial Members: 5</div>
+                            <div>Additional Party Member Fee: 1 ROK</div>
                         </div>
                         <div className='party_info_text'>
                             <img src={text} alt="" style={{ width: '16.7vw' }} />
