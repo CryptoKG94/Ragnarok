@@ -88,7 +88,7 @@ export const PartyHall = () => {
         // getAccountInfo()
         // const _address = window.localStorage.getItem(walletLocalStorageKey)
         const _address = ContractUtils.isWalletConnected()
-        console.log(_address);
+        // console.log(_address);
         if (_address) {
             setAddress(_address)
         }
