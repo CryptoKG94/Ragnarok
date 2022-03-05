@@ -245,7 +245,7 @@ export const getMetaData = async (hashVal) => {
     try {
         let response = await fetch(hashVal);
         let responseJson = await response.json();
-        console.log(responseJson.image);
+        // console.log(responseJson.image);
 
         return responseJson;
     } catch (error) {
@@ -276,7 +276,7 @@ export const getAssetInfo = async () => {
             const tokenId = await contract.methods.tokenOfOwnerByIndex(walletAddress, i).call()
             const tokenUri = await contract.methods.tokenURI(tokenId).call()
             const metadata = await getMetaData(tokenUri)
-            console.log('[kg] => imageURL: ', metadata.image);
+            // console.log('[kg] => imageURL: ', metadata.image);
             data.balance = balance
             data.tokenIds.push(tokenId)
             // data.metadatas.push(Constants.BaseURLforIPFS + imageUrl)

@@ -64,7 +64,7 @@ export const Slider = (props) => {
     }
 
     const ButtonGroup = ({ next, previous }) => {
-        console.log(next)
+        // console.log(next)
         return (
             <div className="carousel-button-group">
                 <CustomLeftArrow
@@ -100,9 +100,9 @@ export const Slider = (props) => {
                     customButtonGroup={<ButtonGroup />}
                     renderButtonGroupOutside={true}
                 >
-                    {props.images && props.images.map(image => {
+                    {props.images && props.images.map((image, index) => {
                         return (
-                            <div className="main_div">
+                            <div className="main_div" key={index}>
                                 <div className="child_div">
                                     <Image
                                         draggable={false}
