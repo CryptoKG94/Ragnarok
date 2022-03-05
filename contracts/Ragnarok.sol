@@ -173,11 +173,15 @@ contract WorldOfRagnarok is ERC721Enumerable, Ownable {
     function mintNFT(uint256 _cnt) public payable {
         require(tokenMinted < MAX_NFT_SUPPLY, "Sale has already ended");
 
+        uint256 salePrice = _priceextended;
+        bool isPrivate = false;
         // slippage 1%
         uint256 minPriceForSale = getNFTPrice().mul(_cnt).mul(99).div(100);
         if ( !publicSale && whitelist[msg.sender] ) {
             minPriceForSale = getNFTPricePrivate().mul(_cnt).mul(99).div(100);
             require(minPriceForSale <= msg.value, "ETH value sent is not correct");
+            salePrice = _pricePrivate
+            isPrivate = true;
             // require(_cnt <= 5, "Exceded the Minting Count");
         } else {
             require(minPriceForSale <= msg.value, "ETH value sent is not correct");
@@ -209,7 +213,7 @@ contract WorldOfRagnarok is ERC721Enumerable, Ownable {
             // price increasing
             if (subMintedCount >= 1000) {
                 subMintedCount = 0;
-                _priceextended = _priceextended.mul(101).div(100);
+                salePrice = salePrice.mul(101).div(100);
             }
 
             _safeMint(msg.sender, newRECIdentifier);
@@ -221,7 +225,13 @@ contract WorldOfRagnarok is ERC721Enumerable, Ownable {
                 subMintedCount += 1;
         }
 
-        emit MintNFT(tokenMinted, _msgSender(), _cnt, _priceextended);
+        if (isPrivate) {
+            _pricePrivate = salePrice;
+        } else {
+            _priceextended = salePrice;
+        }
+
+        emit MintNFT(tokenMinted, _msgSender(), _cnt, salePrice);
     }
 
     function batchURLs(string[] memory _revealURIs) public onlyOwner {
@@ -288,6 +298,10 @@ contract WorldOfRagnarok is ERC721Enumerable, Ownable {
 
     function setIncreasePrice(bool _bIncreasePrice) external onlyOwner() {
         increasePrice = _bIncreasePrice;
+    }
+
+    function setSaleType(bool _saleType) external onlyOwner() {
+        publicSale = _saleType;
     }
 
     function setMarketWallet(address _addr) external onlyOwner {
