@@ -175,19 +175,19 @@ export const Valhalla = () => {
                 <div className="col-lg-2 col-md-2 col-sm-2 col-xs-2">
                     <div className="mint-button">
                         <img src={x50} alt="" style={{ width: '15vw' }} onClick={() => onMint(50)} />
-                        {mintType === 1 && showToast &&<img src={mintBtn} alt="" style={{ width: '12vw', height: '12vw', position: 'absolute'}} />}
+                        {mintType === 50 && showToast &&<img src={mintBtn} alt="" style={{ width: '12vw', height: '12vw', position: 'absolute'}} />}
                     </div>
                 </div>
                 <div className="col-lg-2 col-md-2 col-sm-2 col-xs-2">
                     <div className="mint-button">
                         <img src={x100} alt="" style={{ width: '15vw' }} onClick={() => onMint(100)} />
-                        {mintType === 5 && showToast &&<img src={mintBtn} alt="" style={{ width: '12vw', height: '12vw', position: 'absolute'}} />}
+                        {mintType === 100 && showToast &&<img src={mintBtn} alt="" style={{ width: '12vw', height: '12vw', position: 'absolute'}} />}
                     </div>
                 </div>
                 <div className="col-lg-2 col-md-2 col-sm-2 col-xs-2">
                     <div className="mint-button">
                         <img src={x200} alt="" style={{ width: '15vw' }} onClick={() => onMint(200)} />
-                        {mintType === 10 && showToast &&<img src={mintBtn} alt="" style={{ width: '12vw', height: '12vw', position: 'absolute'}} />}
+                        {mintType === 200 && showToast &&<img src={mintBtn} alt="" style={{ width: '12vw', height: '12vw', position: 'absolute'}} />}
                     </div>
                 </div>
             </div>
