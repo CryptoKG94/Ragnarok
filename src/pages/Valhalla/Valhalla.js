@@ -35,7 +35,7 @@ export const Valhalla = () => {
     const [mintType, setMintType] = useState(0)
 
     const [countDown, setCountDown] = useState(SECOND_TO_START * 1000)
-    const [startMint, setStartMint] = useState(true)
+    const [startMint, setStartMint] = useState(false)
 
     useEffect(() => {
         let diff = EndDay.getTime() - new Date().getTime();
@@ -89,6 +89,7 @@ export const Valhalla = () => {
     ];
 
     const onClickConnect = async () => {
+        setMintType(0);
         let res = await ContractUtils.connectWallet();
         if (res.address) {
             setShowToast(true)
@@ -111,6 +112,7 @@ export const Valhalla = () => {
     const onClickDisconnect = async () => {
         await ContractUtils.disconnectWallet();
         setAddress("");
+        setMintType(0);
     }
 
     const onMint = async (cnt) => {

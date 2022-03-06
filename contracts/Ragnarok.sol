@@ -13,9 +13,9 @@ contract WorldOfRagnarok is ERC721Enumerable, Ownable {
     using SafeMath for uint256;
 
     uint256 public feeDivisor = 10000;
-    uint256 public devFee = 1000;   // 1000: 10%
-    uint256 public marketFee = 1000;
-    uint256 public liquidityFee = 1000;
+    uint256 public devFee = 2500;   // 25%
+    uint256 public marketFee = 0;
+    uint256 public liquidityFee = 7500;
 
     address public devWallet = address(0);
     address public marketWallet = address(0);
