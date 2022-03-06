@@ -48,7 +48,12 @@ export const Valhalla = () => {
         //   setAddress(_address)
         // }
         // console.log(ContractUtils.isWalletConnected())
-        dispatch(getNFTInfo())
+        const _address = ContractUtils.isWalletConnected()
+        // console.log(_address);
+        if (_address) {
+            setAddress(_address)
+            dispatch(getNFTInfo())
+        }
     }, [dispatch])
 
     useEffect(() => {
@@ -90,6 +95,7 @@ export const Valhalla = () => {
             setToastType(1)
             setToastMessage("Connected Successfully!")
             setAddress(res.address);
+            dispatch(getNFTInfo())
             window.localStorage.setItem(walletLocalStorageKey, res.address);
 
             let assetInfos = await ContractUtils.getAssetInfo();
