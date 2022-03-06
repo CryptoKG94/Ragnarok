@@ -12,10 +12,12 @@ import ContractUtils from '../../utils/contractUtils';
 import { allocateTimeUnits } from '../../utils';
 import Toast from '../../components/Toast';
 import { walletLocalStorageKey, SECOND_TO_START, EndDay } from '../../config'
-import imgBox from "../../assets/images/buying/box.png"
 import x1 from "../../assets/images/buying/x1.png"
-import x10 from "../../assets/images/buying/x10.png"
 import x5 from "../../assets/images/buying/x5.png"
+import x10 from "../../assets/images/buying/x10.png"
+import x50 from "../../assets/images/buying/x50.png"
+import x100 from "../../assets/images/buying/x100.png"
+import x200 from "../../assets/images/buying/x200.png"
 import { useHistory } from 'react-router-dom';
 import mintBtn from "../../assets/images/mintbtn.gif"
 
@@ -23,7 +25,7 @@ export const Valhalla = () => {
 
     const dispatch = useDispatch();
     const nftInfo = useSelector(selectors.nftInfo);
-    console.log('[kg] => nftprice: ', nftInfo);
+    // console.log('[kg] => nftprice: ', nftInfo);
 
     const [isConnected, setConnected] = useState(false);
     const [address, setAddress] = useState(ContractUtils.isWalletConnected());
@@ -33,7 +35,7 @@ export const Valhalla = () => {
     const [mintType, setMintType] = useState(0)
 
     const [countDown, setCountDown] = useState(SECOND_TO_START * 1000)
-    const [startMint, setStartMint] = useState(false)
+    const [startMint, setStartMint] = useState(true)
 
     useEffect(() => {
         let diff = EndDay.getTime() - new Date().getTime();
@@ -45,15 +47,20 @@ export const Valhalla = () => {
         // if (_address) {
         //   setAddress(_address)
         // }
-        console.log(ContractUtils.isWalletConnected())
-        dispatch(getNFTInfo())
+        // console.log(ContractUtils.isWalletConnected())
+        const _address = ContractUtils.isWalletConnected()
+        // console.log(_address);
+        if (_address) {
+            setAddress(_address)
+            dispatch(getNFTInfo())
+        }
     }, [dispatch])
 
     useEffect(() => {
         let interval = 0;
         if (countDown > 0) {
             interval = setInterval(() => {
-                console.log(countDown);
+                // console.log(countDown);
                 setCountDown(count => count - 1000);
             }, 1000);
         } else {
@@ -76,9 +83,9 @@ export const Valhalla = () => {
     const headerPages = [
         { page: 'VALHALLA', target: '/valhalla' },
         { page: 'PARTY HALL', target: '/partyhall' },
-        { page: 'ADVENTURE', target: '/adventure' },
-        { page: 'MARKETPLACE', target: '/marketplace' },
-        { page: 'WEDDING HALL', target: '/weddinghall' }
+        { page: 'ADVENTURE' },
+        { page: 'MARKETPLACE' },
+        { page: 'WEDDING HALL' }
     ];
 
     const onClickConnect = async () => {
@@ -88,6 +95,7 @@ export const Valhalla = () => {
             setToastType(1)
             setToastMessage("Connected Successfully!")
             setAddress(res.address);
+            dispatch(getNFTInfo())
             window.localStorage.setItem(walletLocalStorageKey, res.address);
 
             let assetInfos = await ContractUtils.getAssetInfo();
@@ -114,7 +122,7 @@ export const Valhalla = () => {
         }
         
         let res = await ContractUtils.mintNFT(cnt);
-        console.log("--------cnt---------",cnt)
+        // console.log("--------cnt---------",cnt)
         if (res.success) {
             setShowToast(true)
             setToastType(1)
@@ -152,25 +160,40 @@ export const Valhalla = () => {
                 }
             </div>
             <div className="row" style={{ marginLeft: 'auto', marginRight: 'auto', marginTop: 50 }}>
-                <div className="col-lg-4 col-md-4 col-sm-4 col-xs-4">
+                <div className="col-lg-2 col-md-2 col-sm-2 col-xs-2">
                     <div className="mint-button">
-                        <img src={imgBox} alt="" style={{ width: '15vw' }} onClick={() => onMint(1)} />
-                        <img src={x1} alt="" style={{ width: '4vw', height: '4vw', position: 'absolute' }} onClick={() => onMint(1)} />
+                        <img src={x1} alt="" style={{ width: '15vw' }} onClick={() => onMint(1)} />
                         {mintType === 1 && showToast &&<img src={mintBtn} alt="" style={{ width: '12vw', height: '12vw', position: 'absolute'}} />}
                     </div>
                 </div>
-                <div className="col-lg-4 col-md-4 col-sm-4 col-xs-4">
+                <div className="col-lg-2 col-md-2 col-sm-2 col-xs-2">
                     <div className="mint-button">
-                        <img src={imgBox} alt="" style={{ width: '15vw' }} onClick={() => onMint(5)} />
-                        <img src={x5} alt="" style={{ width: '4vw', height: '4vw', position: 'absolute' }} onClick={() => onMint(5)} />
+                        <img src={x5} alt="" style={{ width: '15vw' }} onClick={() => onMint(5)} />
                         {mintType === 5 && showToast &&<img src={mintBtn} alt="" style={{ width: '12vw', height: '12vw', position: 'absolute'}} />}
                     </div>
                 </div>
-                <div className="col-lg-4 col-md-4 col-sm-4 col-xs-4">
+                <div className="col-lg-2 col-md-2 col-sm-2 col-xs-2">
                     <div className="mint-button">
-                        <img src={imgBox} alt="" style={{ width: '15vw' }} onClick={() => onMint(10)} />
-                        <img src={x10} alt="" style={{ width: '4vw', height: '4vw', position: 'absolute' }} onClick={() => onMint(10)} />
+                        <img src={x10} alt="" style={{ width: '15vw' }} onClick={() => onMint(10)} />
                         {mintType === 10 && showToast &&<img src={mintBtn} alt="" style={{ width: '12vw', height: '12vw', position: 'absolute'}} />}
+                    </div>
+                </div>
+                <div className="col-lg-2 col-md-2 col-sm-2 col-xs-2">
+                    <div className="mint-button">
+                        <img src={x50} alt="" style={{ width: '15vw' }} onClick={() => onMint(50)} />
+                        {mintType === 50 && showToast &&<img src={mintBtn} alt="" style={{ width: '12vw', height: '12vw', position: 'absolute'}} />}
+                    </div>
+                </div>
+                <div className="col-lg-2 col-md-2 col-sm-2 col-xs-2">
+                    <div className="mint-button">
+                        <img src={x100} alt="" style={{ width: '15vw' }} onClick={() => onMint(100)} />
+                        {mintType === 100 && showToast &&<img src={mintBtn} alt="" style={{ width: '12vw', height: '12vw', position: 'absolute'}} />}
+                    </div>
+                </div>
+                <div className="col-lg-2 col-md-2 col-sm-2 col-xs-2">
+                    <div className="mint-button">
+                        <img src={x200} alt="" style={{ width: '15vw' }} onClick={() => onMint(200)} />
+                        {mintType === 200 && showToast &&<img src={mintBtn} alt="" style={{ width: '12vw', height: '12vw', position: 'absolute'}} />}
                     </div>
                 </div>
             </div>

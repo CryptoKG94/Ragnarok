@@ -3,6 +3,7 @@ import Web3Modal from 'web3modal';
 import Contract from 'web3-eth-contract';
 import Constants from '../config';
 import BigNumber from "bignumber.js";
+import { constants } from 'buffer';
 
 const Web3 = require('web3');
 const jsonFile = require("../contracts/WorldOfRagnarok.json");
@@ -176,10 +177,18 @@ export const getNFTPrice = async () => {
         if (window.ethereum) {
             const web3 = new Web3(window.ethereum);
             let contract = await new web3.eth.Contract(contractABI, Constants.ContractAddress)
-            const nftPrice = await contract.methods.getNFTPriceStable().call();
-            return {
-                success: true,
-                status: web3.utils.fromWei("" + nftPrice)
+            if (walletAddress) {
+                let isInWhitelist = await contract.methods.isInWhitelist(walletAddress).call();
+                let nftPrice = 0;
+                if (isInWhitelist) {
+                    nftPrice = await contract.methods._privatePrice().call();
+                } else {
+                    nftPrice = await contract.methods._price().call();
+                }
+                return {
+                    success: true,
+                    status: web3.utils.fromWei("" + nftPrice)
+                }
             }
         } else if (window.web3) {
             const web3 = new Web3(window.web3.currentProvider);
@@ -213,7 +222,13 @@ export const mintNFT = async (count) => {
     let contract = await new web3.eth.Contract(contractABI, Constants.ContractAddress)
 
     try {
-        const nftPrice = await contract.methods.getNFTPrice().call();
+        const iswhitelist = await contract.methods.isInWhitelist(walletAddress).call();
+        let nftPrice = 0;
+        if (iswhitelist) {
+            nftPrice = await contract.methods.getNFTPricePrivate().call();
+        } else {
+            nftPrice = await contract.methods.getNFTPrice().call();
+        }
         let subMintedCount = await contract.methods.subMintedCount().call();
 
         let price = new BigNumber(nftPrice);
@@ -245,7 +260,7 @@ export const getMetaData = async (hashVal) => {
     try {
         let response = await fetch(hashVal);
         let responseJson = await response.json();
-        console.log(responseJson.image);
+        // console.log(responseJson.image);
 
         return responseJson;
     } catch (error) {
@@ -276,7 +291,7 @@ export const getAssetInfo = async () => {
             const tokenId = await contract.methods.tokenOfOwnerByIndex(walletAddress, i).call()
             const tokenUri = await contract.methods.tokenURI(tokenId).call()
             const metadata = await getMetaData(tokenUri)
-            console.log('[kg] => imageURL: ', metadata.image);
+            // console.log('[kg] => imageURL: ', metadata.image);
             data.balance = balance
             data.tokenIds.push(tokenId)
             // data.metadatas.push(Constants.BaseURLforIPFS + imageUrl)
