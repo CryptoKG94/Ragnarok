@@ -35,7 +35,7 @@ export const Valhalla = () => {
     const [mintType, setMintType] = useState(0)
 
     const [countDown, setCountDown] = useState(SECOND_TO_START * 1000)
-    const [startMint, setStartMint] = useState(true)
+    const [startMint, setStartMint] = useState(false)
 
     useEffect(() => {
         let diff = EndDay.getTime() - new Date().getTime();
@@ -48,7 +48,12 @@ export const Valhalla = () => {
         //   setAddress(_address)
         // }
         // console.log(ContractUtils.isWalletConnected())
-        dispatch(getNFTInfo())
+        const _address = ContractUtils.isWalletConnected()
+        // console.log(_address);
+        if (_address) {
+            setAddress(_address)
+            dispatch(getNFTInfo())
+        }
     }, [dispatch])
 
     useEffect(() => {
@@ -84,12 +89,14 @@ export const Valhalla = () => {
     ];
 
     const onClickConnect = async () => {
+        setMintType(0);
         let res = await ContractUtils.connectWallet();
         if (res.address) {
             setShowToast(true)
             setToastType(1)
             setToastMessage("Connected Successfully!")
             setAddress(res.address);
+            dispatch(getNFTInfo())
             window.localStorage.setItem(walletLocalStorageKey, res.address);
 
             let assetInfos = await ContractUtils.getAssetInfo();
@@ -105,6 +112,7 @@ export const Valhalla = () => {
     const onClickDisconnect = async () => {
         await ContractUtils.disconnectWallet();
         setAddress("");
+        setMintType(0);
     }
 
     const onMint = async (cnt) => {
