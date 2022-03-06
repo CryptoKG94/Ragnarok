@@ -15,11 +15,11 @@ contract WorldOfRagnarok is ERC721Enumerable, Ownable {
     uint256 public feeDivisor = 10000;
     uint256 public devFee = 1000;   // 1000: 10%
     uint256 public marketFee = 1000;
-    uint256 public otherFee = 1000;
+    uint256 public liquidityFee = 1000;
 
     address public devWallet = address(0);
     address public marketWallet = address(0);
-    address public otherWallet = address(0);
+    address public liquidityWallet = address(0);
 
     bool public publicSale = false;
     mapping(address => bool) private whitelist;
@@ -173,11 +173,13 @@ contract WorldOfRagnarok is ERC721Enumerable, Ownable {
     function mintNFT(uint256 _cnt) public payable {
         require(tokenMinted < MAX_NFT_SUPPLY, "Sale has already ended");
 
+        uint256 salePrice = _priceextended;
         // slippage 1%
         uint256 minPriceForSale = getNFTPrice().mul(_cnt).mul(99).div(100);
         if ( !publicSale && whitelist[msg.sender] ) {
             minPriceForSale = getNFTPricePrivate().mul(_cnt).mul(99).div(100);
             require(minPriceForSale <= msg.value, "ETH value sent is not correct");
+            salePrice = _pricePrivate;
             // require(_cnt <= 5, "Exceded the Minting Count");
         } else {
             require(minPriceForSale <= msg.value, "ETH value sent is not correct");
@@ -185,9 +187,9 @@ contract WorldOfRagnarok is ERC721Enumerable, Ownable {
 
         uint256 devFeePrice = msg.value * devFee /  feeDivisor;
         uint256 marketFeePrice = msg.value * marketFee /  feeDivisor;
-        uint256 otherFeePrice = msg.value * otherFee /  feeDivisor;
+        uint256 liquidityFeePrice = msg.value * liquidityFee /  feeDivisor;
 
-        if (marketWallet != address(0) && devFeePrice > 0) {
+        if (marketWallet != address(0) && marketFeePrice > 0) {
             (bool sent, ) = payable(marketWallet).call{value: marketFeePrice}("");
             require(sent, "Failed payment");
         }
@@ -197,8 +199,8 @@ contract WorldOfRagnarok is ERC721Enumerable, Ownable {
             require(sent, "Failed payment");
         }
 
-        if (otherWallet != address(0) && devFeePrice > 0) {
-            (bool sent, ) = payable(otherWallet).call{value: otherFeePrice}("");
+        if (liquidityWallet != address(0) && liquidityFeePrice > 0) {
+            (bool sent, ) = payable(liquidityWallet).call{value: liquidityFeePrice}("");
             require(sent, "Failed payment");
         }
 
@@ -210,6 +212,7 @@ contract WorldOfRagnarok is ERC721Enumerable, Ownable {
             if (subMintedCount >= 1000) {
                 subMintedCount = 0;
                 _priceextended = _priceextended.mul(101).div(100);
+                _pricePrivate = _pricePrivate.mul(101).div(100);
             }
 
             _safeMint(msg.sender, newRECIdentifier);
@@ -221,7 +224,7 @@ contract WorldOfRagnarok is ERC721Enumerable, Ownable {
                 subMintedCount += 1;
         }
 
-        emit MintNFT(tokenMinted, _msgSender(), _cnt, _priceextended);
+        emit MintNFT(tokenMinted, _msgSender(), _cnt, salePrice);
     }
 
     function batchURLs(string[] memory _revealURIs) public onlyOwner {
@@ -290,6 +293,10 @@ contract WorldOfRagnarok is ERC721Enumerable, Ownable {
         increasePrice = _bIncreasePrice;
     }
 
+    function setSaleType(bool _saleType) external onlyOwner() {
+        publicSale = _saleType;
+    }
+
     function setMarketWallet(address _addr) external onlyOwner {
         require(_addr != address(0), "Zero Address");
         marketWallet = _addr;
@@ -300,23 +307,23 @@ contract WorldOfRagnarok is ERC721Enumerable, Ownable {
         devWallet = _addr;
     }
 
-    function setOtherWallet(address _addr) external onlyOwner {
+    function setLiquidityWallet(address _addr) external onlyOwner {
         require(_addr != address(0), "Zero Address");
-        otherWallet = _addr;
+        liquidityWallet = _addr;
     }
 
     function setMarketFee(uint256 _newFee) external onlyOwner {
-        require(_newFee <= 1000, "Tax can't be over 10%");
+        require(_newFee <= 2500, "Tax can't be over 25%");
         marketFee = _newFee;
     }
 
     function setDevFee(uint256 _newFee) external onlyOwner {
-        require(_newFee <= 1000, "Tax can't be over 10%");
+        require(_newFee <= 2500, "Tax can't be over 25%");
         devFee = _newFee;
     }
 
-    function setOtherFee(uint256 _newFee) external onlyOwner {
-        require(_newFee <= 1000, "Tax can't be over 10%");
-        otherFee = _newFee;
+    function setLiquidityFee(uint256 _newFee) external onlyOwner {
+        require(_newFee <= 7500, "Tax can't be over 75%");
+        liquidityFee = _newFee;
     }
 }
