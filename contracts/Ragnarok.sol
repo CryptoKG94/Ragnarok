@@ -25,7 +25,7 @@ contract WorldOfRagnarok is ERC721Enumerable, Ownable {
     mapping(address => bool) private whitelist;
 
     mapping (uint256 => string) private revealURI;
-    string public unrevealURI = "https://worldofragnarok.mypinata.cloud/ipfs/QmXFqUyAHnQGAmmAYZhfMY7HfUmFjLrH1o7vYmNrexDgHX/";
+    string public unrevealURI = "https://worldofragnarok.mypinata.cloud/ipfs/QmPNkvaNq7XKcvjkE6HtYJjZbLKeFoYA9XaRBGoJZq5Kto/";
     string[] public revealURIs;
     bool public reveal = false;
 
@@ -64,8 +64,8 @@ contract WorldOfRagnarok is ERC721Enumerable, Ownable {
     using Counters for Counters.Counter;
     Counters.Counter private _tokenIdentifiers;
 
-    uint256 private constant MAX_TOKENID_NUMBER = 1 * 10 ** 7;
-    uint256 public constant MAX_NFT_SUPPLY = 200000;
+    uint256 private constant MAX_TOKENID_NUMBER = 1 * 10 ** 8;
+    uint256 public constant MAX_NFT_SUPPLY = 2000000;
 
     
     /**
