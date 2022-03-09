@@ -214,7 +214,6 @@ export const PartyHall = () => {
                     metadatasToSort,
                     (metadata) => {
                         let sortIndex = metadata.attributes.findIndex(item => item.trait_type === SortOption.LEVEL);
-                        console.log(metadata.attributes[sortIndex].value)
                         return Number(metadata.attributes[sortIndex].value);
                     },
                     order,
@@ -469,7 +468,6 @@ export const PartyHall = () => {
                                 <label htmlFor="lb_gender_female">Female</label></div>
                         </div>
                     </div>
-                    {console.log(size)}
                     <div className="character_title_props" style={{ width: '22vw' }}>
                         <input 
                             id="lb_upper" 
