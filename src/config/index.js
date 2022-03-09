@@ -10,6 +10,13 @@ const MUMBAI = 80001
 
 const ChainID = MUMBAI
 
+export const CHAIN_NAME = {
+    [MAINNET] : 'BSC Mainnet',
+    [TESTNET] : 'BSC Testnet',
+    [MUMBAI] : 'Polygon Testnet',
+    [POLYGON] : 'Polgyon Mainnet'
+}
+
 export const BASE_BSC_SCAN_URLS = {
     [MAINNET] : 'https://bscscan.com',
     [TESTNET] : 'https://testnet.bscscan.com',
@@ -33,19 +40,43 @@ export const SortOption = {
     LOWER: 'Headgear Lower'
 }
 
+export const NATIVE_CURRENCY = {
+    [MAINNET]: {
+        name: 'BNB',
+        symbol: 'bnb',
+        decimals: 18,
+    },
+    [TESTNET]: {
+        name: 'BNB',
+        symbol: 'bnb',
+        decimals: 18,
+    },
+    [MUMBAI]: {
+        name: 'MATIC',
+        symbol: 'MATIC',
+        decimals: 18,
+    },
+    [POLYGON]: {
+        name: 'MATIC',
+        symbol: 'MATIC',
+        decimals: 18,
+    }
+}
 export const connectorLocalStorageKey = "connectorIdv2"
 export const walletLocalStorageKey = "wallet";
 export const id = "salary"
 export const cakeId = "tether"
 export const currency = "usd"
 export const baseURLforIPFS = "https://worldofragnarok.mypinata.cloud/"
-export const contractAddress = "0x69a6Bce50ECFCE30Bb3d7F335821b6d0dBb41E09"
+export const contractAddress = "0xB79806c789A681F5B11B3df9c28f9557763edDD9"
 
 export const SECOND_TO_START = 864000 // 10 days
-export const EndDay = new Date('Mar 12 2022 00:00:00');
+export const EndDay = new Date('Mar 12 2022 20:00:00');
 
 export default {
     ChainID,
+    CHAIN_NAME,
+    NATIVE_CURRENCY,
     Node: NODE[ChainID],
     WalletLocalStorageKey: walletLocalStorageKey,
     BASE_BSC_SCAN_URLS,
