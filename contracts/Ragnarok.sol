@@ -42,7 +42,7 @@ contract WorldOfRagnarok is ERC721Enumerable, Ownable {
 
     IUniswapV2Router02 public uniswapV2Router;
 
-    address public routerAddress = address(0xa5E0829CaCEd8fFDD4De3c43696c57F7D7A678ff);
+    address public routerAddress = address(0x8954AfA98594b838bda56FE4C12a09D7739D179b);
 
     // pancakeswap testnet router address
     // testnet PCS router: 0x9Ac64Cc6e4415144C455BD8E4837Fea55603e5c3
@@ -51,7 +51,7 @@ contract WorldOfRagnarok is ERC721Enumerable, Ownable {
     // mumbai router:   0x8954AfA98594b838bda56FE4C12a09D7739D179b
     // polygon router:  0xa5E0829CaCEd8fFDD4De3c43696c57F7D7A678ff
 
-    address public constant stableToken = address(0xc2132D05D31c914a87C6611C10748AEb04B58e8F);
+    address public constant stableToken = address(0xcB1e72786A6eb3b44C2a2429e317c8a2462CFeb1);
     // BUSD mainnet 0xe9e7CEA3DedcA5984780Bafc599bD69ADd087D56
     // BUSD testnet 0x78867BbEeF44f2326bF8DDd1941a4439382EF2A7
 
@@ -64,8 +64,8 @@ contract WorldOfRagnarok is ERC721Enumerable, Ownable {
     using Counters for Counters.Counter;
     Counters.Counter private _tokenIdentifiers;
 
-    uint256 private constant MAX_TOKENID_NUMBER = 1 * 10 ** 8;
-    uint256 public constant MAX_NFT_SUPPLY = 2000000;
+    uint256 private constant MAX_TOKENID_NUMBER = 1 * 10 ** 7;
+    uint256 public constant MAX_NFT_SUPPLY = 200000;
 
     
     /**
