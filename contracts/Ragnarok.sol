@@ -64,7 +64,7 @@ contract WorldOfRagnarok is ERC721Enumerable, Ownable {
     using Counters for Counters.Counter;
     Counters.Counter private _tokenIdentifiers;
 
-    uint256 private constant MAX_TOKENID_NUMBER = 1 * 10 ** 7;
+    uint256 private constant MAX_TOKENID_NUMBER = 200000;
     uint256 public constant MAX_NFT_SUPPLY = 200000;
 
     

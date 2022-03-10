@@ -68,7 +68,7 @@ export const id = "salary"
 export const cakeId = "tether"
 export const currency = "usd"
 export const baseURLforIPFS = "https://worldofragnarok.mypinata.cloud/"
-export const contractAddress = "0x0416FD33c9f1Caa7a204A0afFb585b0e0CDEFfD7"
+export const contractAddress = "0x5cA28511B52D35EbD73B53b9F038dd8c3F189d92"
 
 export const SECOND_TO_START = 864000 // 10 days
 export const EndDay = new Date('Mar 12 2022 20:00:00');
