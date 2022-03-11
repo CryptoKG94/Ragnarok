@@ -13,9 +13,9 @@ contract WorldOfRagnarok is ERC721Enumerable, Ownable {
     using SafeMath for uint256;
 
     uint256 public feeDivisor = 10000;
-    uint256 public devFee = 1000;   // 1000: 10%
-    uint256 public marketFee = 1000;
-    uint256 public liquidityFee = 1000;
+    uint256 public devFee = 2500;   // 25%
+    uint256 public marketFee = 0;
+    uint256 public liquidityFee = 7500;
 
     address public devWallet = address(0);
     address public marketWallet = address(0);
@@ -25,7 +25,7 @@ contract WorldOfRagnarok is ERC721Enumerable, Ownable {
     mapping(address => bool) private whitelist;
 
     mapping (uint256 => string) private revealURI;
-    string public unrevealURI = "https://worldofragnarok.mypinata.cloud/ipfs/QmaPCXYcuZRHpEz4PDhciRGBJee2DvLpYFLMFp5iuzY6Dz/";
+    string public unrevealURI = "https://worldofragnarok.mypinata.cloud/ipfs/QmPNkvaNq7XKcvjkE6HtYJjZbLKeFoYA9XaRBGoJZq5Kto/";
     string[] public revealURIs;
     bool public reveal = false;
 
@@ -49,7 +49,7 @@ contract WorldOfRagnarok is ERC721Enumerable, Ownable {
     address public constant stableToken = address(0xcB1e72786A6eb3b44C2a2429e317c8a2462CFeb1);
 
     // DAI mumbai  0xcB1e72786A6eb3b44C2a2429e317c8a2462CFeb1
-    // USDT polygon 
+    // USDT polygon 0xc2132D05D31c914a87C6611C10748AEb04B58e8F
 
     uint256 public tokenMinted = 0;
     uint256 public subMintedCount = 0;
@@ -57,7 +57,7 @@ contract WorldOfRagnarok is ERC721Enumerable, Ownable {
     using Counters for Counters.Counter;
     Counters.Counter private _tokenIdentifiers;
 
-    uint256 private constant MAX_TOKENID_NUMBER = 1 * 10 ** 7;
+    uint256 private constant MAX_TOKENID_NUMBER = 200000;
     uint256 public constant MAX_NFT_SUPPLY = 200000;
     
     /**

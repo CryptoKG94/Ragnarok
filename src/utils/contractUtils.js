@@ -79,12 +79,8 @@ export const setupNetwork = async () => {
                 params: [
                     {
                         chainId: `0x${chainId.toString(16)}`,
-                        chainName: 'Binance Smart Chain Mainnet',
-                        nativeCurrency: {
-                            name: 'BNB',
-                            symbol: 'bnb',
-                            decimals: 18,
-                        },
+                        chainName: Constants.CHAIN_NAME[chainId],
+                        nativeCurrency: Constants.NATIVE_CURRENCY[chainId],
                         rpcUrls: [Constants.Node],
                         blockExplorerUrls: [Constants.BASE_BSC_SCAN_URLS[chainId]],
                     },
@@ -121,9 +117,16 @@ export const connectWallet = async () => {
 
         const chainId = await window.web3.eth.chainId();
         if (chainId != Constants.ChainID) { //56: mainnet, 97: testnet
-            await setupNetwork();
+            const res = await setupNetwork();
+            if(!res) {
+                return {
+                    address: "",
+                    status: "Add network"
+                }
+            }
         }
 
+        
         provider.on("chainChanged", (chainId) => {
             setupNetwork();
         });

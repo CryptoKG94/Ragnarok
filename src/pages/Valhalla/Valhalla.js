@@ -17,7 +17,7 @@ import x5 from "../../assets/images/buying/x5.png"
 import x10 from "../../assets/images/buying/x10.png"
 import x50 from "../../assets/images/buying/x50.png"
 import x100 from "../../assets/images/buying/x100.png"
-import x200 from "../../assets/images/buying/x200.png"
+import x120 from "../../assets/images/buying/x120.png"
 import { useHistory } from 'react-router-dom';
 import mintBtn from "../../assets/images/mintbtn.gif"
 
@@ -35,7 +35,7 @@ export const Valhalla = () => {
     const [mintType, setMintType] = useState(0)
 
     const [countDown, setCountDown] = useState(SECOND_TO_START * 1000)
-    const [startMint, setStartMint] = useState(true)
+    const [startMint, setStartMint] = useState(false)
 
     useEffect(() => {
         let diff = EndDay.getTime() - new Date().getTime();
@@ -89,6 +89,7 @@ export const Valhalla = () => {
     ];
 
     const onClickConnect = async () => {
+        setMintType(0);
         let res = await ContractUtils.connectWallet();
         if (res.address) {
             setShowToast(true)
@@ -111,6 +112,7 @@ export const Valhalla = () => {
     const onClickDisconnect = async () => {
         await ContractUtils.disconnectWallet();
         setAddress("");
+        setMintType(0);
     }
 
     const onMint = async (cnt) => {
@@ -159,43 +161,43 @@ export const Valhalla = () => {
                         <span className='nft-price-span'> {strTime} </span>
                 }
             </div>
-            <div className="row" style={{ marginLeft: 'auto', marginRight: 'auto', marginTop: 50 }}>
-                <div className="col-lg-2 col-md-2 col-sm-2 col-xs-2">
+            <div style={{ display: 'flex', justifyContent: 'space-around', marginTop: 50 }}>
+                <div>
                     <div className="mint-button">
                         <img src={x1} alt="" style={{ width: '15vw' }} onClick={() => onMint(1)} />
                         {mintType === 1 && showToast &&<img src={mintBtn} alt="" style={{ width: '12vw', height: '12vw', position: 'absolute'}} />}
                     </div>
                 </div>
-                <div className="col-lg-2 col-md-2 col-sm-2 col-xs-2">
+                <div>
                     <div className="mint-button">
                         <img src={x5} alt="" style={{ width: '15vw' }} onClick={() => onMint(5)} />
                         {mintType === 5 && showToast &&<img src={mintBtn} alt="" style={{ width: '12vw', height: '12vw', position: 'absolute'}} />}
                     </div>
                 </div>
-                <div className="col-lg-2 col-md-2 col-sm-2 col-xs-2">
+                <div>
                     <div className="mint-button">
                         <img src={x10} alt="" style={{ width: '15vw' }} onClick={() => onMint(10)} />
                         {mintType === 10 && showToast &&<img src={mintBtn} alt="" style={{ width: '12vw', height: '12vw', position: 'absolute'}} />}
                     </div>
                 </div>
-                <div className="col-lg-2 col-md-2 col-sm-2 col-xs-2">
+                <div>
                     <div className="mint-button">
                         <img src={x50} alt="" style={{ width: '15vw' }} onClick={() => onMint(50)} />
                         {mintType === 50 && showToast &&<img src={mintBtn} alt="" style={{ width: '12vw', height: '12vw', position: 'absolute'}} />}
                     </div>
                 </div>
-                <div className="col-lg-2 col-md-2 col-sm-2 col-xs-2">
+                <div>
                     <div className="mint-button">
                         <img src={x100} alt="" style={{ width: '15vw' }} onClick={() => onMint(100)} />
                         {mintType === 100 && showToast &&<img src={mintBtn} alt="" style={{ width: '12vw', height: '12vw', position: 'absolute'}} />}
                     </div>
                 </div>
-                <div className="col-lg-2 col-md-2 col-sm-2 col-xs-2">
+                {/* <div>
                     <div className="mint-button">
-                        <img src={x200} alt="" style={{ width: '15vw' }} onClick={() => onMint(200)} />
-                        {mintType === 200 && showToast &&<img src={mintBtn} alt="" style={{ width: '12vw', height: '12vw', position: 'absolute'}} />}
+                        <img src={x120} alt="" style={{ width: '15vw' }} onClick={() => onMint(120)} />
+                        {mintType === 120 && showToast &&<img src={mintBtn} alt="" style={{ width: '12vw', height: '12vw', position: 'absolute'}} />}
                     </div>
-                </div>
+                </div> */}
             </div>
             <AssetsSlider className="" />
             <Toast
