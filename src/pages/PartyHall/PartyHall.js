@@ -38,7 +38,7 @@ const CharacterBtn = styled.button`
 
 const CHARACTER_MODE = 1;
 const PARTY_MODE = 2;
-const NUMBER_OF_NFTS_VISIBLE = 100;
+const NUMBER_OF_NFTS_VISIBLE = 1000;
 
 const MALE = "asc";
 const FEMALE = "desc";
