@@ -34,8 +34,6 @@ contract WorldOfRagnarok is ERC721Enumerable, Ownable {
     string private _baseURIextended;
     uint256 private _priceextended;     // usdc
     uint256 private _pricePrivate;      // usdc
-    mapping (uint256 => bool) registerID;
-    mapping (uint256 => uint256) public tokenIds;
 
     // increase price
     bool public increasePrice = false;
@@ -114,26 +112,12 @@ contract WorldOfRagnarok is ERC721Enumerable, Ownable {
         _pricePrivate = _privatePrice_;
     }
 
-    function random() internal returns (uint) {
-        uint256 ran = 0;
-        while(true) {
-            ran = uint256(keccak256(abi.encodePacked(block.timestamp, msg.sender, _tokenIdentifiers.current()))).mod(MAX_TOKENID_NUMBER);
-            if(registerID[ran] == false)
-                break;
-            _tokenIdentifiers.increment();
-        }
-        return ran;        
-    }
-
     function claimNFT() public onlyOwner {
         require(tokenMinted < MAX_NFT_SUPPLY, "Sale has already ended");
 
         _tokenIdentifiers.increment();
-        uint256 newRECIdentifier = random();
-        _safeMint(msg.sender, newRECIdentifier);
-        registerID[newRECIdentifier] = true;
+        _safeMint(msg.sender, _tokenIdentifiers.current());
         tokenMinted += 1;
-        tokenIds[newRECIdentifier] = tokenMinted;
 
         if (increasePrice)
             subMintedCount += 1;
@@ -174,7 +158,6 @@ contract WorldOfRagnarok is ERC721Enumerable, Ownable {
 
         for(uint256 i = 0; i < _cnt; i++) {
             _tokenIdentifiers.increment();
-            uint256 newRECIdentifier = random();
 
             // price increasing
             if (subMintedCount >= 1000) {
@@ -183,10 +166,8 @@ contract WorldOfRagnarok is ERC721Enumerable, Ownable {
                 _pricePrivate = _pricePrivate.mul(101).div(100);
             }
 
-            _safeMint(msg.sender, newRECIdentifier);
-            registerID[newRECIdentifier] = true;
+            _safeMint(msg.sender, _tokenIdentifiers.current());
             tokenMinted += 1;
-            tokenIds[newRECIdentifier] = tokenMinted;
 
             if (increasePrice)
                 subMintedCount += 1;
@@ -231,11 +212,11 @@ contract WorldOfRagnarok is ERC721Enumerable, Ownable {
         if (bytes(_tokenURI).length > 0) {
             return string(abi.encodePacked(
                 _tokenURI,
-                 tokenIds[tokenId].toString(),
+                 tokenId.toString(),
                  ".json"));
         }
 
-        return super.tokenURI(tokenIds[tokenId]);
+        return super.tokenURI(tokenId);
     }
 
     function _baseURI() internal view virtual override returns (string memory) {
