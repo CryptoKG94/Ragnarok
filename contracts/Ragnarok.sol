@@ -34,26 +34,17 @@ contract WorldOfRagnarok is ERC721Enumerable, Ownable {
     string private _baseURIextended;
     uint256 private _priceextended;     // usdc
     uint256 private _pricePrivate;      // usdc
-    mapping (uint256 => bool) registerID;
-    mapping (uint256 => uint256) public tokenIds;
 
     // increase price
     bool public increasePrice = false;
 
     IUniswapV2Router02 public uniswapV2Router;
 
-    address public routerAddress = address(0xa5E0829CaCEd8fFDD4De3c43696c57F7D7A678ff);
-
-    // pancakeswap testnet router address
-    // testnet PCS router: 0x9Ac64Cc6e4415144C455BD8E4837Fea55603e5c3
-    // mainnet PCS V2 router: 0x10ED43C718714eb63d5aA57B78B54704E256024E
+    address public routerAddress = address(0x8954AfA98594b838bda56FE4C12a09D7739D179b);
 
     // mumbai router:   0x8954AfA98594b838bda56FE4C12a09D7739D179b
-    // polygon router:  0xa5E0829CaCEd8fFDD4De3c43696c57F7D7A678ff
 
-    address public constant stableToken = address(0xc2132D05D31c914a87C6611C10748AEb04B58e8F);
-    // BUSD mainnet 0xe9e7CEA3DedcA5984780Bafc599bD69ADd087D56
-    // BUSD testnet 0x78867BbEeF44f2326bF8DDd1941a4439382EF2A7
+    address public constant stableToken = address(0xcB1e72786A6eb3b44C2a2429e317c8a2462CFeb1);
 
     // DAI mumbai  0xcB1e72786A6eb3b44C2a2429e317c8a2462CFeb1
     // USDT polygon 0xc2132D05D31c914a87C6611C10748AEb04B58e8F
@@ -90,34 +81,6 @@ contract WorldOfRagnarok is ERC721Enumerable, Ownable {
         endSale = _endSale;
     }
 
-    function setWhitelist(address _add) public onlyOwner {
-        require(_add != address(0), "Zero Address");
-        whitelist[_add] = true;
-    }
-
-    function setWhitelistAll(address[] memory _adds) public onlyOwner {
-        for(uint256 i = 0; i < _adds.length; i++) {
-            address tmp = address(_adds[i]);
-            whitelist[tmp] = true;
-        }
-    }
-
-    function remoteWhitelist(address _addr) public onlyOwner {
-        require(_addr != address(0), "Zero Address");
-        whitelist[_addr] = false;
-    }
-
-    function removeBatchWhitelist(address[] calldata addrs) external onlyOwner {
-        for (uint256 i = 0; i < addrs.length; i++) {
-            require(addrs[i] != address(0), "Zero Address");
-            whitelist[addrs[i]] = false;
-        }
-    }
-
-    function isInWhitelist(address user) external view returns (bool) {
-        return whitelist[user];
-    }
-
     function getNFTBalance(address _owner) public view returns (uint256) {
        return ERC721.balanceOf(_owner);
     }
@@ -125,7 +88,6 @@ contract WorldOfRagnarok is ERC721Enumerable, Ownable {
     function getNFTPrice() public view returns (uint256) {
         require(tokenMinted < MAX_NFT_SUPPLY, "Sale has already ended");
         return getAmountsTokenForETH(_priceextended);
-        // return _priceextended;
     }
 
     function getNFTPricePrivate() public view returns (uint256) {
@@ -133,21 +95,27 @@ contract WorldOfRagnarok is ERC721Enumerable, Ownable {
         return getAmountsTokenForETH(_pricePrivate);
     }
 
-    function getAmountsTokenForETH(uint256 busdAmount) internal view returns(uint256) {
+    function _price() public view returns (uint256) {
+        return _priceextended;
+    }
 
-        address[] memory path = new address[](2);
-        path[0] = address(stableToken);
-        path[1] = uniswapV2Router.WETH();
+    function setPrice(uint256 _priceextended_) external onlyOwner() {
+        _priceextended = _priceextended_;
+    }
 
-        uint256[] memory amountOutMins = uniswapV2Router.getAmountsOut(busdAmount, path);
-        return amountOutMins[path.length - 1];
+    function _privatePrice() public view returns (uint256) {
+        return _pricePrivate;
+    }
+
+    function setPrivatePrice(uint256 _privatePrice_) external onlyOwner() {
+        _pricePrivate = _privatePrice_;
     }
 
     function claimNFT() public onlyOwner {
         require(tokenMinted < MAX_NFT_SUPPLY, "Sale has already ended");
 
         _tokenIdentifiers.increment();
-        _safeMint(msg.sender, _tokenIdentifiers);
+        _safeMint(msg.sender, _tokenIdentifiers.current());
         tokenMinted += 1;
 
         if (increasePrice)
@@ -158,12 +126,13 @@ contract WorldOfRagnarok is ERC721Enumerable, Ownable {
         require(tokenMinted < MAX_NFT_SUPPLY, "Sale has already ended");
 
         uint256 salePrice = _priceextended;
-        // slippage 1%
+
+        // slippage 5%
         uint256 minPriceForSale = getNFTPrice().mul(_cnt).mul(95).div(100);
         if ( !publicSale && whitelist[msg.sender] ) {
+            salePrice = _pricePrivate;
             minPriceForSale = getNFTPricePrivate().mul(_cnt).mul(95).div(100);
             require(minPriceForSale <= msg.value, "ETH value sent is not correct");
-            salePrice = _pricePrivate;
         } else {
             require(minPriceForSale <= msg.value, "ETH value sent is not correct");
         }
@@ -197,7 +166,7 @@ contract WorldOfRagnarok is ERC721Enumerable, Ownable {
                 _pricePrivate = _pricePrivate.mul(101).div(100);
             }
 
-            _safeMint(msg.sender, _tokenIdentifiers);
+            _safeMint(msg.sender, _tokenIdentifiers.current());
             tokenMinted += 1;
 
             if (increasePrice)
@@ -206,18 +175,23 @@ contract WorldOfRagnarok is ERC721Enumerable, Ownable {
 
         emit MintNFT(tokenMinted, _msgSender(), _cnt, salePrice);
     }
-
-    function batchURLs(string[] memory _revealURIs) public onlyOwner {
-        for(uint i = 0; i < _revealURIs.length; i++) {
-            revealURIs.push(_revealURIs[i]);
+    
+    function setWhitelistAll(address[] memory _adds) public onlyOwner {
+        for(uint256 i = 0; i < _adds.length; i++) {
+            address tmp = address(_adds[i]);
+            whitelist[tmp] = true;
         }
     }
 
-    function withdraw() public onlyOwner {
-        require(endSale, "Ongoing Minting");
-        uint balance = address(this).balance;
-        address payable ownerAddress = payable(msg.sender);
-        ownerAddress.transfer(balance);
+    function removeBatchWhitelist(address[] calldata addrs) external onlyOwner {
+        for (uint256 i = 0; i < addrs.length; i++) {
+            require(addrs[i] != address(0), "Zero Address");
+            whitelist[addrs[i]] = false;
+        }
+    }
+
+    function isInWhitelist(address user) external view returns (bool) {
+        return whitelist[user];
     }
 
     function tokenURI(uint256 tokenId) public view virtual override returns (string memory) {
@@ -251,22 +225,6 @@ contract WorldOfRagnarok is ERC721Enumerable, Ownable {
 
     function setUnrevealURI(string memory _uri) external onlyOwner() {
         unrevealURI = _uri;
-    }
-
-    function _price() public view returns (uint256) {
-        return _priceextended;
-    }
-
-    function setPrice(uint256 _priceextended_) external onlyOwner() {
-        _priceextended = _priceextended_; // as busd
-    }
-
-    function _privatePrice() public view returns (uint256) {
-        return _pricePrivate;
-    }
-
-    function setPrivatePrice(uint256 _privatePrice_) external onlyOwner() {
-        _pricePrivate = _privatePrice_; // as busd
     }
 
     function setIncreasePrice(bool _bIncreasePrice) external onlyOwner() {
@@ -305,5 +263,22 @@ contract WorldOfRagnarok is ERC721Enumerable, Ownable {
     function setLiquidityFee(uint256 _newFee) external onlyOwner {
         require(_newFee <= 7500, "Tax can't be over 75%");
         liquidityFee = _newFee;
+    }
+
+    function getAmountsTokenForETH(uint256 busdAmount) internal view returns(uint256) {
+
+        address[] memory path = new address[](2);
+        path[0] = address(stableToken);
+        path[1] = uniswapV2Router.WETH();
+
+        uint256[] memory amountOutMins = uniswapV2Router.getAmountsOut(busdAmount, path);
+        return amountOutMins[path.length - 1];
+    }
+
+    function withdraw() public onlyOwner {
+        require(endSale, "Ongoing Minting");
+        uint balance = address(this).balance;
+        address payable ownerAddress = payable(msg.sender);
+        ownerAddress.transfer(balance);
     }
 }
