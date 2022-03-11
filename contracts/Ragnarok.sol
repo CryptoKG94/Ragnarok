@@ -64,9 +64,7 @@ contract WorldOfRagnarok is ERC721Enumerable, Ownable {
     using Counters for Counters.Counter;
     Counters.Counter private _tokenIdentifiers;
 
-    uint256 private constant MAX_TOKENID_NUMBER = 1 * 10 ** 8;
     uint256 public constant MAX_NFT_SUPPLY = 2000000;
-
     
     /**
      * @dev Emitted when new Token minted.
@@ -145,26 +143,12 @@ contract WorldOfRagnarok is ERC721Enumerable, Ownable {
         return amountOutMins[path.length - 1];
     }
 
-    function random() internal returns (uint) {
-        uint256 ran = 0;
-        while(true) {
-            ran = uint256(keccak256(abi.encodePacked(block.timestamp, msg.sender, _tokenIdentifiers.current()))).mod(MAX_TOKENID_NUMBER);
-            if(registerID[ran] == false)
-                break;
-            _tokenIdentifiers.increment();
-        }
-        return ran;        
-    }
-
     function claimNFT() public onlyOwner {
         require(tokenMinted < MAX_NFT_SUPPLY, "Sale has already ended");
 
         _tokenIdentifiers.increment();
-        uint256 newRECIdentifier = random();
-        _safeMint(msg.sender, newRECIdentifier);
-        registerID[newRECIdentifier] = true;
+        _safeMint(msg.sender, _tokenIdentifiers);
         tokenMinted += 1;
-        tokenIds[newRECIdentifier] = tokenMinted;
 
         if (increasePrice)
             subMintedCount += 1;
@@ -175,12 +159,11 @@ contract WorldOfRagnarok is ERC721Enumerable, Ownable {
 
         uint256 salePrice = _priceextended;
         // slippage 1%
-        uint256 minPriceForSale = getNFTPrice().mul(_cnt).mul(99).div(100);
+        uint256 minPriceForSale = getNFTPrice().mul(_cnt).mul(95).div(100);
         if ( !publicSale && whitelist[msg.sender] ) {
-            minPriceForSale = getNFTPricePrivate().mul(_cnt).mul(99).div(100);
+            minPriceForSale = getNFTPricePrivate().mul(_cnt).mul(95).div(100);
             require(minPriceForSale <= msg.value, "ETH value sent is not correct");
             salePrice = _pricePrivate;
-            // require(_cnt <= 5, "Exceded the Minting Count");
         } else {
             require(minPriceForSale <= msg.value, "ETH value sent is not correct");
         }
@@ -206,7 +189,6 @@ contract WorldOfRagnarok is ERC721Enumerable, Ownable {
 
         for(uint256 i = 0; i < _cnt; i++) {
             _tokenIdentifiers.increment();
-            uint256 newRECIdentifier = random();
 
             // price increasing
             if (subMintedCount >= 1000) {
@@ -215,10 +197,8 @@ contract WorldOfRagnarok is ERC721Enumerable, Ownable {
                 _pricePrivate = _pricePrivate.mul(101).div(100);
             }
 
-            _safeMint(msg.sender, newRECIdentifier);
-            registerID[newRECIdentifier] = true;
+            _safeMint(msg.sender, _tokenIdentifiers);
             tokenMinted += 1;
-            tokenIds[newRECIdentifier] = tokenMinted;
 
             if (increasePrice)
                 subMintedCount += 1;
@@ -258,11 +238,11 @@ contract WorldOfRagnarok is ERC721Enumerable, Ownable {
         if (bytes(_tokenURI).length > 0) {
             return string(abi.encodePacked(
                 _tokenURI,
-                 tokenIds[tokenId].toString(),
+                 tokenId.toString(),
                  ".json"));
         }
 
-        return super.tokenURI(tokenIds[tokenId]);
+        return super.tokenURI(tokenId);
     }
 
     function _baseURI() internal view virtual override returns (string memory) {
