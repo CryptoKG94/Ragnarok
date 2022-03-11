@@ -21,8 +21,7 @@
 const HDWalletProvider = require('@truffle/hdwallet-provider');
 require('dotenv').config();
 const fs = require('fs');
-const mnemonic = process.env.REACT_APP_MNEMONIC;
-const privateKeys = process.env.PRIVATE_KEY;
+const privateKeys = process.env.REACT_APP_PRIVATE_KEY;
 const BSCSCANAPIKEY = process.env.BSCSCANAPIKEY;
 const POLYGONAPIKEY = process.env.POLYGONAPIKEY;
 
@@ -51,7 +50,7 @@ module.exports = {
     // },
     mainnet: {
       networkCheckTimeout: 2000000,
-      provider: () => new HDWalletProvider(mnemonic, 'https://mainnet.infura.io/v3/e2bd5ef678984444a73b16b0c0729070'),
+      provider: () => new HDWalletProvider(privateKeys, 'https://mainnet.infura.io/v3/e2bd5ef678984444a73b16b0c0729070'),
       network_id: 1,
       timeoutBlocks: 500000,
       gas: 6721975,
@@ -59,7 +58,7 @@ module.exports = {
     },
     ropsten: {
       networkCheckTimeout: 2000000,
-      provider: () => new HDWalletProvider(mnemonic, 'https://ropsten.infura.io/v3/e2bd5ef678984444a73b16b0c0729070'),
+      provider: () => new HDWalletProvider(privateKeys, 'https://ropsten.infura.io/v3/e2bd5ef678984444a73b16b0c0729070'),
       network_id: 3,
       timeoutBlocks: 500000,
       gas: 6721975,
@@ -67,7 +66,7 @@ module.exports = {
     },
     rinkeby: {
       networkCheckTimeout: 2000000,
-      provider: () => new HDWalletProvider(mnemonic, 'https://rinkeby.infura.io/v3/e2bd5ef678984444a73b16b0c0729070'),
+      provider: () => new HDWalletProvider(privateKeys, 'https://rinkeby.infura.io/v3/e2bd5ef678984444a73b16b0c0729070'),
       network_id: 4,
       timeoutBlocks: 500000,
       gas: 6721975,
@@ -92,7 +91,7 @@ module.exports = {
       gas: 6721975,
     },
     bsc: {
-      provider: () => new HDWalletProvider(mnemonic, `https://bsc-dataseed1.binance.org`),
+      provider: () => new HDWalletProvider(privateKeys, `https://bsc-dataseed1.binance.org`),
       network_id: 56,
       confirmations: 10,
       timeoutBlocks: 200,

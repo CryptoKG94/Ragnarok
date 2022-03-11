@@ -43,6 +43,7 @@ contract WorldOfRagnarok is ERC721Enumerable, Ownable {
     address public routerAddress = address(0x8954AfA98594b838bda56FE4C12a09D7739D179b);
 
     // mumbai router:   0x8954AfA98594b838bda56FE4C12a09D7739D179b
+    // Polygon router(quickswap): 0xa5E0829CaCEd8fFDD4De3c43696c57F7D7A678ff
 
     address public constant stableToken = address(0xcB1e72786A6eb3b44C2a2429e317c8a2462CFeb1);
 

@@ -35,7 +35,7 @@ export const Valhalla = () => {
     const [mintType, setMintType] = useState(0)
 
     const [countDown, setCountDown] = useState(SECOND_TO_START * 1000)
-    const [startMint, setStartMint] = useState(false)
+    const [startMint, setStartMint] = useState(true)
 
     useEffect(() => {
         let diff = EndDay.getTime() - new Date().getTime();
