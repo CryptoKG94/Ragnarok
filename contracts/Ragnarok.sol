@@ -55,8 +55,7 @@ contract WorldOfRagnarok is ERC721Enumerable, Ownable {
     using Counters for Counters.Counter;
     Counters.Counter private _tokenIdentifiers;
 
-    uint256 private constant MAX_TOKENID_NUMBER = 200000;
-    uint256 public constant MAX_NFT_SUPPLY = 200000;
+    uint256 public constant MAX_NFT_SUPPLY = 2000000;
     
     /**
      * @dev Emitted when new Token minted.
@@ -127,6 +126,7 @@ contract WorldOfRagnarok is ERC721Enumerable, Ownable {
         require(tokenMinted < MAX_NFT_SUPPLY, "Sale has already ended");
 
         uint256 salePrice = _priceextended;
+
         // slippage 5%
         uint256 minPriceForSale = getNFTPrice().mul(_cnt).mul(95).div(100);
         if ( !publicSale && whitelist[msg.sender] ) {
